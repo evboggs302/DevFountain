@@ -1,6 +1,6 @@
 Sup Group!
 
-# Getting Started;
+# Getting Started
 
 1. Git clone into a dir in the terminal on your local machine. (this gives you access to the master)
 2. cd into the project and " code . "
