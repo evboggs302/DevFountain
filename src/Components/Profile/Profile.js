@@ -1,12 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react'
+import RecProfile from './RecProfile';
+import DevProfile from './DevProfile';
 
-class Profile extends Component {
-    render () {
-        return (
-            <div>Profile</div>
-        )
-    }
-   
+function Profile() {
+    return (
+        <div>
+        {/* conditionally rending whether the user is a developer. If the user is not a developer, profile will render the
+        recruiter profile */}
+        {props.user.user.developer ?
+        <DevProfile />  :
+        <RecProfile/>      
+        }
+        </div>
+    )
 }
 
 export default Profile
