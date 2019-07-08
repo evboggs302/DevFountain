@@ -5,8 +5,19 @@ require("dotenv").config();
 app.use(express.json());
 const session = require("express-session");
 const { login, register, userInfo, logout } = require("./controller/");
-
 const { SERVER_PORT } = process.env;
+
+app.use(express.json());
+app.use(
+  session({
+    saveUninitialized: false,
+    secret: SESSION_SECRET,
+    resave: true,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24 * 14 // 2week cookie
+    }
+  })
+);
 
 massive(CONNECTION_STRING).then(db => {
   app.set("db", db);
