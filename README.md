@@ -52,4 +52,6 @@ git checkout <other branch name>
 # Merging Your Branch
 
 - Once the branch is completed, follow the above steps to push your branch.
-- Once your branch is pushed, you will be able to merge your branch with the master via github.com
+- Once your branch is pushed, you will be able to merge your branch with the master via
+
+github.com --> pull requests --> New pull request
