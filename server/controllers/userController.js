@@ -104,7 +104,8 @@ module.exports = {
             //New user object is returned
             req.session.user = updatedUser;
             console.log("UpdatedUser:", updatedUser);
-            res.status(200).send(updatedUser);
+            req.session.user = updatedUser;
+            res.status(200).send(req.session.user);
           })
           .catch(err => {
             //error handling if failed

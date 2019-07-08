@@ -71,7 +71,6 @@ app.post("/api/send", (req, res, next) => {
     }
   });
 });
-
 // Becasue of browser router, we will eventually need the below lines.
 // app.use(express.static(__dirname + "/../build"));
 // const path = require("path");

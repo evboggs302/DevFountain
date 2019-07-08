@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
-class Home extends Component {
+class Profile extends Component {
     render () {
         return (
-            <div>Home</div>
+            <div>Profile</div>
         )
     }
    
 }
 
-export default Home
+export default Profile
