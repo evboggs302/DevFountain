@@ -18,6 +18,8 @@ export default function messageReducer(state = initialState, action){
             return {...state, message: action.payload}
         case TIME_SENT: 
             console.log('This message was sent out at, ', action.payload)
+        default: 
+            return 'this is the initital state', state
     }
 }
 

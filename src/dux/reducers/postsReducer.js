@@ -24,6 +24,8 @@ export default function postsReducer(state = initialState, action){
         case LIKE_COUNT:
             console.log('This post has this many likes', action.payload)
             return {...state, likeCount: action.payload}
+        default:
+            return 'this is the initial state', state
     }
 }
 
