@@ -4,6 +4,7 @@ const massive = require("massive");
 require("dotenv").config();
 app.use(express.json());
 const session = require("express-session");
+const nodemailer = require("nodemailer");
 const { login, register, userInfo, logout } = require("./controller/");
 const { SERVER_PORT } = process.env;
 
