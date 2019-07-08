@@ -9,6 +9,8 @@ export default function userReducer(state = initialState, action){
         case SET_USER:
             console.log('this is the user who logged in ', action.payload )
             return {...state, user: action.payload}
+        default:
+            return 'this is the initial state', state
     }
 }
 
