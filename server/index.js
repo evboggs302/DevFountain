@@ -21,7 +21,7 @@ app.use(
     secret: SESSION_SECRET,
     resave: true,
     cookie: {
-      maxAge: 1000 * 60 * 60 * 24 * 14 // 2week cookie
+      maxAge: 1209600000 // 2week cookie
     }
   })
 );
