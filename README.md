@@ -8,7 +8,7 @@ Sup Group!
 
 # Make Your Branch
 
-1. Before you start working, make your brnch by opening the terminal in code editor, and typing
+1. Before you start working, make your branch by opening the terminal in code editor, and typing
 
 ```
 git checkout -b [lastName-branch]
