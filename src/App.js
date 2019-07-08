@@ -4,7 +4,7 @@ import Home from './Components/Home/Home';
 import Profile from './Components/Profile/Profile'
 import MarketPlace from './Components/MarketPlace/MarketPlace';
 import "./reset.css";
-import "./App.css";
+// import "./App.css";
 
 function App() {
   return (
