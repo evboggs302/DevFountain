@@ -5,7 +5,7 @@ const initialState = {
 const ALL_DEVELOPERS = "ALL_DEVELOPERS"
 
 
-export default function networkReducer(state = initialState, action){
+export default function marketplaceReducer(state = initialState, action){
     switch(action.type){
         case ALL_DEVELOPERS:
             console.log('this is all the developers', action.payload)
