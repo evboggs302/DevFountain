@@ -72,5 +72,45 @@ module.exports = {
     req.session.destroy();
     res.status(200).send("we be logged out, mama!");
   },
-  edit: () => {}
+  edit: (req, res, next) => {
+    //need user id from front end off of user object
+    const { id } = req.params;
+    //grab all malleable data from req.body
+    const { first, last, title, linkedin, portfolio, profile_pic } = req.body;
+    //console log for data track
+    console.log(first, last, title, linkedin, portfolio, profile_pic);
+    //find the proper user to edit
+    db.selectUserById(id).then(foundUser => {
+      console.log("FoundUser:", foundUser);
+      if (foundUser.length) {
+        //values will equal the old if no new value is passed
+        let newFirst = first || foundUser[0].first;
+        let newLast = last || foundUser[0].last;
+        let newTitle = title || foundUser[0].title;
+        let newLinkedin = linkedin || foundUser[0].linkedin;
+        let newPortfolio = portfolio || foundUser[0].portfolio;
+        let newProfile_pic = profile_pic || foundUser[0].profile_pic;
+        //pass the new values in to replace old
+        db.changeUserInfo([
+          newFirst,
+          newLast,
+          newTitle,
+          newLinkedin,
+          newPortfolio,
+          newProfile_pic,
+          id
+        ])
+          .then(updatedUser => {
+            //New user object is returned
+            console.log("UpdatedUser:", updatedUser);
+            res.status(200).send(updatedUser);
+          })
+          .catch(err => {
+            //error handling if failed
+            console.log("err:", err);
+            res.status(500).send("Change failed.");
+          });
+      }
+    });
+  }
 };
