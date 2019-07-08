@@ -8,16 +8,12 @@ import {Provider} from 'react-redux'
 import store from './dux/store'
 
 ReactDOM.render(
-<<<<<<< HEAD
 <BrowserRouter>
-    <App />
+    <Provider store={store}>
+     <App />
+    </Provider>
 </BrowserRouter>
 
-=======
-    <Provider store={store}>
-        <App />
-    </Provider>
->>>>>>> be7ade2d08706e42990b50cb98c3c18ee8ed66b3
 , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
