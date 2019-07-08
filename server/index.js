@@ -5,8 +5,14 @@ require("dotenv").config();
 app.use(express.json());
 const session = require("express-session");
 const nodemailer = require("nodemailer");
-const { login, register, userInfo, logout } = require("./controllers/");
-const { SERVER_PORT, EMAIL, EMAIL_PASSWORD } = process.env;
+const {
+  login,
+  register,
+  userInfo,
+  logout,
+  edit
+} = require("./controllers/userController");
+const { SERVER_PORT, EMAIL, EMAIL_PASSWORD, SESSION_SECRET, CONNECTION_STRING } = process.env;
 
 app.use(express.json());
 app.use(
@@ -25,9 +31,10 @@ massive(CONNECTION_STRING).then(db => {
   console.log("db is connected");
 });
 
-// auth EndPoints
+// user EndPoints
 app.post("/api/login", login);
 app.post("/api/register", register);
+app.put("/api/edit", edit);
 app.get("/api/user", userInfo);
 app.get("/api/logout", logout);
 
@@ -58,6 +65,12 @@ app.post('/api/send', (req, res, next) => {
     }
   })
 })
+// Becasue of browser router, we will eventually need the below lines.
+// app.use(express.static(__dirname + "/../build"));
+// const path = require("path");
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "/../build/index.html"));
+// });
 
 const port = SERVER_PORT || 4000;
 console.log(port);
