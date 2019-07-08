@@ -32,6 +32,13 @@ app.put("/api/edit", edit);
 app.get("/api/user", userInfo);
 app.get("/api/logout", logout);
 
+// Becasue of browser router, we will eventually need the below lines.
+// app.use(express.static(__dirname + "/../build"));
+// const path = require("path");
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "/../build/index.html"));
+// });
+
 const port = SERVER_PORT || 4000;
 console.log(port);
 app.listen(port, () => console.log(`Listening on port ${port}`));
