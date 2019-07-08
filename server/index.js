@@ -5,7 +5,7 @@ require("dotenv").config();
 app.use(express.json());
 const session = require("express-session");
 const nodemailer = require("nodemailer");
-const { login, register, userInfo, logout } = require("./controller/");
+const { login, register, userInfo, logout, edit } = require("./controller/");
 const { SERVER_PORT } = process.env;
 
 app.use(express.json());
@@ -25,9 +25,10 @@ massive(CONNECTION_STRING).then(db => {
   console.log("db is connected");
 });
 
-// auth EndPoints
+// user EndPoints
 app.post("/api/login", login);
 app.post("/api/register", register);
+app.put("/api/edit", edit);
 app.get("/api/user", userInfo);
 app.get("/api/logout", logout);
 
