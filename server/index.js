@@ -12,7 +12,13 @@ const {
   logout,
   edit
 } = require("./controllers/userController");
-const { SERVER_PORT, EMAIL, EMAIL_PASSWORD, SESSION_SECRET, CONNECTION_STRING } = process.env;
+const {
+  SERVER_PORT,
+  EMAIL,
+  EMAIL_PASSWORD,
+  SESSION_SECRET,
+  CONNECTION_STRING
+} = process.env;
 
 app.use(express.json());
 app.use(
@@ -39,10 +45,10 @@ app.get("/api/user", userInfo);
 app.get("/api/logout", logout);
 
 // Nodemailer
-app.post('/api/send', (req, res, next) => {
-  const {name, email, title, message} = req.body
+app.post("/api/send", (req, res, next) => {
+  const { name, email, title, message } = req.body;
   const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    service: "gmail",
     auth: {
       user: EMAIL,
       pass: EMAIL_PASSWORD
@@ -50,7 +56,7 @@ app.post('/api/send', (req, res, next) => {
   });
 
   const mailOptions = {
-    from:`${EMAIL}`,
+    from: `${EMAIL}`,
     to: `${email}`,
     subject: `${title} by ${name}`,
     text: `${message}`,
@@ -58,13 +64,13 @@ app.post('/api/send', (req, res, next) => {
   };
 
   transporter.sendMail(mailOptions, (err, res) => {
-    if(err){
-      console.error('there was an error ', err)
-    } else{
-      console.log('here is the email', res)
+    if (err) {
+      console.error("there was an error ", err);
+    } else {
+      console.log("here is the email", res);
     }
-  })
-})
+  });
+});
 // Becasue of browser router, we will eventually need the below lines.
 // app.use(express.static(__dirname + "/../build"));
 // const path = require("path");
