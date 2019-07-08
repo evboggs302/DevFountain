@@ -5,7 +5,13 @@ require("dotenv").config();
 app.use(express.json());
 const session = require("express-session");
 const nodemailer = require("nodemailer");
-const { login, register, userInfo, logout, edit } = require("./controller/");
+const {
+  login,
+  register,
+  userInfo,
+  logout,
+  edit
+} = require("./controllers/userController");
 const { SERVER_PORT } = process.env;
 
 app.use(express.json());
