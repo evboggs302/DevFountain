@@ -63,20 +63,32 @@ app.get("/api/user", userInfo);
 app.get("/api/logout", logout);
 
 // skills endpoints
+// Gets a list of all skills and associated values
 app.get("/api/allskills", getAllSkills);
+// takes an email as a param and finds the associated userId to allow us to get all of that user's skills
+// returns the skill id's and the user's id
 app.get("/api/skills/:email", getMySkills);
+// takes a skill id as a param and the user's id off their session to add a skill
 app.post("/api/skills/:id", addSkills);
+// does the same as the post to delete the skill from the list
 app.delete("/api/skills/:id", removeSkills);
 
 // post endpoints
+//gets all of a user's posts with their email
 app.get("/api/post/:email", getPosts);
+// creates a post
 app.post("/api/post", createPost);
-app.put("/api/post/:id/", changePost);
+//allows editing of a post with a user id and post id. Post id is a param
+app.put("/api/post/:id", changePost);
+// delets a post with the same id's as the put endpoint
 app.delete("/api/post/:id", removePost);
 
 // likes endpoints
+// takes a post id as a param and gets all the likes on that post
 app.get("/api/likes/:id", getLikes);
+// takes a post id as a param and a user_id off the session and sends those to the table
 app.post("/api/likes/:id", like);
+// takes a post_id as a param again and the user_id off the session to remove the like
 app.delete("/api/likes/:id", unlike);
 
 // Nodemailer
