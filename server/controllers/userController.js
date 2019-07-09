@@ -48,9 +48,9 @@ module.exports = {
   register: (req, res, next) => {
     const { first, last, developer, email, password } = req.body;
     const db = req.app.get("db");
-    db.check_existing_users(username).then(found => {
+    db.check_existing_users(email).then(found => {
       if (found.length) {
-        res.status(500).send("Email already exists!");
+        res.status(200).send("Email already exists!");
       } else {
         bcrypt.genSalt(saltRounds).then(salt => {
           bcrypt.hash(password, salt).then(hashedPassword => {
