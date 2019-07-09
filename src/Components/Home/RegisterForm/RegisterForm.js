@@ -70,7 +70,6 @@ const Formik = withFormik({
     password: Yup.string()
       .min(8, "Password must be at least 8 characters")
       .required("Password Is Required"),
-    isDeveloper: Yup.string().required("Select An Option")
   }),
 
   handleSubmit(values, { resetForm }) {
