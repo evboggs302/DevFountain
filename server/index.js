@@ -21,6 +21,14 @@ const {
   removePost
 } = require("./controllers/postController");
 
+const { getLikes, like, unlike } = require("./controllers/likeController");
+
+const {
+  getMySkills,
+  addSkills,
+  removeSkills
+} = require("./controllers/skillsController");
+
 const {
   allUsers
 } = require('./controllers/marketplaceController')
@@ -69,9 +77,9 @@ app.put("/api/post/:id/", changePost);
 app.delete("/api/post/:id", removePost);
 
 // likes endpoints
-app.get("/api/likes", getLikes);
-app.post("/api/likes", like);
-app.delete("/api/likes", unlike);
+app.get("/api/likes/:id", getLikes);
+app.post("/api/likes/:id", like);
+app.delete("/api/likes/:id", unlike);
 
 // Marketplace Endpoints
 app.get('/api/marketplace', allUsers)
