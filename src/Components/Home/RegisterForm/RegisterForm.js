@@ -83,6 +83,7 @@ const Formik = withFormik({
             console.log('this is the error', err)
         })
         console.log(developer)
+        console.log(props)
     }
 });
 
