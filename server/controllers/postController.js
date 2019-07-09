@@ -60,6 +60,7 @@ module.exports = {
     console.log(user_id, id);
     const {} = req.body;
     const db = req.app.get("db");
+    // delete post will also delete all the likes off of that post
     db.deletePost([user_id, id])
       .then(remainingPosts => {
         res.status(200).send(remainingPosts);
