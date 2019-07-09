@@ -16,7 +16,8 @@ create table users
     developer boolean,
     linkedin text,
     portfolio text,
-    profile_pic text
+    profile_pic text,
+    password text
 );
 
 create table skills

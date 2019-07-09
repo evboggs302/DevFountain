@@ -24,10 +24,15 @@ const {
 const { getLikes, like, unlike } = require("./controllers/likeController");
 
 const {
+  getAllSkills,
   getMySkills,
   addSkills,
   removeSkills
 } = require("./controllers/skillsController");
+
+const {
+  allUsers
+} = require('./controllers/marketplaceController')
 
 const {
   SERVER_PORT,
@@ -62,9 +67,10 @@ app.get("/api/user", userInfo);
 app.get("/api/logout", logout);
 
 // skills endpoints
-app.get("/api/skills", getMySkills);
-app.post("/api/skills", addSkills);
-app.delete("/api/skills", removeSkills);
+app.get("/api/allskills", getAllSkills);
+app.get("/api/skills/:email", getMySkills);
+app.post("/api/skills/:id", addSkills);
+app.delete("/api/skills/:id", removeSkills);
 
 // post endpoints
 app.get("/api/post/:email", getPosts);
@@ -76,6 +82,11 @@ app.delete("/api/post/:id", removePost);
 app.get("/api/likes/:id", getLikes);
 app.post("/api/likes/:id", like);
 app.delete("/api/likes/:id", unlike);
+
+// Marketplace Endpoints
+app.get('/api/marketplace', allUsers)
+
+
 
 // Nodemailer
 app.post("/api/send", (req, res, next) => {

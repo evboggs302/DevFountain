@@ -10,6 +10,9 @@ function RegisterForm(formikProps) {
     return (
         <Form>
             <div>
+                <h1>Register Today</h1>
+            </div>
+            <div>
                 {touched.first && errors.first && <p>First Name is Required</p> } 
                 <Field type='text' name='first' placeholder='First Name' />
             </div>
@@ -80,6 +83,7 @@ const Formik = withFormik({
             console.log('this is the error', err)
         })
         console.log(developer)
+        console.log(props)
     }
 });
 
