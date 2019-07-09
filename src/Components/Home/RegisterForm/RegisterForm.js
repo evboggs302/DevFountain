@@ -91,7 +91,7 @@ const Formik = withFormik({
         developer ='f'
     }
 
-    theProps.setUser([first, last, developer, email])
+    theProps.setUser({first, last, developer, email})
 
 
         axios.post('/api/register', {first, last, developer, email, password})
