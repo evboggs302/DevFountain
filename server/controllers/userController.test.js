@@ -23,8 +23,8 @@ describe("integration tests", () => {
     });
 
   // EVAN
-  describe("register new user success", () => {
-    it("responds with new user", done => {
+  describe("register new user", () => {
+    it("SUCCESSFUL new user", done => {
       const req = {
         app: {
           get: () => db
@@ -58,7 +58,7 @@ describe("integration tests", () => {
       userController.register(req, res);
     });
 
-    it("responds with an error on user already existing", done => {
+    it("ERROR alresdy exists", done => {
       const req = {
         app: {
           get: () => db
@@ -67,11 +67,8 @@ describe("integration tests", () => {
           first: "Evan",
           last: "Boggs",
           developer: true,
-          email: "evan@evan.com",
+          email: "joe@joe.com",
           password: "eboggs123456789"
-        },
-        session: {
-          user: {}
         }
       };
       const res = {
