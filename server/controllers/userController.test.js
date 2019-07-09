@@ -9,7 +9,18 @@ describe("integration tests", () => {
     return db.query("DELETE FROM movies");
   }
 
-  beforeAll(() => {}), beforeEach(() => {}), afterAll(() => {});
+  beforeAll(() => {
+    sandbox.stub(console, "error");
+    return testInit.initDb().then(database => {
+      db = database;
+    });
+  }),
+    beforeEach(() => {
+      return clearDatabase();
+    }),
+    afterAll(() => {
+      sandbox.restore();
+    });
 });
 
 // EVAN
@@ -41,5 +52,5 @@ describe("register new user success", () => {
     userController.register(req, res);
   });
 
-  it("responds with an error on user already existing", done => {});
+  //   it("responds with an error on user already existing", done => {});
 });
