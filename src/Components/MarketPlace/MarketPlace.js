@@ -15,9 +15,6 @@ function MarketPlace(props) {
     })
     .catch(err => console.log('this is the error', err))
     }, [])
-    console.log(allDevs)
-    console.log(props)
-    
     
     useEffect(()=> {
       props.setDevelopers(allDevs)
@@ -30,17 +27,13 @@ function MarketPlace(props) {
     if(developers.length > 0){
       mappedDevs = developers.map(dev => {
         const encoded = encodeURIComponent(dev.email)
-        console.log(encoded)
-        console.log(dev)
         return (
           <Link to={`/api/profile/${encoded}`}> 
             <div key={dev.user_id} >
-
               <img src={dev.profile_pic} />
               <h1>{`${dev.first} ${dev.last}`}</h1>
               <h2>{dev.title}</h2>
               <h2>{dev.email}</h2>
-              
             </div>
           </Link>
         )
