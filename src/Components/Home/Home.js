@@ -6,6 +6,7 @@ import Header from '../Header/Header'
 class Home extends Component {
     
     render () {
+        // console.log(props)
         return (
             <div>
                 Home
