@@ -22,6 +22,10 @@ const {
 } = require("./controllers/postController");
 
 const {
+  allUsers
+} = require('./controllers/marketplaceController')
+
+const {
   SERVER_PORT,
   EMAIL,
   EMAIL_PASSWORD,
@@ -58,6 +62,11 @@ app.post("/api/post", createPost);
 app.get("/api/post", getPosts);
 app.delete("/api/post", removePost);
 app.put("/api/post", changePost);
+
+// Marketplace Endpoints
+app.get('/api/marketplace', allUsers)
+
+
 
 // Nodemailer
 app.post("/api/send", (req, res, next) => {

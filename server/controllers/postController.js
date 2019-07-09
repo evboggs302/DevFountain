@@ -26,7 +26,7 @@ module.exports = {
         })
     },
 
-    changePost: (res, res, next) => {
+    changePost: (req, res, next) => {
         const {post_id} = req.params;
         const {user_id} = req.session.user;
         const {content} = req.body;
