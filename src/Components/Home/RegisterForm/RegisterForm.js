@@ -59,7 +59,8 @@ const Formik = withFormik({
         first: Yup.string().required(),
         last: Yup.string().required(),
         email: Yup.string().email().required('Email Is Required'),
-        password: Yup.string().min(8, "Password must be at least 8 characters").required('Password Is Required')
+        password: Yup.string().min(8, "Password must be at least 8 characters").required('Password Is Required'),
+        isDeveloper: Yup.string().required('Select An Option')
     }),
 
   // validates if the data the user inputs is good
@@ -72,6 +73,7 @@ const Formik = withFormik({
     password: Yup.string()
       .min(8, "Password must be at least 8 characters")
       .required("Password Is Required"),
+    isDeveloper: Yup.string().required("Select An Option")
   }),
   
 
@@ -81,6 +83,7 @@ const Formik = withFormik({
     const { first, last, email, password, isDeveloper } = values;
     
 
+    
     let developer;
     if(isDeveloper == 'developer'){
         developer = 't'

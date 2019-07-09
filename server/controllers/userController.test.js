@@ -59,6 +59,10 @@ describe("integration tests", () => {
     });
 
     it("ERROR alresdy exists", done => {
+      const insertDumbyData = `INSERT INTO users(first, last, developer, email, password)
+        values
+        ('Joe', 'JOE', true, 'joe@joe.com', 'joejoejoe');`;
+      db.query(insertDumbyData);
       const req = {
         app: {
           get: () => db
