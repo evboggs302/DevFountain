@@ -53,11 +53,21 @@ app.put("/api/edit", edit);
 app.get("/api/user", userInfo);
 app.get("/api/logout", logout);
 
+// skills endpoints
+app.get("/api/skills", getMySkills);
+app.post("/api/skills", addSkills);
+app.delete("/api/skills", removeSkills);
+
 // post endpoints
 app.get("/api/post/:email", getPosts);
 app.post("/api/post", createPost);
 app.put("/api/post/:id/", changePost);
 app.delete("/api/post/:id", removePost);
+
+// likes endpoints
+app.get("/api/likes", getLikes);
+app.post("/api/likes", like);
+app.delete("/api/likes", unlike);
 
 // Nodemailer
 app.post("/api/send", (req, res, next) => {
