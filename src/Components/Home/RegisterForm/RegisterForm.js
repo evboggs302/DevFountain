@@ -5,7 +5,7 @@ import {withFormik, Form, Field} from 'formik'
 import * as Yup from 'yup'
 import axios from 'axios'
 
-
+let theProps;
 
 function RegisterForm(formikProps) {
     const {errors, touched} = formikProps  
@@ -38,9 +38,11 @@ function RegisterForm(formikProps) {
     )
 }
 
+
 // high-order function 'Formik' that will get the values that user inputs on form
 const Formik = withFormik({
     mapPropsToValues(props){
+        theProps = props
         const {email, password, first, last, isDeveloper} = props
         console.log(props)
         return {
@@ -73,9 +75,13 @@ const Formik = withFormik({
       .required("Password Is Required"),
     isDeveloper: Yup.string().required("Select An Option")
   }),
+  
 
   handleSubmit(values, { resetForm }) {
+      console.log(values)
+      console.log(resetForm)
     const { first, last, email, password, isDeveloper } = values;
+    
 
     
     let developer;
@@ -83,13 +89,14 @@ const Formik = withFormik({
         developer = 't'
     } else {
         developer ='f'
-    }    
+    }
+
+    theProps.setUser([first, last, developer, email])
+
 
         axios.post('/api/register', {first, last, developer, email, password})
         .then(res => {
             console.log(res.data)
-            // props.setUser(res.data)
-            // console.log(props)
             if(res.data == "Email already exists!"){
                 alert("Email already exists!")
             }
@@ -99,13 +106,7 @@ const Formik = withFormik({
             console.log('this is the error', err)
         })
         console.log(developer)
-        // console.log(props)
-        // componentDidMount() {
-        //     axios.get('/api/user').then(res => {
-        //         this.props.setUser(res.data);
-        //     })
-        // } 
-        
+        console.log(theProps)
     }
   
 });
