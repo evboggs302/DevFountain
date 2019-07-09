@@ -1,5 +1,6 @@
 const initialState = {
-    allDevelopers: []
+    allDevelopers: [],
+    skills: []
 }
 
 const ALL_DEVELOPERS = "ALL_DEVELOPERS"

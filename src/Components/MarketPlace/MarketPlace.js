@@ -3,7 +3,7 @@ import DevMarketPlace from './DevMarketPlace';
 import RecMarketPlace from './RecMarketPlace';
 
 
-function MarketPlace() {
+function MarketPlace(props) {
     return (
         <div>
             {props.user.user.developer ?
