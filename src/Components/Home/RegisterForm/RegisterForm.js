@@ -26,6 +26,7 @@ function RegisterForm(formikProps) {
                 <Field type='password' name='password' placeholder='Password' />
             </div>
             <Field component='select' name='isDeveloper'>
+                <option value='empty'>-Select-</option>
                 <option value='developer'>Developer</option>
                 <option value='recruiter'>Recruiter</option>
             </Field>
@@ -44,7 +45,7 @@ const Formik = withFormik({
             last: last || '',
             email: email || '',
             password: password || '',
-            isDeveloper: isDeveloper || 'developer'
+            isDeveloper: isDeveloper || 'empty'
         }
     },
 
