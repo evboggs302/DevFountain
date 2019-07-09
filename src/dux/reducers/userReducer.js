@@ -1,5 +1,6 @@
 const initialState = {
     user: null
+    
 }
 
 const SET_USER = 'SET_USER'

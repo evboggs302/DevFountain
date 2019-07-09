@@ -1,17 +1,18 @@
 import React from 'react'
+import { setUser } from '../../../dux/reducers/userReducer'
+import { connect } from 'react-redux'
 import {withFormik, Form, Field} from 'formik'
 import * as Yup from 'yup'
 import axios from 'axios'
 
-function RegisterForm(formikProps) {
-    const {errors, touched} = formikProps
 
+
+function RegisterForm(formikProps) {
+    const {errors, touched} = formikProps  
     // below is the form setup
+
     return (
         <Form>
-            <div>
-                <h1>Register Today</h1>
-            </div>
             <div>
                 {touched.first && errors.first && <p>First Name is Required</p> } 
                 <Field type='text' name='first' placeholder='First Name' />
@@ -37,7 +38,6 @@ function RegisterForm(formikProps) {
     )
 }
 
-
 // high-order function 'Formik' that will get the values that user inputs on form
 const Formik = withFormik({
     mapPropsToValues(props){
@@ -60,23 +60,37 @@ const Formik = withFormik({
         password: Yup.string().min(8, "Password must be at least 8 characters").required('Password Is Required')
     }),
 
-    handleSubmit(values, {resetForm}){
-        
-        const {first, last, email, password, isDeveloper} = values
+  // validates if the data the user inputs is good
+  validationSchema: Yup.object().shape({
+    first: Yup.string().required(),
+    last: Yup.string().required(),
+    email: Yup.string()
+      .email()
+      .required("Email Is Required"),
+    password: Yup.string()
+      .min(8, "Password must be at least 8 characters")
+      .required("Password Is Required"),
+    isDeveloper: Yup.string().required("Select An Option")
+  }),
 
-        // Below it checks if the user selected 'developer' or 'recruiter' and sets developer to t or f
-        let developer
-        if(isDeveloper == 'developer'){
-            developer = 't'
-        } else {
-            developer = 'f'
-        }
+  handleSubmit(values, { resetForm }) {
+    const { first, last, email, password, isDeveloper } = values;
+
+    let developer;
+    if(isDeveloper == 'developer'){
+        developer = 't'
+    } else {
+        developer ='f'
+    }
+
 
 
 
         axios.post('/api/register', {first, last, developer, email, password})
         .then(res => {
             console.log(res.data)
+            // props.setUser(res.data)
+            // console.log(props)
             if(res.data == "Email already exists!"){
                 alert("Email already exists!")
             }
@@ -86,8 +100,33 @@ const Formik = withFormik({
             console.log('this is the error', err)
         })
         console.log(developer)
+        // console.log(props)
+        // componentDidMount() {
+        //     axios.get('/api/user').then(res => {
+        //         this.props.setUser(res.data);
+        //     })
+        // } 
         
     }
+  
 });
 
-export default Formik(RegisterForm)
+
+
+
+
+
+const mapStateToProps = (reduxState) => {
+    return reduxState
+}
+
+const mapDispatchToProps = {
+    setUser
+}
+
+const invokedConnect = connect (
+    mapStateToProps,
+    mapDispatchToProps
+)
+
+export default invokedConnect(Formik(RegisterForm))
