@@ -30,6 +30,10 @@ const {
 } = require("./controllers/skillsController");
 
 const {
+  allUsers
+} = require('./controllers/marketplaceController')
+
+const {
   SERVER_PORT,
   EMAIL,
   EMAIL_PASSWORD,
@@ -76,6 +80,11 @@ app.delete("/api/post/:id", removePost);
 app.get("/api/likes/:id", getLikes);
 app.post("/api/likes/:id", like);
 app.delete("/api/likes/:id", unlike);
+
+// Marketplace Endpoints
+app.get('/api/marketplace', allUsers)
+
+
 
 // Nodemailer
 app.post("/api/send", (req, res, next) => {
