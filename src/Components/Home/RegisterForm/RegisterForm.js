@@ -26,7 +26,6 @@ function RegisterForm(formikProps) {
                 <Field type='password' name='password' placeholder='Password' />
             </div>
             <Field component='select' name='isDeveloper'>
-                <option value='empty'>-Select-</option>
                 <option value='developer'>Developer</option>
                 <option value='recruiter'>Recruiter</option>
             </Field>
@@ -45,7 +44,7 @@ const Formik = withFormik({
             last: last || '',
             email: email || '',
             password: password || '',
-            isDeveloper: isDeveloper || 'empty'
+            isDeveloper: isDeveloper || ''
         }
     },
 
@@ -54,7 +53,8 @@ const Formik = withFormik({
         first: Yup.string().required(),
         last: Yup.string().required(),
         email: Yup.string().email().required('Email Is Required'),
-        password: Yup.string().min(8, "Password must be at least 8 characters").required('Password Is Required')
+        password: Yup.string().min(8, "Password must be at least 8 characters").required('Password Is Required'),
+        isDeveloper: Yup.string().required('Select An Option')
     }),
 
     handleSubmit(values, {resetForm}){
