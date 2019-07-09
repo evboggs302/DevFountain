@@ -1,12 +1,24 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class Header extends Component {
-    render () {
-        return (
-            <div>Header</div>
-        )
-    }
-   
+  render() {
+    const { email, first, last } = this.props.user;
+    return (
+      <div>
+        {!this.props.user ? (
+          <div>
+            Email:
+            <input />
+            Password:
+            <input />
+            <button>Login</button>
+          </div>
+        ) : (
+          <div>{`Welcome, ${first} ${last}`}</div>
+        )}
+      </div>
+    );
+  }
 }
 
-export default Header
+export default Header;

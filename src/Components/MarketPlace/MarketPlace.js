@@ -1,12 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
+import DevMarketPlace from './DevMarketPlace';
+import RecMarketPlace from './RecMarketPlace';
 
-class MarketPlace extends Component {
-    render () {
-        return (
-            <div>Market Place</div>
-        )
-    }
-   
+
+function MarketPlace() {
+    return (
+        <div>
+            {props.user.user.developer ?
+            <DevMarketPlace/> :
+            <RecMarketPlace/>
+            }
+        </div>
+    )
 }
 
 export default MarketPlace
