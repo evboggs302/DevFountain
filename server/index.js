@@ -24,6 +24,7 @@ const {
 const { getLikes, like, unlike } = require("./controllers/likeController");
 
 const {
+  getAllSkills,
   getMySkills,
   addSkills,
   removeSkills
@@ -66,9 +67,10 @@ app.get("/api/user", userInfo);
 app.get("/api/logout", logout);
 
 // skills endpoints
-app.get("/api/skills", getMySkills);
-app.post("/api/skills", addSkills);
-app.delete("/api/skills", removeSkills);
+app.get("/api/allskills", getAllSkills);
+app.get("/api/skills/:email", getMySkills);
+app.post("/api/skills/:id", addSkills);
+app.delete("/api/skills/:id", removeSkills);
 
 // post endpoints
 app.get("/api/post/:email", getPosts);
