@@ -42,6 +42,7 @@ function RegisterForm(formikProps) {
 const Formik = withFormik({
     mapPropsToValues(props){
         const {email, password, first, last, isDeveloper} = props
+        console.log(props)
         return {
             first: first || '',
             last: last || '',
@@ -56,11 +57,11 @@ const Formik = withFormik({
         first: Yup.string().required(),
         last: Yup.string().required(),
         email: Yup.string().email().required('Email Is Required'),
-        password: Yup.string().min(8, "Password must be at least 8 characters").required('Password Is Required'),
-        isDeveloper: Yup.string().required('Select An Option')
+        password: Yup.string().min(8, "Password must be at least 8 characters").required('Password Is Required')
     }),
 
     handleSubmit(values, {resetForm}){
+        
         const {first, last, email, password, isDeveloper} = values
 
         // Below it checks if the user selected 'developer' or 'recruiter' and sets developer to t or f
@@ -70,6 +71,8 @@ const Formik = withFormik({
         } else {
             developer = 'f'
         }
+
+
 
         axios.post('/api/register', {first, last, developer, email, password})
         .then(res => {
@@ -83,7 +86,7 @@ const Formik = withFormik({
             console.log('this is the error', err)
         })
         console.log(developer)
-        console.log(props)
+        
     }
 });
 
