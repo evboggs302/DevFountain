@@ -1,12 +1,16 @@
 import React from 'react'
+import { setUser } from '../../../dux/reducers/userReducer'
+import { connect } from 'react-redux'
 import {withFormik, Form, Field} from 'formik'
 import * as Yup from 'yup'
 import axios from 'axios'
 
-function RegisterForm(formikProps) {
-    const {errors, touched} = formikProps
 
+
+function RegisterForm(formikProps) {
+    const {errors, touched} = formikProps  
     // below is the form setup
+
     return (
         <Form>
             <div>
@@ -39,6 +43,7 @@ function RegisterForm(formikProps) {
 const Formik = withFormik({
     mapPropsToValues(props){
         const {email, password, first, last, isDeveloper} = props
+        console.log(props)
         return {
             first: first || '',
             last: last || '',
@@ -68,9 +73,13 @@ const Formik = withFormik({
             developer = 'f'
         }
 
+
+
         axios.post('/api/register', {first, last, developer, email, password})
         .then(res => {
             console.log(res.data)
+            // props.setUser(res.data)
+            // console.log(props)
             if(res.data == "Email already exists!"){
                 alert("Email already exists!")
             }
@@ -80,7 +89,33 @@ const Formik = withFormik({
             console.log('this is the error', err)
         })
         console.log(developer)
+        // console.log(props)
+        // componentDidMount() {
+        //     axios.get('/api/user').then(res => {
+        //         this.props.setUser(res.data);
+        //     })
+        // } 
+        
     }
+  
 });
 
-export default Formik(RegisterForm)
+
+
+
+
+
+const mapStateToProps = (reduxState) => {
+    return reduxState
+}
+
+const mapDispatchToProps = {
+    setUser
+}
+
+const invokedConnect = connect (
+    mapStateToProps,
+    mapDispatchToProps
+)
+
+export default invokedConnect(Formik(RegisterForm))
