@@ -16,7 +16,7 @@ export default function marketplaceReducer(state = initialState, action){
     }
 }
 
-export function allDevelopers(developers){
+export function setDevelopers(developers){
     return {
         type: ALL_DEVELOPERS,
         payload: developers

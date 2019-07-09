@@ -38,7 +38,6 @@ function RegisterForm(formikProps) {
     )
 }
 
-
 // high-order function 'Formik' that will get the values that user inputs on form
 const Formik = withFormik({
     mapPropsToValues(props){
@@ -62,16 +61,21 @@ const Formik = withFormik({
         isDeveloper: Yup.string().required('Select An Option')
     }),
 
-    handleSubmit(values, {resetForm}){
-        const {first, last, email, password, isDeveloper} = values
+  // validates if the data the user inputs is good
+  validationSchema: Yup.object().shape({
+    first: Yup.string().required(),
+    last: Yup.string().required(),
+    email: Yup.string()
+      .email()
+      .required("Email Is Required"),
+    password: Yup.string()
+      .min(8, "Password must be at least 8 characters")
+      .required("Password Is Required"),
+    isDeveloper: Yup.string().required("Select An Option")
+  }),
 
-        // Below it checks if the user selected 'developer' or 'recruiter' and sets developer to t or f
-        let developer
-        if(isDeveloper == 'developer'){
-            developer = 't'
-        } else {
-            developer = 'f'
-        }
+  handleSubmit(values, { resetForm }) {
+    const { first, last, email, password, isDeveloper } = values;
 
 
 

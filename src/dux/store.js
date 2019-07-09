@@ -6,6 +6,7 @@ import postsReducer from './reducers/postsReducer'
 import marketplaceReducer from './reducers/marketplaceReducer'
 
 
+
 const rootReducer = combineReducers(
     {
         userReducer: userReducer,

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 class Header extends Component {
   render() {
+    console.log(this.props)
     const { email, first, last } = this.props.user;
     return (
       <div>
