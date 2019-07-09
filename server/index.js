@@ -5,6 +5,7 @@ require("dotenv").config();
 app.use(express.json());
 const session = require("express-session");
 const nodemailer = require("nodemailer");
+
 const {
   login,
   register,
@@ -12,6 +13,14 @@ const {
   logout,
   edit
 } = require("./controllers/userController");
+
+const {
+  getPosts,
+  createPost,
+  changePost,
+  removePost
+} = require("./controllers/postController");
+
 const {
   SERVER_PORT,
   EMAIL,
@@ -43,6 +52,12 @@ app.post("/api/register", register);
 app.put("/api/edit", edit);
 app.get("/api/user", userInfo);
 app.get("/api/logout", logout);
+
+// post endpoints
+app.post("/api/post", createPost);
+app.get("/api/post", getPosts);
+app.delete("/api/post", removePost);
+app.put("/api/post", changePost);
 
 // Nodemailer
 app.post("/api/send", (req, res, next) => {
