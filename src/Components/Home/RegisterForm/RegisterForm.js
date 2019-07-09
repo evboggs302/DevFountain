@@ -10,6 +10,9 @@ function RegisterForm(formikProps) {
     return (
         <Form>
             <div>
+                <h1>Register Today</h1>
+            </div>
+            <div>
                 {touched.first && errors.first && <p>First Name is Required</p> } 
                 <Field type='text' name='first' placeholder='First Name' />
             </div>
