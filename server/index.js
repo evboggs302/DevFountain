@@ -54,10 +54,10 @@ app.get("/api/user", userInfo);
 app.get("/api/logout", logout);
 
 // post endpoints
+app.get("/api/post/:email", getPosts);
 app.post("/api/post", createPost);
-app.get("/api/post", getPosts);
-app.delete("/api/post", removePost);
-app.put("/api/post", changePost);
+app.put("/api/post/:id/", changePost);
+app.delete("/api/post/:id", removePost);
 
 // Nodemailer
 app.post("/api/send", (req, res, next) => {
