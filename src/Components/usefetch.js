@@ -15,7 +15,7 @@ export default function UseFetch(url) {
 
   function fetchDataWithId(id) {
     setLoading(true);
-    axios.get(`url/${id}`).then(res => {
+    axios.get(`${url}/${id}`).then(res => {
       setData(res.data);
       setLoading(false);
     });
@@ -31,7 +31,7 @@ export default function UseFetch(url) {
 
   function postDataWithId(id) {
     setLoading(true);
-    axios.post(`url/${id}`, dataToPost).then(res => {
+    axios.post(`${url}/${id}`, dataToPost).then(res => {
       setData(res.data);
       setLoading(false);
     });
@@ -39,7 +39,7 @@ export default function UseFetch(url) {
 
   function putData(id) {
     setLoading(true);
-    axios.post(`url/${id}`, dataToPost).then(res => {
+    axios.post(`${url}/${id}`, dataToPost).then(res => {
       setData(res.data);
       setLoading(false);
     });
@@ -47,7 +47,7 @@ export default function UseFetch(url) {
 
   function deleteData(id) {
     setLoading(true);
-    axios.post(`url/${id}`, dataToPost).then(res => {
+    axios.post(`${url}/${id}`, dataToPost).then(res => {
       setData(res.data);
       setLoading(false);
     });
