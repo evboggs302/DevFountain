@@ -62,7 +62,6 @@ describe("integration tests", () => {
       const insertDumbyData = `INSERT INTO users(first, last, developer, email, password)
         values
         ('Joe', 'JOE', true, 'joe@joe.com', 'joejoejoe');`;
-      db.query(insertDumbyData);
       const req = {
         app: {
           get: () => db
@@ -85,7 +84,7 @@ describe("integration tests", () => {
           return this;
         }
       };
-      userController.register(req, res);
+      db.query(insertDumbyData).then(() => userController.register(req, res));
     });
   });
 });
