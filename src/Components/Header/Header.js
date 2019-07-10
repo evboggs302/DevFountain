@@ -1,39 +1,39 @@
-import React, { Component, useState } from "react";
-import useFetch from "../usefetch";
+import React, {useState, useEffect } from "react";
+import {Redirect} from 'react-router-dom'
+import usefetch from "../usefetch";
 import { setUser } from "../../dux/reducers/userReducer";
 import { connect } from "react-redux";
-import axios from "axios";
 
-class Header extends Component {
-  componentDidMount() {
-    axios.get("/api/user").then(res => {
-      // console.log(res.data);
-      this.props.setUser(res.data);
-    });
-  }
 
-  login = (email, password) => {
-    const { postData: sendLogin } = useFetch("/api/login");
-    sendLogin({ email, password }).then(res => {
-      this.props.setUser(res.data);
-    });
-  };
+function Header(props) {
+  //calling usefetch and destructering "fetchdata" and "postdata" using aliases userData for fetchdata and login for postData.
+    const {data: userData, postData: login }= usefetch('/api/user')
 
-  render() {
+  //
+    useEffect(() => {
+    //
+    props.setUser(userData)
+    }, [userData])
+  
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [redirect, setRedirect] = useState(false);
 
-    console.log(this.props);
-    const { first, last } = this.props.userReducer.user;
+    // console.log(this.props);
+    const { first, last } = props.userReducer.user;
+    if(redirect) {
+      return <Redirect to='/profile'/>
+    }
     return (
       <div>
-        {!this.props.userReducer.user ? (
+        {!props.userReducer.user ? (
           <div>
             Email:
             <input onChange={e => setEmail(e.target.value)} />
             Password:
             <input onChange={e => setPassword(e.target.value)} />
-            <button onClick={() => this.login(email, password)}>Login</button>
+            <button onClick={() => login(email, password).then(setRedirect(true))}>Login</button>
           </div>
         ) : (
           <div>{`Welcome, ${first} ${last}`}</div>
@@ -41,7 +41,7 @@ class Header extends Component {
       </div>
     );
   }
-}
+
 
 const mapStateToProps = reduxState => {
   return reduxState;
