@@ -6,7 +6,7 @@ function Home(props) {
   // console.log(props)
   return (
     <div>
-      <div>{/* <Header/> */}</div>
+      <div><Header/></div>
       Home
       <RegisterForm />
     </div>
