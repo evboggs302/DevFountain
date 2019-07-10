@@ -14,9 +14,11 @@ function App(props) {
   const { data: skills } = UseFetch("/api/allskills");
 
   useEffect(() => {
-    props.setSkills(skills);
-  }, [skills]);
+    props.setSkills(skills)
+  }, [skills])
 
+   console.log(props)
+  
   return (
     <div className="App">
       <ToastContainer autoClose={2000} />

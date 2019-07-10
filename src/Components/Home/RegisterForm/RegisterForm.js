@@ -67,8 +67,6 @@ const Formik = withFormik({
   }),
 
   handleSubmit(values, { resetForm }) {
-    console.log(values);
-    console.log(resetForm);
     const { first, last, email, password, isDeveloper } = values;
     console.log(isDeveloper);
 
@@ -93,8 +91,6 @@ const Formik = withFormik({
       .catch(err => {
         console.log("this is the error", err);
       });
-    console.log(developer);
-    console.log(theProps);
   }
 });
 
