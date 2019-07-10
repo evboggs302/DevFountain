@@ -23,6 +23,7 @@ export default function UseFetch(url, getExists = true, iV = null) {
   }
 
   function postData(dataToPost) {
+    console.log("data to post", dataToPost);
     setLoading(true);
     axios.post(url, dataToPost).then(res => {
       setData(res.data);

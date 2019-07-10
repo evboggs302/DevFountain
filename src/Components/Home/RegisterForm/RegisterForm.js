@@ -34,7 +34,7 @@ function RegisterForm(formikProps) {
         <option value="developer">Developer</option>
         <option value="recruiter">Recruiter</option>
       </Field>
-      <button>Submit</button>
+      <button type="submit">Submit</button>
     </Form>
   );
 }
