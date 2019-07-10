@@ -4,6 +4,9 @@ import {setDevelopers} from '../../dux/reducers/marketplaceReducer'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import UseFetch from '../usefetch'
+import { ToastContainer } from "react-toastify";
+
+
 
 function MarketPlace(props) {
 
