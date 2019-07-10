@@ -63,6 +63,7 @@ export default function UseFetch(url) {
     };
   }, [url]);
 
+  //        To make an alias, destructuring from a custom hook
   //   const {postData: myCustomName , h: myOtherTest} = myHook('/api');
   //   const {r: test, h: myTest} = myHook('/api');
 
