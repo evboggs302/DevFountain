@@ -11,7 +11,7 @@ import UseFetch from "./Components/usefetch";
 import { ToastContainer } from "react-toastify";
 
 function App(props) {
-  const { data: skills } = UseFetch("/api/allskills");
+  const { data: skills } = UseFetch("/api/allskills", true, []);
 
   useEffect(() => {
     props.setSkills(skills);
