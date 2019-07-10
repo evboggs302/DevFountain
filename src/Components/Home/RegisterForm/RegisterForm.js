@@ -42,9 +42,7 @@ function RegisterForm(formikProps) {
 const Formik = withFormik({
     mapPropsToValues(props){
         theProps = props
-        console.log(props)
         const {email, password, first, last, isDeveloper} = props
-        console.log(isDeveloper)
         return {
             first: first || '',
             last: last || '',
@@ -66,10 +64,7 @@ const Formik = withFormik({
   }),
 
   handleSubmit(values, { resetForm }) {
-    console.log(values);
-    console.log(resetForm);
     const { first, last, email, password, isDeveloper } = values;
-    console.log(isDeveloper)
 
     let developer;
     if (isDeveloper == "developer") {
@@ -83,7 +78,6 @@ const Formik = withFormik({
     axios
       .post("/api/register", { first, last, developer, email, password })
       .then(res => {
-        console.log(res.data);
         if (res.data == "Email already exists!") {
           alert("Email already exists!");
         }
@@ -92,8 +86,6 @@ const Formik = withFormik({
       .catch(err => {
         console.log("this is the error", err);
       });
-    console.log(developer);
-    console.log(theProps);
   }
 });
 

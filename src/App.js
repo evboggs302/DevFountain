@@ -18,6 +18,8 @@ function App(props) {
   useEffect(() => {
     props.setSkills(skills)
   }, [skills])
+
+   console.log(props)
   
   return (
     <div className="App">
