@@ -15,13 +15,13 @@ export default function UseFetch(url) {
 
   function fetchDataWithId(id) {
     setLoading(true);
-    axios.get(`url/${id}`).then(res => {
+    axios.get(`${url}/${id}`).then(res => {
       setData(res.data);
       setLoading(false);
     });
   }
 
-  function postData() {
+  function postData(dataToPost) {
     setLoading(true);
     axios.post(url, dataToPost).then(res => {
       setData(res.data);
@@ -29,25 +29,25 @@ export default function UseFetch(url) {
     });
   }
 
-  function postDataWithId(id) {
+  function postDataWithId(id, dataToPost) {
     setLoading(true);
-    axios.post(`url/${id}`, dataToPost).then(res => {
+    axios.post(`${url}/${id}`, dataToPost).then(res => {
       setData(res.data);
       setLoading(false);
     });
   }
 
-  function putData(id) {
+  function putData(id, dataToPost) {
     setLoading(true);
-    axios.post(`url/${id}`, dataToPost).then(res => {
+    axios.post(`${url}/${id}`, dataToPost).then(res => {
       setData(res.data);
       setLoading(false);
     });
   }
 
-  function deleteData(id) {
+  function deleteData(id, dataToPost) {
     setLoading(true);
-    axios.post(`url/${id}`, dataToPost).then(res => {
+    axios.post(`${url}/${id}`, dataToPost).then(res => {
       setData(res.data);
       setLoading(false);
     });
