@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import useFetch from '../usefetch';
 import { setUser } from '../../dux/reducers/userReducer';
 import { connect } from 'react-redux'
 import axios from 'axios'
@@ -12,26 +13,32 @@ componentDidMount() {
     })
 }
 
-login = () => {
-  const {email, password} = this.props.userReducer.user
-  axios.post('/api/login', {email, password}).then(res => {
+
+
+
+login = (email, password) => {
+  const { postData: sendLogin} = useFetch('/api/login')
+  sendLogin({email, password}).then(res => {
     this.props.setUser(res.data);
   })
 }
 
 
   render() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    
     console.log(this.props)
-    const { email, first, last } = this.props.userReducer.user;
+    const { first, last } = this.props.userReducer.user;
     return (
       <div>
-        {!this.props.user ? (
+        {!this.props.userReducer.user ? (
           <div>
             Email:
-            <input />
+            <input onChange={(e) => setEmail(e.target.value)}/>
             Password:
-            <input />
-            <button>Login</button>
+            <input onChange={(e) => setPassword(e.target.value)}/>
+            <button onClick={() => login(email, password)}>Login</button>
           </div>
         ) : (
           <div>{`Welcome, ${first} ${last}`}</div>
