@@ -11,12 +11,14 @@ import UseFetch from "./Components/usefetch";
 import { ToastContainer } from "react-toastify";
 
 function App(props) {
-  const { data: skills } = UseFetch("/api/allskills");
+  const { data: skills } = UseFetch("/api/allskills", true, []);
 
   useEffect(() => {
-    props.setSkills(skills);
-  }, [skills]);
+    props.setSkills(skills)
+  }, [skills])
 
+   console.log(props)
+  
   return (
     <div className="App">
       <ToastContainer autoClose={2000} />

@@ -1,5 +1,5 @@
 import React from "react";
-import { setUser, setRedirect } from "../../../dux/reducers/userReducer";
+import { setUser } from "../../../dux/reducers/userReducer";
 import { connect } from "react-redux";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
@@ -8,7 +8,7 @@ import axios from "axios";
 let theProps;
 
 function RegisterForm(formikProps) {
-  const { errors, touched, redirect } = formikProps;
+  const { errors, touched } = formikProps;
   // below is the form setup
 
   return (
@@ -67,8 +67,6 @@ const Formik = withFormik({
   }),
 
   handleSubmit(values, { resetForm }) {
-    console.log(values);
-    console.log(resetForm);
     const { first, last, email, password, isDeveloper } = values;
     console.log(isDeveloper);
 
@@ -93,8 +91,6 @@ const Formik = withFormik({
       .catch(err => {
         console.log("this is the error", err);
       });
-    console.log(developer);
-    console.log(theProps);
   }
 });
 

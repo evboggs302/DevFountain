@@ -6,25 +6,24 @@ import { connect } from "react-redux";
 
 function Header(props) {
   //calling usefetch and destructering "fetchdata" and "postdata" using aliases userData for fetchdata and login for postData.
-  const { data: userData, postData: login } = usefetch("/api/user");
+  const { data: userData, postData: login } = usefetch("/api/login", false);
 
-  //
   useEffect(() => {
-    //
+    console.log("Setting user", userData);
     props.setUser(userData);
   }, [userData]);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  console.log(props.user.user, props.user.user);
+  console.log(props);
   if (props.user && props.user.user && props.user.user.first) {
     return <Redirect to="/profile" />;
   }
 
   return (
     <div>
-      {!props.user.user ? (
+      {props.user && props.user.user && props.user.user.first ? (
         <div>
           Email:
           <input onChange={e => setEmail(e.target.value)} />
@@ -33,7 +32,8 @@ function Header(props) {
           <button onClick={() => login(email, password)}>Login</button>
         </div>
       ) : (
-        <div>{`Welcome, ${props.user.user.first} ${props.user.user.last}`}</div>
+        // <div>{`Welcome, ${props.user.user.first} ${props.user.user.last}`}</div>
+        <h1>sup</h1>
       )}
     </div>
   );
