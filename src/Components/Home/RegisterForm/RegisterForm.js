@@ -40,31 +40,28 @@ function RegisterForm(formikProps) {
 
 // high-order function 'Formik' that will get the values that user inputs on form
 const Formik = withFormik({
-  mapPropsToValues(props) {
-    theProps = props;
-    const { email, password, first, last, isDeveloper } = props;
-    console.log(props);
-    return {
-      first: first || "",
-      last: last || "",
-      email: email || "",
-      password: password || "",
-      isDeveloper: isDeveloper || ""
-    };
-  },
+    mapPropsToValues(props){
+        theProps = props
+        console.log(props)
+        const {email, password, first, last, isDeveloper} = props
+        console.log(isDeveloper)
+        return {
+            first: first || '',
+            last: last || '',
+            email: email || '',
+            password: password || '',
+            isDeveloper: isDeveloper || ''
+        }
+    },
 
-  // validates if the data the user inputs are good
-  validationSchema: Yup.object().shape({
-    first: Yup.string().required(),
-    last: Yup.string().required(),
-    email: Yup.string()
-      .email()
-      .required("Email Is Required"),
-    password: Yup.string()
-      .min(8, "Password must be at least 8 characters")
-      .required("Password Is Required"),
-    isDeveloper: Yup.string().required("Select An Option")
-  }),
+    // validates if the data the user inputs is good 
+    validationSchema: Yup.object().shape({
+        first: Yup.string().required(),
+        last: Yup.string().required(),
+        email: Yup.string().email().required('Email Is Required'),
+        password: Yup.string().min(8, "Password must be at least 8 characters").required('Password Is Required'),
+        isDeveloper: Yup.string().required('Select An Option')
+    }),
 
   // validates if the data the user inputs is good
   validationSchema: Yup.object().shape({

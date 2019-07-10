@@ -4,7 +4,7 @@ import userReducer from './reducers/userReducer'
 import messageReducer from './reducers/messageReducer'
 import postsReducer from './reducers/postsReducer'
 import marketplaceReducer from './reducers/marketplaceReducer'
-
+import allSkills from './reducers/skillsReducer'
 
 
 const rootReducer = combineReducers(
@@ -12,7 +12,8 @@ const rootReducer = combineReducers(
         userReducer: userReducer,
         messageReducer: messageReducer,
         postsReducer: postsReducer,
-        marketplaceReducer: marketplaceReducer
+        marketplaceReducer: marketplaceReducer,
+        allSkills: allSkills
     })
 
 export default createStore(rootReducer)

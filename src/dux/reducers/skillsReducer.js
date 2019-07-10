@@ -2,7 +2,7 @@ const initialState = {
     allSkills: []
 }
 
-ALL_SKILLS = "ALL_SKILLS"
+const ALL_SKILLS = "ALL_SKILLS"
 
 export default function allSkills(state = initialState, action){
     switch(action.type){
