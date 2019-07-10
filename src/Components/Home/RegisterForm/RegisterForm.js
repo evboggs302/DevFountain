@@ -1,16 +1,23 @@
 import React from "react";
-import { setUser } from "../../../dux/reducers/userReducer";
+import { setUser, setRedirect } from "../../../dux/reducers/userReducer";
 import { connect } from "react-redux";
+import {Redirect} from 'react-router-dom'
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
 let theProps;
 
-function RegisterForm(formikProps) {
-  const { errors, touched } = formikProps;
-  // below is the form setup
 
+
+function RegisterForm(formikProps) {
+  const { errors, touched, redirect } = formikProps;
+  // below is the form setup
+   
+
+  if(redirect) {
+      return <Redirect to='/profile'/>
+  }
   return (
     <Form>
       <div>
@@ -88,6 +95,7 @@ const Formik = withFormik({
           alert("Email already exists!");
         }
         resetForm();
+        setRedirect(true);
       })
       .catch(err => {
         console.log("this is the error", err);
