@@ -23,13 +23,13 @@ function Header(props) {
 
   return (
     <div>
-      {props.user && props.user.user && props.user.user.first ? (
+      {!props.user.user ? (
         <div>
           Email:
           <input onChange={e => setEmail(e.target.value)} />
           Password:
           <input onChange={e => setPassword(e.target.value)} type="password" />
-          <button onClick={() => login(email, password)}>Login</button>
+          <button onClick={() => login({ email, password })}>Login</button>
         </div>
       ) : (
         // <div>{`Welcome, ${props.user.user.first} ${props.user.user.last}`}</div>
