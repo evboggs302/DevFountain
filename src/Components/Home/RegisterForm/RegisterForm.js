@@ -1,23 +1,16 @@
 import React from "react";
 import { setUser, setRedirect } from "../../../dux/reducers/userReducer";
 import { connect } from "react-redux";
-import {Redirect} from 'react-router-dom'
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
 let theProps;
 
-
-
 function RegisterForm(formikProps) {
   const { errors, touched, redirect } = formikProps;
   // below is the form setup
-   
 
-  if(redirect) {
-      return <Redirect to='/profile'/>
-  }
   return (
     <Form>
       <div>
@@ -37,6 +30,7 @@ function RegisterForm(formikProps) {
         <Field type="password" name="password" placeholder="Password" />
       </div>
       <Field component="select" name="isDeveloper">
+        <option />
         <option value="developer">Developer</option>
         <option value="recruiter">Recruiter</option>
       </Field>
@@ -47,17 +41,19 @@ function RegisterForm(formikProps) {
 
 // high-order function 'Formik' that will get the values that user inputs on form
 const Formik = withFormik({
-    mapPropsToValues(props){
-        theProps = props
-        const {email, password, first, last, isDeveloper} = props
-        return {
-            first: first || '',
-            last: last || '',
-            email: email || '',
-            password: password || '',
-            isDeveloper: isDeveloper || 'developer'
-        }
-    },
+  mapPropsToValues(props) {
+    theProps = props;
+    console.log(props);
+    const { email, password, first, last, isDeveloper } = props;
+    console.log(isDeveloper);
+    return {
+      first: first || "",
+      last: last || "",
+      email: email || "",
+      password: password || "",
+      isDeveloper: isDeveloper || ""
+    };
+  },
   // validates if the data the user inputs is good
   validationSchema: Yup.object().shape({
     first: Yup.string().required(),
@@ -72,24 +68,25 @@ const Formik = withFormik({
 
   handleSubmit(values, { resetForm }) {
     const { first, last, email, password, isDeveloper } = values;
+    console.log(isDeveloper);
 
     let developer;
-    if (isDeveloper == "developer") {
+    if (isDeveloper === "developer") {
       developer = "t";
     } else {
       developer = "f";
     }
 
-    theProps.setUser({ first, last, developer, email });
-
     axios
       .post("/api/register", { first, last, developer, email, password })
       .then(res => {
-        if (res.data == "Email already exists!") {
+        console.log(res.data);
+        if (res.data === "Email already exists!") {
           alert("Email already exists!");
+        } else {
+          theProps.setUser({ first, last, developer, email });
+          resetForm();
         }
-        resetForm();
-        setRedirect(true);
       })
       .catch(err => {
         console.log("this is the error", err);
