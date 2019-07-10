@@ -3,22 +3,16 @@ import axios from 'axios'
 import {setDevelopers} from '../../dux/reducers/marketplaceReducer'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import UseFetch from '../usefetch'
 
 function MarketPlace(props) {
-    const [allDevs, setDevs] = useState([]);
-    useEffect(()=> {
-      axios.get('/api/marketplace')
-    .then(res => {
-      console.log(res.data)
-      setDevs(res.data)
-      
-    })
-    .catch(err => console.log('this is the error', err))
-    }, [])
-    
-    useEffect(()=> {
-      props.setDevelopers(allDevs)
-    }, [allDevs] )
+
+  // Setting all users who are developers into the marketplaceReducer 
+  const {data: devUsers, fetchData: allDevs}= UseFetch('/api/marketplace')
+  let devs = devUsers
+  useEffect(() => {
+    props.setDevelopers(devs)
+  }, [devs])
 
     
     // Rendering each developers info on marketplace
@@ -39,32 +33,7 @@ function MarketPlace(props) {
         )
       })
     }
-
-  
-  //   let mappedDevs;
-  //     {props.allDevelopers ? 
-  //       mappedDevs = props.marketplaceReducer.allDevelopers.map(dev => {
-         
-  //       const encoded = encodeURIComponent(dev.email)
-  //     return (
-  //       <div key={dev.id}>
-  //         <Link to={`/api/profile/${encoded}`}>
-  //           <img
-  //             src={dev.profile_pic}
-  //             alt="image"
-  //           >
-  //             Dev profile pic
-  //           </img>
-  //         </Link>
-  //         <h3>{`${dev.first} ${dev.last}`}</h3>
-  //         <div>Dev Skills</div>
-  //       </div>
-  //     );
-  //   })
-  //   : null
-  // }
    
-
   return (
     <div>
       Mapped Devs 

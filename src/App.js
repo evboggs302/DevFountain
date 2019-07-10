@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Switch, Route } from 'react-router-dom';
 import Home from './Components/Home/Home';
 import Profile from './Components/Profile/Profile';
@@ -8,10 +8,16 @@ import "./App.scss";
 import {connect} from 'react-redux'
 import {setSkills} from './dux/reducers/skillsReducer'
 import UseFetch from './Components/usefetch'
+import Axios from "axios";
 
-function App() {
-  const {data: skills, fetchData: getSkills} = UseFetch('/api/allskills')
-  console.log(skills, getSkills)
+function App(props) {
+  const {data: skillsData, fetchData: setSkills}= UseFetch('/api/allskills')
+  let skills = skillsData
+
+  useEffect(() => {
+    props.setSkills(skills)
+  }, [skills])
+  
   return (
     <div className="App">
       <Switch>
