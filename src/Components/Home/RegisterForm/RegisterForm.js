@@ -1,16 +1,23 @@
 import React from "react";
-import { setUser } from "../../../dux/reducers/userReducer";
+import { setUser, setRedirect } from "../../../dux/reducers/userReducer";
 import { connect } from "react-redux";
+import {Redirect} from 'react-router-dom'
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
 let theProps;
 
-function RegisterForm(formikProps) {
-  const { errors, touched } = formikProps;
-  // below is the form setup
 
+
+function RegisterForm(formikProps) {
+  const { errors, touched, redirect } = formikProps;
+  // below is the form setup
+   
+
+  if(redirect) {
+      return <Redirect to='/profile'/>
+  }
   return (
     <Form>
       <div>
@@ -40,32 +47,19 @@ function RegisterForm(formikProps) {
 
 // high-order function 'Formik' that will get the values that user inputs on form
 const Formik = withFormik({
-  mapPropsToValues(props) {
-    theProps = props;
-    const { email, password, first, last, isDeveloper } = props;
-    console.log(props);
-    return {
-      first: first || "",
-      last: last || "",
-      email: email || "",
-      password: password || "",
-      isDeveloper: isDeveloper || ""
-    };
-  },
-
-  // validates if the data the user inputs are good
-  validationSchema: Yup.object().shape({
-    first: Yup.string().required(),
-    last: Yup.string().required(),
-    email: Yup.string()
-      .email()
-      .required("Email Is Required"),
-    password: Yup.string()
-      .min(8, "Password must be at least 8 characters")
-      .required("Password Is Required"),
-    isDeveloper: Yup.string().required("Select An Option")
-  }),
-
+    mapPropsToValues(props){
+        theProps = props
+        console.log(props)
+        const {email, password, first, last, isDeveloper} = props
+        console.log(isDeveloper)
+        return {
+            first: first || '',
+            last: last || '',
+            email: email || '',
+            password: password || '',
+            isDeveloper: isDeveloper || 'developer'
+        }
+    },
   // validates if the data the user inputs is good
   validationSchema: Yup.object().shape({
     first: Yup.string().required(),
@@ -75,14 +69,14 @@ const Formik = withFormik({
       .required("Email Is Required"),
     password: Yup.string()
       .min(8, "Password must be at least 8 characters")
-      .required("Password Is Required"),
-    isDeveloper: Yup.string().required("Select An Option")
+      .required("Password Is Required")
   }),
 
   handleSubmit(values, { resetForm }) {
     console.log(values);
     console.log(resetForm);
     const { first, last, email, password, isDeveloper } = values;
+    console.log(isDeveloper)
 
     let developer;
     if (isDeveloper == "developer") {
@@ -101,6 +95,7 @@ const Formik = withFormik({
           alert("Email already exists!");
         }
         resetForm();
+        setRedirect(true);
       })
       .catch(err => {
         console.log("this is the error", err);
