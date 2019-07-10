@@ -50,19 +50,9 @@ const Formik = withFormik({
             last: last || '',
             email: email || '',
             password: password || '',
-            isDeveloper: isDeveloper || ''
+            isDeveloper: isDeveloper || 'developer'
         }
     },
-
-    // validates if the data the user inputs is good 
-    validationSchema: Yup.object().shape({
-        first: Yup.string().required(),
-        last: Yup.string().required(),
-        email: Yup.string().email().required('Email Is Required'),
-        password: Yup.string().min(8, "Password must be at least 8 characters").required('Password Is Required'),
-        isDeveloper: Yup.string().required('Select An Option')
-    }),
-
   // validates if the data the user inputs is good
   validationSchema: Yup.object().shape({
     first: Yup.string().required(),
@@ -72,14 +62,14 @@ const Formik = withFormik({
       .required("Email Is Required"),
     password: Yup.string()
       .min(8, "Password must be at least 8 characters")
-      .required("Password Is Required"),
-    isDeveloper: Yup.string().required("Select An Option")
+      .required("Password Is Required")
   }),
 
   handleSubmit(values, { resetForm }) {
     console.log(values);
     console.log(resetForm);
     const { first, last, email, password, isDeveloper } = values;
+    console.log(isDeveloper)
 
     let developer;
     if (isDeveloper == "developer") {
