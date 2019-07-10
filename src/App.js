@@ -8,7 +8,8 @@ import "./App.scss";
 import {connect} from 'react-redux'
 import {setSkills} from './dux/reducers/skillsReducer'
 import UseFetch from './Components/usefetch'
-import Axios from "axios";
+import {ToastContainer} from 'react-toastify'
+import "react-toastify/dist/ReactToastify.min.css";
 
 function App(props) {
   const {data: skillsData, fetchData: setSkills}= UseFetch('/api/allskills')
@@ -28,6 +29,10 @@ function App(props) {
       </Switch>
     </div>
   );
+}
+
+const mapPropsToState = (reduxState) => {
+  return reduxState
 }
 
 const mappedDispatchToProps = {
