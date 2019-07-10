@@ -45,9 +45,9 @@ export default function UseFetch(url) {
     });
   }
 
-  function deleteData(id, dataToPost) {
+  function deleteData(id) {
     setLoading(true);
-    axios.post(`${url}/${id}`, dataToPost).then(res => {
+    axios.post(`${url}/${id}`).then(res => {
       setData(res.data);
       setLoading(false);
     });
