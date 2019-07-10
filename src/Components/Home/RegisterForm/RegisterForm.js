@@ -82,8 +82,6 @@ const Formik = withFormik({
       console.log(resetForm)
     const { first, last, email, password, isDeveloper } = values;
     
-
-    
     let developer;
     if(isDeveloper == 'developer'){
         developer = 't'
