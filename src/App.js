@@ -29,6 +29,10 @@ function App(props) {
   );
 }
 
+const mapPropsToState = reduxState => {
+  return reduxState;
+};
+
 const mappedDispatchToProps = {
   setSkills
 };
