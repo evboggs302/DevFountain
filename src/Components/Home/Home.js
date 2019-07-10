@@ -9,6 +9,9 @@ class Home extends Component {
         // console.log(props)
         return (
             <div>
+                <div>
+                    {/* <Header/> */}
+                </div>
                 Home
                 <RegisterForm />
             </div>
