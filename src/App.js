@@ -8,12 +8,7 @@ import "./App.scss";
 import { connect } from "react-redux";
 import { setSkills } from "./dux/reducers/skillsReducer";
 import UseFetch from "./Components/usefetch";
-<<<<<<< HEAD
-import {ToastContainer} from 'react-toastify'
-import Axios from "axios";
-=======
 import { ToastContainer } from "react-toastify";
->>>>>>> b95af202ef96d527ed9d3ce85a4aebc14634a927
 
 function App(props) {
   const { data: skills } = UseFetch("/api/allskills");
