@@ -14,17 +14,17 @@ function App(props) {
   const { data: skills } = UseFetch("/api/allskills", true, []);
 
   useEffect(() => {
-    props.setSkills(skills)
-  }, [skills])
+    props.setSkills(skills);
+  }, [skills]);
 
-   console.log(props)
-  
+  console.log(props);
+
   return (
     <div className="App">
       <ToastContainer autoClose={2000} />
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/profile" component={Profile} />
+        <Route path="/profile/:email" component={Profile} />
         <Route path="/marketplace" component={MarketPlace} />
       </Switch>
     </div>
