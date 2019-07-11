@@ -30,7 +30,7 @@ function RegisterForm(formikProps) {
         <Field type="password" name="password" placeholder="Password" />
       </div>
       <Field component="select" name="isDeveloper">
-        <option />
+        <option >-Select-</option>
         <option value="developer">Developer</option>
         <option value="recruiter">Recruiter</option>
       </Field>
