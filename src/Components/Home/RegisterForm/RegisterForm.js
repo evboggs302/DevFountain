@@ -3,9 +3,11 @@ import { setUser } from "../../../dux/reducers/userReducer";
 import { connect } from "react-redux";
 import { withFormik, Form, Field } from "formik";
 import {FaCaretUp} from 'react-icons/fa';
+import {NavLink} from 'react-router-dom';
 import * as Yup from "yup";
 import axios from "axios";
 import './RegisterForm.scss'
+
 
 let theProps;
 
@@ -56,7 +58,7 @@ function RegisterForm(formikProps) {
                 <option value="developer">Developer</option>
                 <option value="recruiter">Recruiter</option>
             </Field>
-            <button className="submit-btn"type="submit">Submit</button>
+            <NavLink to='/profile'><button className="submit-btn"type="submit">Submit</button></NavLink>
         </Form>
   
   );
