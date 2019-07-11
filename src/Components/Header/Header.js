@@ -25,7 +25,6 @@ function Header(props) {
 
   return (
     <div className="login-container">
-      {!props.user.user ? (
         <div className="login-fields">
           Email:
           <input onChange={e => setEmail(e.target.value)} />
@@ -33,10 +32,6 @@ function Header(props) {
           <input onChange={e => setPassword(e.target.value)} type="password" />
           <button onClick={() => login({ email, password })}>Login</button>
         </div>
-      ) : (
-        // <div>{`Welcome, ${props.user.user.first} ${props.user.user.last}`}</div>
-        <button>Logout</button>
-      )}
     </div>
   );
 }
