@@ -20,7 +20,8 @@ function Header(props) {
   console.log(props);
   if (props.user && props.user.user && props.user.user.first) {
     const { email } = props.user.user;
-    return <Redirect to={`/profile/${email}`} />;
+    var encode = encodeURIComponent(email);
+    return <Redirect to={`/profile/${encode}`} />;
   }
 
   return (

@@ -17,7 +17,6 @@ function MarketPlace(props) {
 
   // Rendering each developers info on marketplace
   const developers = props.marketplace.allDevelopers;
-  console.log(developers)
   console.log(props)
   let mappedDevs;
   if (developers !== null) {
@@ -29,7 +28,7 @@ function MarketPlace(props) {
           <div key={dev.user_id}>
             <img src={dev.profile_pic} />
             <h1>{`${dev.first} ${dev.last}`}</h1>
-            <h2>{dev.title}</h2>
+            <h2>{dev.title} </h2>
             <h2>{dev.email}</h2>
           </div>
         </Link>
