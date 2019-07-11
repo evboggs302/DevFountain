@@ -1,18 +1,24 @@
-import React, { Component } from "react";
+import React from "react";
+import { connect } from "react-redux";
 
-class DevProfile extends Component {
-  render() {
-    return (
-      <div>
-        {encodeURIComponent(this.props.user.email) ===
-        this.props.match.params.email ? (
-          <button>Edit buttons</button>
-        ) : (
-          <button>Like</button>
-        )}
-      </div>
-    );
-  }
+function DevProfile(props) {
+  console.log(props);
+  return (
+    <div>
+      {encodeURIComponent(props.user.user.email) ===
+      props.match.params.email ? (
+        <button>Edit buttons</button>
+      ) : (
+        <button>Like</button>
+      )}
+    </div>
+  );
 }
 
-export default DevProfile;
+const mapStateToProps = reduxState => {
+  return reduxState;
+};
+
+const invokedConnect = connect(mapStateToProps);
+
+export default invokedConnect(DevProfile);
