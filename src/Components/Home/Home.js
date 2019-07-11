@@ -7,9 +7,6 @@ function Home(props) {
   // console.log(props)
   return (
         <div>
-            <div>
-                <Header />
-            </div>
             <div className="home-register">
                 <RegisterForm />
             </div>
