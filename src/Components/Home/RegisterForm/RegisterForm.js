@@ -2,8 +2,10 @@ import React from "react";
 import { setUser } from "../../../dux/reducers/userReducer";
 import { connect } from "react-redux";
 import { withFormik, Form, Field } from "formik";
+import {FaCaretUp} from 'react-icons/fa';
 import * as Yup from "yup";
 import axios from "axios";
+import './RegisterForm.scss'
 
 let theProps;
 
@@ -12,30 +14,51 @@ function RegisterForm(formikProps) {
   // below is the form setup
 
   return (
-    <Form>
-      <div>
-        {touched.first && errors.first && <p>First Name is Required</p>}
-        <Field type="text" name="first" placeholder="First Name" />
-      </div>
-      <div>
-        {touched.last && errors.last && <p>Last Name is Required</p>}
-        <Field type="text" name="last" placeholder="Last Name" />
-      </div>
-      <div>
-        {touched.email && errors.email && <p>{errors.email}</p>}
-        <Field type="email" name="email" placeholder="Email" />
-      </div>
-      <div>
-        {touched.password && errors.password && <p>{errors.password}</p>}
-        <Field type="password" name="password" placeholder="Password" />
-      </div>
-      <Field component="select" name="isDeveloper">
-        <option />
-        <option value="developer">Developer</option>
-        <option value="recruiter">Recruiter</option>
-      </Field>
-      <button type="submit">Submit</button>
-    </Form>
+        <Form className='form-container'>
+            <div className='input-box'>
+            <Field type="text" name="first" placeholder="First Name" className='input-field'/>
+                {touched.first && errors.first && 
+                <div className='help-text'>
+                    <div className='help-triangle'><FaCaretUp/></div>
+                    <p>First Name is Required</p>
+                </div>
+                }
+            </div>
+            <div className='input-box'>
+                <Field type="text" name="last" placeholder="Last Name" className='input-field' />
+                {touched.last && errors.last && 
+                <div className='help-text'>
+                    <div className='help-triangle'><FaCaretUp/></div>
+                    <p>Last Name is Required</p>
+                </div>
+                }
+            </div>
+            <div className='input-box'>
+                <Field type="email" name="email" placeholder="Email" className='input-field' />
+                {touched.email && errors.email && 
+                <div className='help-text'>
+                    <div className='help-triangle'><FaCaretUp/></div>
+                    <p>{errors.email}</p>
+                </div>   
+                }
+            </div>
+            <div className='input-box'>
+                <Field type="password" name="password" placeholder="Password"  className='input-field'/>
+                {touched.password && errors.password && 
+                    <div className='help-text'>
+                        <div className='help-triangle'><FaCaretUp/></div>
+                        <p>{errors.password}</p>
+                    </div>
+                }
+            </div>
+            <Field component="select" name="isDeveloper">
+                <option />
+                <option value="developer">Developer</option>
+                <option value="recruiter">Recruiter</option>
+            </Field>
+            <button type="submit">Submit</button>
+        </Form>
+  
   );
 }
 
