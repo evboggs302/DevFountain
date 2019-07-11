@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
-import usefetch from "../usefetch";
+import usefetch from "../useFetch";
 import { setUser } from "../../dux/reducers/userReducer";
 import { connect } from "react-redux";
 
