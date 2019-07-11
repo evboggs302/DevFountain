@@ -3,6 +3,7 @@ import { setDevelopers } from "../../dux/reducers/marketplaceReducer";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import UseFetch from "../usefetch";
+import AppHeader from '../AppHeader/AppHeader';
 
 function MarketPlace(props) {
   // Setting all users who are developers into the marketplaceReducer
@@ -21,8 +22,9 @@ function MarketPlace(props) {
   if (developers !== null) {
     mappedDevs = developers.map(dev => {
       const encoded = encodeURIComponent(dev.email);
-      return (    
-        <Link to={`/api/profile/${encoded}`}>
+      return (  
+        <div>
+            <Link to={`/api/profile/${encoded}`}>
           <div key={dev.user_id}>
             <img src={dev.profile_pic} />
             <h1>{`${dev.first} ${dev.last}`}</h1>
@@ -30,12 +32,16 @@ function MarketPlace(props) {
             <h2>{dev.email}</h2>
           </div>
         </Link>
+
+        </div>
+      
       );
     });
   }
 
   return (
     <div>
+     <AppHeader/>
       Mapped Devs
       {mappedDevs}
     </div>
