@@ -96,6 +96,12 @@ app.delete("/api/likes/:id", unlike);
 // Marketplace Endpoints
 app.get("/api/marketplace", allUsers);
 
+//message endpoints
+// app.get();
+// app.post();
+// app.put();
+// app.delete();
+
 // Nodemailer
 app.post("/api/send", (req, res, next) => {
   const { name, email, title, message } = req.body;
