@@ -9,7 +9,11 @@ function Profile(props) {
     <div>
       {/* conditionally rending whether the user is a developer. If the user is not a developer, profile will render the
         recruiter profile */}
-      {props.user.user.developer ? <DevProfile /> : <RecProfile />}
+      {props.user.user.developer ? (
+        <DevProfile match={props.match} />
+      ) : (
+        <RecProfile />
+      )}
     </div>
   );
 }
