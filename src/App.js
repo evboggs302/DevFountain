@@ -17,7 +17,6 @@ function App(props) {
     props.setSkills(skills)
   }, [skills])
 
-   console.log(props)
   
   return (
     <div className="App">
