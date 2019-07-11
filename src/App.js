@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import Home from "./Components/Home/Home";
 import Profile from "./Components/Profile/Profile";
 import MarketPlace from "./Components/MarketPlace/MarketPlace";
+import Header from "./Components/Header/Header";
 import "./reset.css";
 import "./App.scss";
 import { connect } from "react-redux";
@@ -14,16 +15,18 @@ function App(props) {
   const { data: skills } = UseFetch("/api/allskills", true, []);
 
   useEffect(() => {
-    props.setSkills(skills)
-  }, [skills])
+    props.setSkills(skills);
+  }, [skills]);
 
-  
+  console.log(props);
+
   return (
     <div className="App">
+      <Header />
       <ToastContainer autoClose={2000} />
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/profile" component={Profile} />
+        <Route path="/profile/:email" component={Profile} />
         <Route path="/marketplace" component={MarketPlace} />
       </Switch>
     </div>
