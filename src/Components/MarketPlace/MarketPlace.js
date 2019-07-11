@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { setDevelopers } from "../../dux/reducers/marketplaceReducer";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import UseFetch from "../usefetch";
+import UseFetch from "../useFetch";
 
 function MarketPlace(props) {
   // Setting all users who are developers into the marketplaceReducer
