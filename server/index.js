@@ -30,9 +30,7 @@ const {
   removeSkills
 } = require("./controllers/skillsController");
 
-const {
-  allUsers
-} = require('./controllers/marketplaceController')
+const { allUsers } = require("./controllers/marketplaceController");
 
 const {
   SERVER_PORT,
@@ -96,9 +94,7 @@ app.post("/api/likes/:id", like);
 app.delete("/api/likes/:id", unlike);
 
 // Marketplace Endpoints
-app.get('/api/marketplace', allUsers)
-
-
+app.get("/api/marketplace", allUsers);
 
 // Nodemailer
 app.post("/api/send", (req, res, next) => {
@@ -127,6 +123,9 @@ app.post("/api/send", (req, res, next) => {
     }
   });
 });
+
+// create sockets for messaging
+
 // Becasue of browser router, we will eventually need the below lines.
 // app.use(express.static(__dirname + "/../build"));
 // const path = require("path");

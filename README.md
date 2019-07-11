@@ -11,7 +11,7 @@ Sup Group!
 1. Before you start working, make your branch by opening the terminal in code editor, and typing
 
 ```
-git checkout -b [lastName-branch]
+git checkout -b <yourLastName>-branch
 ```
 
 (this makes a new branch and moves you into that branch)
@@ -85,3 +85,5 @@ src/testHook.test.js
 ```
 npm test
 ```
+
+##### _This README created by [Evan Boggs](https://github.com/evboggs302)_

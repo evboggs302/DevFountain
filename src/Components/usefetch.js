@@ -8,7 +8,7 @@ export default function UseFetch(url, getExists = true, iV = null) {
   function fetchData() {
     setLoading(true);
     axios.get(url).then(res => {
-      console.log("fetch data ran:", res.data);
+      // console.log("fetch data ran:", res.data);
       setData(res.data);
       setLoading(false);
     });
