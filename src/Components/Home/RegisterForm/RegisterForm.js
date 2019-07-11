@@ -52,7 +52,7 @@ function RegisterForm(formikProps) {
                 }
             </div>
             <Field component="select" name="isDeveloper">
-                <option />
+                <option>-Select</option>
                 <option value="developer">Developer</option>
                 <option value="recruiter">Recruiter</option>
             </Field>
