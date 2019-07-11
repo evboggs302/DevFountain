@@ -35,7 +35,7 @@ function Header(props) {
         </div>
       ) : (
         // <div>{`Welcome, ${props.user.user.first} ${props.user.user.last}`}</div>
-        <h1>sup</h1>
+        <button>Logout</button>
       )}
     </div>
   );
