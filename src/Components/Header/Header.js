@@ -6,39 +6,34 @@ import { connect } from "react-redux";
 
 function Header(props) {
   //calling usefetch and destructering "fetchdata" and "postdata" using aliases userData for fetchdata and login for postData.
-  const { data: userData, postData: login } = usefetch("/api/user");
+  const { data: userData, postData: login } = usefetch("/api/login", false);
 
-  //
   useEffect(() => {
-    //
+    console.log("Setting user", userData);
     props.setUser(userData);
   }, [userData]);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [redirect, setRedirect] = useState(false);
 
-  // console.log(this.props);
-  const { first, last } = props.userReducer.user;
-  if (redirect) {
+  console.log(props);
+  if (props.user && props.user.user && props.user.user.first) {
     return <Redirect to="/profile" />;
   }
+
   return (
     <div>
-      {!props.userReducer.user ? (
+      {!props.user.user ? (
         <div>
           Email:
           <input onChange={e => setEmail(e.target.value)} />
           Password:
-          <input onChange={e => setPassword(e.target.value)} />
-          <button
-            onClick={() => login(email, password).then(setRedirect(true))}
-          >
-            Login
-          </button>
+          <input onChange={e => setPassword(e.target.value)} type="password" />
+          <button onClick={() => login({ email, password })}>Login</button>
         </div>
       ) : (
-        <div>{`Welcome, ${first} ${last}`}</div>
+        // <div>{`Welcome, ${props.user.user.first} ${props.user.user.last}`}</div>
+        <h1>sup</h1>
       )}
     </div>
   );

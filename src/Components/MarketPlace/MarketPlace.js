@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { setDevelopers } from "../../dux/reducers/marketplaceReducer";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import UseFetch from "../useFetch";
-import { ToastContainer } from "react-toastify";
 
 function MarketPlace(props) {
   // Setting all users who are developers into the marketplaceReducer
-  const { data: devUsers, fetchData: allDevs } = UseFetch("/api/marketplace");
-  let devs = devUsers;
+  const { data: devs, fetchData: allDevs } = UseFetch("/api/marketplace");
+
   useEffect(() => {
     props.setDevelopers(devs);
   }, [devs]);

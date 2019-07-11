@@ -5,7 +5,7 @@ module.exports = {
         db.marketplace.selectAllDevelopers()
         .then(users => res.status(200).send(users))
         .catch( err => {
-            console.log('this is the error', err)
+            res.send('there was an error')
         })
     }
 }

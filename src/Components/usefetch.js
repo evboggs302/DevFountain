@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function UseFetch(url) {
-  const [data, setData] = useState([]);
+export default function UseFetch(url, getExists = true, iV = null) {
+  const [data, setData] = useState(iV);
   const [loading, setLoading] = useState(false);
 
   function fetchData() {
     setLoading(true);
     axios.get(url).then(res => {
+      // console.log("fetch data ran:", res.data);
       setData(res.data);
       setLoading(false);
     });
@@ -22,6 +23,7 @@ export default function UseFetch(url) {
   }
 
   function postData(dataToPost) {
+    console.log("data to post", dataToPost);
     setLoading(true);
     axios.post(url, dataToPost).then(res => {
       setData(res.data);
@@ -55,7 +57,7 @@ export default function UseFetch(url) {
 
   useEffect(() => {
     let current = true;
-    if (current) {
+    if (current && getExists) {
       fetchData();
     }
     return () => {
