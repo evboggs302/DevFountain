@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
-import usefetch from "../useFetch";
+import usefetch from "../usefetch";
 import { setUser } from "../../dux/reducers/userReducer";
 import { connect } from "react-redux";
+import './Header.scss'
 
 function Header(props) {
   //calling usefetch and destructering "fetchdata" and "postdata" using aliases userData for fetchdata and login for postData.
@@ -22,9 +23,9 @@ function Header(props) {
   }
 
   return (
-    <div>
+    <div className='login-container'>
       {!props.user.user ? (
-        <div>
+        <div className='login-fields'>
           Email:
           <input onChange={e => setEmail(e.target.value)} />
           Password:

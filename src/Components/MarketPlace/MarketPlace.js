@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { setDevelopers } from "../../dux/reducers/marketplaceReducer";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import UseFetch from "../useFetch";
+import UseFetch from "../usefetch";
 
 function MarketPlace(props) {
   // Setting all users who are developers into the marketplaceReducer
@@ -12,10 +12,13 @@ function MarketPlace(props) {
     props.setDevelopers(devs);
   }, [devs]);
 
+  
+
   // Rendering each developers info on marketplace
-  const developers = props.marketplaceReducer.allDevelopers;
+  const developers = props.marketplace.allDevelopers;
+  console.log(developers)
   let mappedDevs;
-  if (developers.length > 0) {
+  if (developers !== null) {
     mappedDevs = developers.map(dev => {
       const encoded = encodeURIComponent(dev.email);
       return (

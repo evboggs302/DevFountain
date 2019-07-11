@@ -1,0 +1,45 @@
+
+.form-container {
+   
+    background-color: #E1E5EC;
+    // background: transparent;
+    height: 400px;
+    width: 400px;
+    padding: 30px;
+    display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: stretch;
+	align-content: stretch;
+}
+
+.input-box {
+    position: relative;
+    // margin-top: 25px;
+} 
+
+.input-field {
+    width: 100%;
+    padding: 4px;
+}
+
+.help-text {
+    background-color: greenyellow;
+    display: inline-block;
+    position: relative;
+    margin: 8px 0 10px 0;
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 12px;
+}
+
+.help-triangle {
+    color: greenyellow;
+    position: absolute;
+    font-size: 20px; 
+    left: calc(50% - 10px);
+    top: -12px;
+    height: 10px;
+    width: 20px;
+}
