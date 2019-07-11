@@ -52,11 +52,11 @@ function RegisterForm(formikProps) {
                 }
             </div>
             <Field component="select" name="isDeveloper">
-                <option>-Select</option>
+                <option className="select-btn">-Select</option>
                 <option value="developer">Developer</option>
                 <option value="recruiter">Recruiter</option>
             </Field>
-            <button type="submit">Submit</button>
+            <button className="submit-btn"type="submit">Submit</button>
         </Form>
   
   );

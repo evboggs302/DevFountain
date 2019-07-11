@@ -1,8 +1,10 @@
-import React from "react";
+import React, {useEffect} from "react";
 import RecProfile from "./RecProfile";
 import DevProfile from "./DevProfile";
-import Header from '../Header/Header';
+import Header from '../AppHeader/AppHeader';
+import usefetch from "../usefetch";
 import { connect } from "react-redux";
+import { setUser } from "../../dux/reducers/userReducer";
 
 function Profile(props) {
   console.log(props);
@@ -26,6 +28,10 @@ const mapStateToProps = reduxState => {
   return reduxState;
 };
 
-const invokedConnect = connect(mapStateToProps);
+const mapDispatchToProps = {
+  setUser
+};
+
+const invokedConnect = connect(mapStateToProps, mapDispatchToProps);
 
 export default invokedConnect(Profile);

@@ -1,5 +1,5 @@
 .login-container {
-    // background-color: blue;
+    background-color: #10567C;
     height: 50px;
     position: relative;
     display: flex;
@@ -12,4 +12,10 @@
 
 .login-fields {
     align-content: flex-end;
+    padding: 60px 30px;
+    
+}
+
+button {
+    margin-left: 10px;
 }
