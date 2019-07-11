@@ -1,3 +1,19 @@
+.header-home {
+    background-color: gray;
+    height: 60px;
+    padding: 0 10px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+}
+
+
+
+
 .home-register {
     background-image: url('https://res.cloudinary.com/devmountain-phx/image/upload/v1562824290/marvin-meyer-SYTO3xs06fU-unsplash_vodqoy.jpg');
     background-size: cover;

@@ -1,0 +1,15 @@
+.login-container {
+    // background-color: blue;
+    height: 50px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    align-content: center;
+}
+
+.login-fields {
+    align-content: flex-end;
+}
