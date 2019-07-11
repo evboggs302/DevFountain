@@ -21,7 +21,7 @@ function MarketPlace(props) {
   if (developers !== null) {
     mappedDevs = developers.map(dev => {
       const encoded = encodeURIComponent(dev.email);
-      return (
+      return (    
         <Link to={`/api/profile/${encoded}`}>
           <div key={dev.user_id}>
             <img src={dev.profile_pic} />

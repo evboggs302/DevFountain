@@ -21,7 +21,10 @@ function App(props) {
   
   return (
     <div className="App">
-      <Header/>
+      <div className="header">
+        <Header/>
+      </div>
+     
       <ToastContainer autoClose={2000} />
       <Switch>
         <Route exact path="/" component={Home} />

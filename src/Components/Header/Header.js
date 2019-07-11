@@ -19,12 +19,13 @@ function Header(props) {
 
   console.log(props);
   if (props.user && props.user.user && props.user.user.first) {
-    return <Redirect to="/profile" />;
+    return <Redirect to="/profile"/>;
   }
 
   return (
+    //if there is no user, show login fields, otherwise render a logout button if user is logged in. 
     <div className='login-container'>
-      {!props.user.user ? (
+      {!props.user.user? (
         <div className='login-fields'>
           Email:
           <input onChange={e => setEmail(e.target.value)} />
@@ -34,7 +35,7 @@ function Header(props) {
         </div>
       ) : (
         // <div>{`Welcome, ${props.user.user.first} ${props.user.user.last}`}</div>
-        <h1>sup</h1>
+        <button>Logout</button>
       )}
     </div>
   );
