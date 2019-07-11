@@ -22,7 +22,6 @@ function App(props) {
 
   return (
     <div className="App">
-      <Header />
       <ToastContainer autoClose={2000} />
       <Switch>
         <Route exact path="/" component={Home} />
