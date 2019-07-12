@@ -6,27 +6,24 @@ import UseFetch from "../usefetch";
 import AppHeader from '../AppHeader/AppHeader';
 
 function MarketPlace(props) {
-  // Setting all users who are developers into the marketplaceReducer
-  const { data: devs, fetchData: allDevs } = UseFetch("/api/marketplace");
-
-  useEffect(() => {
-    props.setDevelopers(devs);
-  }, [devs]);
-
+  console.log(props)
   
-
   // Rendering each developers info on marketplace
   const developers = props.marketplace.allDevelopers;
-  console.log(props)
+  
+  // console.log(props)
   let mappedDevs;
   if (developers !== null) {
     mappedDevs = developers.map(dev => {
       const encoded = encodeURIComponent(dev.email);
+      const default_pic = 'https://www.uic.mx/posgrados/files/2018/05/default-user.png'
+    
+      
       return (  
         <div>
             <Link to={`/api/profile/${encoded}`}>
           <div key={dev.user_id}>
-            <img src={dev.profile_pic} />
+            {!dev.profile_pic ? <img src= {default_pic} /> : <img src={dev.profile_pic} />}
             <h1>{`${dev.first} ${dev.last}`}</h1>
             <h2>{dev.title} </h2>
             <h2>{dev.email}</h2>
