@@ -20,23 +20,16 @@ function Header(props) {
   console.log(props);
   if (props.user && props.user.user && props.user.user.first) {
     const { email } = props.user.user;
-    return <Redirect to={`/profile/${email}`} />;
+    var encode = encodeURIComponent(email);
+    // return <Redirect to={`/profile/${encode}`} />;
+    return <Redirect to='/marketplace' />
   }
 
   return (
     <div className="login-container">
-      {!props.user.user ? (
-        <div className="login-fields">
-          Email:
-          <input onChange={e => setEmail(e.target.value)} />
-          Password:
-          <input onChange={e => setPassword(e.target.value)} type="password" />
+          <input onChange={e => setEmail(e.target.value)} placeholder="Email"className="input"  />
+          <input onChange={e => setPassword(e.target.value)} type="password" placeholder="Password" className="input" />
           <button onClick={() => login({ email, password })}>Login</button>
-        </div>
-      ) : (
-        // <div>{`Welcome, ${props.user.user.first} ${props.user.user.last}`}</div>
-        <h1>sup</h1>
-      )}
     </div>
   );
 }

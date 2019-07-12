@@ -1,6 +1,16 @@
+$dark-color: #29303B;
+$light-color: #2E3540;
+$blue-color: #3279FF;
+$light-gray: #F5F5F5;
+
+
 .login-container {
-    // background-color: blue;
+    background-color: $light-color;
     height: 50px;
+    color: white;
+    // align-content: flex-end;
+    // padding: 60px 30px;
+    padding-right: 50px;
     position: relative;
     display: flex;
     flex-direction: row;
@@ -10,6 +20,24 @@
     align-content: center;
 }
 
-.login-fields {
-    align-content: flex-end;
+.input {
+    border: none;
+    // height: 15px;
+    // width: 30px;
+    // margin: 10px 8px 10px 0;
+    margin: 6px;
+    padding: 6px 6px;
+}
+
+button {
+    margin-left: 20px;
+    padding: 6px 10px 6px 10px;
+    // border: none;
+    background: transparent;
+    color: white;
+}
+
+button:hover {
+    background-color: $light-gray;
+    color: $dark-color;
 }

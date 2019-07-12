@@ -1,6 +1,10 @@
+$dark-color: #29303B;
+$light-color: #2E3540;
+$blue-color: #3279FF;
+$light-gray: #F5F5F5;
 
 .form-container {
-   
+    border: none;
     background-color: #E1E5EC;
     // background: transparent;
     height: 400px;
@@ -16,30 +20,82 @@
 
 .input-box {
     position: relative;
-    // margin-top: 25px;
+    
 } 
 
 .input-field {
     width: 100%;
-    padding: 4px;
+    padding: 7px 4px;
+    margin: 15px 0 12px;
+    border: none;
 }
 
 .help-text {
-    background-color: greenyellow;
+    background-color: $light-color;
+    color: white;
     display: inline-block;
-    position: relative;
-    margin: 8px 0 10px 0;
-    padding: 6px 12px;
-    font-size: 12px;
+    position: absolute;
+    // margin: 8px 0 10px 0;
+    left: 0;
+    // right: auto;
+    top: 44px;
+    padding: 4px 10px;
+    font-size: 11px;
     border-radius: 12px;
 }
 
 .help-triangle {
-    color: greenyellow;
+    color: $dark-color;
     position: absolute;
     font-size: 20px; 
-    left: calc(50% - 10px);
+    left: 10px;
     top: -12px;
     height: 10px;
     width: 20px;
 }
+
+.select {
+    background-color: $blue-color;
+    color: white;
+    padding: 12px;
+    margin-top: 10px;
+    width: 200px;
+    border: none;
+    outline: none;
+    -webkit-appearance: button;
+    appearance: button;
+  
+}
+
+.select::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    font-size: 28px;
+    line-height: 45px;
+    color: $blue-color;
+    background-color: $blue-color;
+    pointer-events: none;
+}
+
+.select:hover::before {
+        color: rgba(255, 255, 255, 0.6);
+        background-color: rgba(255, 255, 255, 0.2);
+}
+
+.submit-btn {
+    margin: 20px auto;
+    padding: 10px 15px;
+    width: 100%;
+    border-style: none;
+    background: $dark-color;
+    color: white;
+}
+
+// .submit-btn:hover {
+//     background-color: $light-gray;
+//     color: $dark-color;
+// }

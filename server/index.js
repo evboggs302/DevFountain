@@ -30,6 +30,12 @@ const {
   removeSkills
 } = require("./controllers/skillsController");
 
+const {
+  getMyMessages,
+  sendMessage,
+  deleteMessage
+} = require("./controllers/messageController");
+
 const { allUsers } = require("./controllers/marketplaceController");
 
 const {
@@ -83,7 +89,7 @@ app.post("/api/post", createPost);
 //allows editing of a post with a user id and post id. Post id is a param
 app.put("/api/post/:id", changePost);
 // delets a post with the same id's as the put endpoint
-app.delete("/api/post/:id", removePost);
+app.delete("/api/post/:uid/:id", removePost);
 
 // likes endpoints
 // takes a post id as a param and gets all the likes on that post
@@ -97,10 +103,9 @@ app.delete("/api/likes/:id", unlike);
 app.get("/api/marketplace", allUsers);
 
 //message endpoints
-// app.get();
-// app.post();
-// app.put();
-// app.delete();
+app.get("/api/messages", getMyMessages);
+app.post("/api/messages/:email", sendMessage);
+app.delete("api/messages/:id", deleteMessage);
 
 // Nodemailer
 app.post("/api/send", (req, res, next) => {
