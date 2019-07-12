@@ -1,25 +1,73 @@
-import React, { useEffect } from "react";
-import RecProfile from "./RecProfile";
-import DevProfile from "./DevProfile";
-import Header from "../AppHeader/AppHeader";
-import usefetch from "../usefetch";
+import React, { useState, useEffect } from "react";
+import AppHeader from "../AppHeader/AppHeader";
+import { Link, NavLink } from "react-router-dom";
+import EditProfile from "./EditProfile";
+// import usefetch from "../usefetch";
 import { connect } from "react-redux";
 import { setUser } from "../../dux/reducers/userReducer";
 
 function Profile(props) {
   console.log(props);
+  const decoded = decodeURIComponent(props.match.params.email);
+  const current = props.user.user.email === decoded;
+  const { allSkills } = props.skills;
+
+  let [className, setClassName] = useState("profile");
+
+  const {
+    developer,
+    email,
+    first,
+    last,
+    linkedin,
+    portfolio,
+    profile_pic,
+    title,
+    user_id
+  } = props.user.user;
+
   return (
     <div>
+      {/* <div> */}
+      <AppHeader {...props} />
+      {/* </div> */}
       <div>
-        <Header {...props} />
+        <div>
+          <div>
+            <img src={profile_pic} />
+          </div>
+          <div>{`${first} ${last}`}</div>
+          <div>{title}</div>
+        </div>
+        <div>
+          Contact Info
+          <div>
+            <a href={portfolio} target="_blank">
+              Portfolio
+            </a>
+          </div>
+          <div>
+            <a href={email} target="_blank">
+              Email
+            </a>
+          </div>
+          <div>
+            <a href={linkedin} target="_blank">
+              LinkedIn
+            </a>
+          </div>
+          {current ? (
+            <button onClick={() => setClassName(className + " edit")}>
+              Edit Profile
+            </button>
+          ) : (
+            <button>Follow</button>
+          )}
+        </div>
       </div>
-      {/* conditionally rending whether the user is a developer. If the user is not a developer, profile will render the
-        recruiter profile */}
-      {props.user.user && props.user.user.developer ? (
-        <DevProfile {...props} />
-      ) : (
-        <RecProfile {...props} />
-      )}
+      <div className={className}>
+        <EditProfile {...props} />
+      </div>
     </div>
   );
 }
