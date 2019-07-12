@@ -1,29 +1,32 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { setUser } from "../../dux/reducers/userReducer";
 
-function RecProfile(props){
-    console.log(props)
-        return (
-            <div>
-                {this.props.user.email === this.props.match.params.email ?
-                <button>Edit buttons</button> :
-                <button>Like</button>
-                }
-            </div>
-        )
-    }
+function RecProfile(props) {
+  console.log(props);
+  const decoded = decodeURIComponent(props.match.params.email);
+  return (
+    <div>
+      {props.user.user.email === decoded ? (
+        <button>Edit buttons</button>
+      ) : (
+        <button>Like</button>
+      )}
+    </div>
+  );
+}
 
 const mapStateToProps = reduxState => {
-    return reduxState;
+  return reduxState;
 };
 
 const mapDispatchToProps = {
-    setUser
+  setUser
 };
-      
+
 const invokedConnect = connect(
-    mapStateToProps,mapDispatchToProps
-    );
-      
-export default invokedConnect(RecProfile)
+  mapStateToProps,
+  mapDispatchToProps
+);
+
+export default invokedConnect(RecProfile);
