@@ -97,14 +97,14 @@ const Formik = withFormik({
   mapPropsToValues(props) {
     theProps = props;
     console.log(props);
-    const { email, password, first, last, isDeveloper } = props;
-    console.log(isDeveloper);
+    // const { email, password, first, last, isDeveloper } = props;
+    // console.log(isDeveloper);
     return {
-      first: first || "",
-      last: last || "",
-      email: email || "",
-      password: password || "",
-      isDeveloper: isDeveloper || ""
+      first: "",
+      last: "",
+      email: "",
+      password: "",
+      isDeveloper: ""
     };
   },
   // validates if the data the user inputs is good
@@ -121,6 +121,8 @@ const Formik = withFormik({
 
   handleSubmit(values, { resetForm }) {
     const { first, last, email, password, isDeveloper } = values;
+    const default_pic =
+      "https://www.uic.mx/posgrados/files/2018/05/default-user.png";
     console.log(isDeveloper);
 
     let developer;
@@ -131,13 +133,20 @@ const Formik = withFormik({
     }
 
     axios
-      .post("/api/register", { first, last, developer, email, password })
+      .post("/api/register", {
+        first,
+        last,
+        developer,
+        email,
+        password,
+        default_pic
+      })
       .then(res => {
         console.log(res.data);
         if (res.data === "Email already exists!") {
           alert("Email already exists!");
         } else {
-          theProps.setUser({ first, last, developer, email });
+          theProps.setUser({ first, last, developer, email, default_pic });
           resetForm();
         }
       })
