@@ -74,12 +74,15 @@ export default function UseFetch(url, getExists = true, iV = null) {
 
   return {
     data,
+    setData,
     postData,
     loading,
     postDataWithId,
     fetchDataWithId,
     fetchData,
     deleteData,
-    putData
+    putData,
+    loading,
+    setLoading
   };
 }

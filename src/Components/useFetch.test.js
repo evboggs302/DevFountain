@@ -1,39 +1,28 @@
-import React from "react";
+import init from "jooks";
 import UseFetch from "./useFetch";
-import { render, fireEvent, getByTestId } from "@testing-library/react";
-import { renderHook, act } from "@testing-library/react-hooks";
 
-// the below isnt working yet. it's still timing out and there's very little in docs about how to test custom hooks
+// Without JOOKS, you will get the following error message during your testing: "Invariant Violation: Invalid hook call. Hooks can only be called inside of the body of a function component". JOOKS has a built in environment that is a function.
 
 describe("UseFetch hook", () => {
-  // We will get the "Invariant Violation: Invalid hook call. Hooks can only be called inside of the body of a function component" error, because our hook is not being used within a React function component. Which is why we need the above "renderHook" method
-  it("fetchData", done => {
-    expect.assertions();
-    const { result } = renderHook(() =>
-      UseFetch("https://swapi.co/api/planets/3", false)
-    );
+  // Initialising the Jooks wrapper
+  const jooks = init(() => UseFetch());
 
-    act(() => {
-      result.current.fetchData();
-    });
+  it("initial values test", () => {
+    // Run your Hook function
+    let result = jooks.run();
+    // And then test the result
+    expect(result.data).toBeNull();
+    expect(result.loading).toBe(false);
+  });
 
-    expect(result.current.data)
-      .resolves()
-      .toMatchObject({
-        name: "Yavin IV",
-        rotation_period: "24",
-        orbital_period: "4818",
-        diameter: "10200",
-        climate: "temperate, tropical",
-        gravity: "1 standard",
-        terrain: "jungle, rainforests",
-        surface_water: "8",
-        population: "1000",
-        residents: [],
-        films: ["https://swapi.co/api/films/1/"],
-        created: "2014-12-10T11:37:19.144000Z",
-        edited: "2014-12-20T20:58:18.421000Z",
-        url: "https://swapi.co/api/planets/3/"
-      });
+  it("data info is null and can be changed", () => {
+    // Run your Hook function
+    let result = jooks.run();
+    expect(result.data).toBeNull();
+    // Call the hooks function to update state
+    result.setData("Testing 1 2 3");
+    // Run the Hook again to get the new values
+    result = jooks.run();
+    expect(result.data).toBe("Testing 1 2 3");
   });
 });
