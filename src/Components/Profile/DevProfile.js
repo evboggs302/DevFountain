@@ -9,6 +9,7 @@ function DevProfile(props) {
       {encodeURIComponent(props.user.user.email) ===
       props.match.params.email ? (
         <button>Edit buttons</button>
+        
       ) : (
         <button>Like</button>
       )}

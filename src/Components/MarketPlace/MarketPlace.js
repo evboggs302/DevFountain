@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import UseFetch from "../usefetch";
 import AppHeader from '../AppHeader/AppHeader';
+import './MarketPlace.scss'
 
 function MarketPlace(props) {
   console.log(props)
@@ -20,17 +21,15 @@ function MarketPlace(props) {
     
       
       return (  
-        <div>
-            <Link to={`/api/profile/${encoded}`}>
-          <div key={dev.user_id}>
+        <Link to={`/api/profile/${encoded}`} style={{ textDecoration: 'none' }} >
+          <div key={dev.user_id} className='developer-card'>
             {!dev.profile_pic ? <img src= {default_pic} /> : <img src={dev.profile_pic} />}
-            <h1>{`${dev.first} ${dev.last}`}</h1>
-            <h2>{dev.title} </h2>
-            <h2>{dev.email}</h2>
+            <h1 className='dev-name'>Name: {`${dev.first} ${dev.last}`}</h1>
+            <h2 className='dev-title'>Title: {dev.title} </h2>
+            <h2 className='dev-email'>Email: {dev.email}</h2>
+            <button className='view-developer'>View Developer</button>
           </div>
         </Link>
-
-        </div>
       
       );
     });
@@ -39,8 +38,10 @@ function MarketPlace(props) {
   return (
     <div>
      <AppHeader/>
-      Mapped Devs
-      {mappedDevs}
+      <main className='devs'>
+        {mappedDevs}
+      </main>
+      
     </div>
   );
 }

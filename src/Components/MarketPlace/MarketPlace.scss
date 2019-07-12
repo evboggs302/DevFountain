@@ -1,0 +1,43 @@
+.devs{
+    display: flex;
+    background: lightgrey;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    text-decoration: none !important;
+}
+.developer-card {
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 10px;
+    width: 21em;
+    height: 25em;
+    border: 2px solid black;
+    
+}
+
+.developer-card > img {
+    width: 200px;
+}
+
+.dev-name, .dev-email, .dev-title {
+    color: black;
+    font-size: 15px;
+}
+
+.view-developer {
+    background: black;
+    border: none;
+    margin: 0 auto;
+    width: 60%;
+    height: 4vh;
+}
+
+.view-developer:hover{
+    background: white;
+    border: black 2px solid;
+    color: black;
+    cursor: pointer;
+}
