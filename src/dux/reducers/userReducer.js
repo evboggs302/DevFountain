@@ -10,7 +10,7 @@ export default function userReducer(state = initialState, action) {
       console.log("this is the user who logged in ", action.payload);
       return { ...state, user: action.payload };
     default:
-      return "this is the initial state", state;
+      return state;
   }
 }
 

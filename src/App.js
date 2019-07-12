@@ -3,7 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import Home from "./Components/Home/Home";
 import Profile from "./Components/Profile/Profile";
 import MarketPlace from "./Components/MarketPlace/MarketPlace";
-import Header from "./Components/Header/Header";
+// import Header from "./Components/Header/Header";
 import "./reset.css";
 import "./App.scss";
 import { connect } from "react-redux";
@@ -15,17 +15,17 @@ import { ToastContainer } from "react-toastify";
 function App(props) {
   const { data: skills } = UseFetch("/api/allskills", true, []);
 
-   //Getting all developers from marketplace endpoint
-   const { data: devs } = UseFetch("/api/marketplace", true, []);
-  
-  console.log(devs)
+  //Getting all developers from marketplace endpoint
+  const { data: devs } = UseFetch("/api/marketplace", true, []);
+
+  console.log(devs);
   useEffect(() => {
-    props.setSkills(skills)
+    props.setSkills(skills);
   }, [skills]);
 
   useEffect(() => {
-    props.setDevelopers(devs)
-  }, [devs])
+    props.setDevelopers(devs);
+  }, [devs]);
 
   console.log(props);
 
