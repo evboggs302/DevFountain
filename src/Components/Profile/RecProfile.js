@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
+import { setUser } from "../../dux/reducers/userReducer";
 
-class RecProfile extends Component {
-    render () {
+function RecProfile(props){
+    console.log(props)
         return (
             <div>
                 {this.props.user.email === this.props.match.params.email ?
@@ -11,7 +13,17 @@ class RecProfile extends Component {
             </div>
         )
     }
-   
-}
 
-export default RecProfile
+const mapStateToProps = reduxState => {
+    return reduxState;
+};
+
+const mapDispatchToProps = {
+    setUser
+};
+      
+const invokedConnect = connect(
+    mapStateToProps,mapDispatchToProps
+    );
+      
+export default invokedConnect(RecProfile)
