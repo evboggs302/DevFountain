@@ -21,7 +21,8 @@ function Header(props) {
   if (props.user && props.user.user && props.user.user.first) {
     const { email } = props.user.user;
     var encode = encodeURIComponent(email);
-    return <Redirect to={`/profile/${encode}`} />;
+    // return <Redirect to={`/profile/${encode}`} />;
+    return <Redirect to='/marketplace' />
   }
 
   return (

@@ -8,15 +8,24 @@ import "./reset.css";
 import "./App.scss";
 import { connect } from "react-redux";
 import { setSkills } from "./dux/reducers/skillsReducer";
+import { setDevelopers } from "./dux/reducers/marketplaceReducer";
 import UseFetch from "./Components/usefetch";
 import { ToastContainer } from "react-toastify";
 
 function App(props) {
   const { data: skills } = UseFetch("/api/allskills", true, []);
 
+   //Getting all developers from marketplace endpoint
+   const { data: devs } = UseFetch("/api/marketplace", true, []);
+  
+  console.log(devs)
   useEffect(() => {
-    props.setSkills(skills);
+    props.setSkills(skills)
   }, [skills]);
+
+  useEffect(() => {
+    props.setDevelopers(devs)
+  }, [devs])
 
   console.log(props);
 
@@ -37,7 +46,8 @@ const mapPropsToState = reduxState => {
 };
 
 const mappedDispatchToProps = {
-  setSkills
+  setSkills,
+  setDevelopers
 };
 
 const myConnect = connect(
