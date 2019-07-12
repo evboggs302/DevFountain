@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { setUser } from "../../dux/reducers/userReducer";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
 import "./AppHeader.scss";
 import axios from "axios";
 
