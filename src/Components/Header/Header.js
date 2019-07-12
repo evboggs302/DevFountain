@@ -27,13 +27,9 @@ function Header(props) {
 
   return (
     <div className="login-container">
-        <div className="login-fields">
-          Email:
-          <input onChange={e => setEmail(e.target.value)} />
-          Password:
-          <input onChange={e => setPassword(e.target.value)} type="password" />
+          <input onChange={e => setEmail(e.target.value)} placeholder="Email"className="input"  />
+          <input onChange={e => setPassword(e.target.value)} type="password" placeholder="Password" className="input" />
           <button onClick={() => login({ email, password })}>Login</button>
-        </div>
     </div>
   );
 }

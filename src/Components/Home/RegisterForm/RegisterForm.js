@@ -53,12 +53,12 @@ function RegisterForm(formikProps) {
                     </div>
                 }
             </div>
-            <Field component="select" name="isDeveloper">
-                <option className="select-btn">-Select</option>
+            <Field component="select" name="isDeveloper" className='select'>
+                <option>Select</option>
                 <option value="developer">Developer</option>
                 <option value="recruiter">Recruiter</option>
             </Field>
-            <NavLink to='/profile'><button className="submit-btn"type="submit">Submit</button></NavLink>
+            <NavLink to='/profile'><button className="submit-btn"type="submit">Join now</button></NavLink>
         </Form>
   
   );
