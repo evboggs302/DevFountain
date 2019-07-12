@@ -21,7 +21,7 @@ function MarketPlace(props) {
     
       
       return (  
-        <Link to={`/api/profile/${encoded}`} style={{ textDecoration: 'none' }} >
+        <Link to={`/profile/${encoded}`} style={{ textDecoration: 'none' }} >
           <div key={dev.user_id} className='developer-card'>
             {!dev.profile_pic ? <img src= {default_pic} /> : <img src={dev.profile_pic} />}
             <h1 className='dev-name'>Name: {`${dev.first} ${dev.last}`}</h1>
