@@ -22,7 +22,7 @@ function AppHeader(props) {
 
   return (
     <div className="app-header">
-      <button onClick={() => logout()}>Logout</button>
+      <button className="logout-btn" onClick={() => logout()}>Logout</button>
     </div>
   );
 }
