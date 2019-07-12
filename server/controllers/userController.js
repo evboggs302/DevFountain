@@ -46,7 +46,10 @@ module.exports = {
     });
   },
   register: (req, res, next) => {
-    const { first, last, developer, email, password } = req.body;
+
+    //default profile pic for users when they sign up
+    
+    const { first, last, developer, email, password, default_pic } = req.body;
     const db = req.app.get("db");
     db.check_existing_users(email).then(found => {
       if (found.length) {
@@ -54,7 +57,7 @@ module.exports = {
       } else {
         bcrypt.genSalt(saltRounds).then(salt => {
           bcrypt.hash(password, salt).then(hashedPassword => {
-            db.register([first, last, developer, email, hashedPassword]).then(
+            db.register([first, last, developer, email, hashedPassword, default_pic]).then(
               createdUser => {
                 (req.session.user = createdUser[0]),
                   res.status(200).send(req.session.user);

@@ -17,7 +17,6 @@ function Header(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  console.log(props);
   if (props.user && props.user.user && props.user.user.first) {
     const { email } = props.user.user;
     var encode = encodeURIComponent(email);
