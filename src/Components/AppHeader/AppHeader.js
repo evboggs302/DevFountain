@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { setUser } from "../../dux/reducers/userReducer";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import './AppHeader.scss'
 import Axios from "axios";
 
@@ -10,21 +10,28 @@ import Axios from "axios";
 class AppHeader extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+            redirect: false
+        }
     }
 
 logout = () => {
     Axios.get('/api/logout').then(res => {
     console.log('user logged out')
     this.props.setUser(null)
+    this.setState({
+        redirect: true
+        })
     })
 }
 
     render() {
+        if(this.state.redirect) {
+           return <Redirect to="/" />
+        }
         return (
             <div className="app-header">
-                <NavLink exact to="/">
                <button onClick={() => this.logout()}>Logout</button>
-                </NavLink>
             </div>
         )
     }
