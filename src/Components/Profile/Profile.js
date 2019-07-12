@@ -1,25 +1,68 @@
 import React, { useEffect } from "react";
-import RecProfile from "./RecProfile";
-import DevProfile from "./DevProfile";
-import Header from "../AppHeader/AppHeader";
-import usefetch from "../usefetch";
+import AppHeader from "../AppHeader/AppHeader";
+import { Link, NavLink } from "react-router-dom";
+// import usefetch from "../usefetch";
 import { connect } from "react-redux";
 import { setUser } from "../../dux/reducers/userReducer";
 
 function Profile(props) {
   console.log(props);
+  const decoded = decodeURIComponent(props.match.params.email);
+  const current = props.user.user.email === decoded;
+
+  const { allSkills } = props.skills;
+
+  const {
+    developer,
+    email,
+    first,
+    last,
+    linkedin,
+    portfolio,
+    profile_pic,
+    title,
+    user_id
+  } = props.user.user;
+
   return (
     <div>
+      {/* <div> */}
+      <AppHeader {...props} />
+      {/* </div> */}
       <div>
-        <Header {...props} />
+        <div>
+          <img src={profile_pic} />
+          {current ? <button>Edit Button</button> : null}
+        </div>
+        <div>
+          {`${first} ${last}`}
+          {current ? <button>Edit Button</button> : null}
+        </div>
+        <div>
+          {title}
+          {current ? <button>Edit Button</button> : null}
+        </div>
       </div>
-      {/* conditionally rending whether the user is a developer. If the user is not a developer, profile will render the
-        recruiter profile */}
-      {props.user.user && props.user.user.developer ? (
-        <DevProfile {...props} />
-      ) : (
-        <RecProfile {...props} />
-      )}
+      <div>
+        Contact Info
+        <div>
+          <Link to={portfolio}>Portfolio</Link>
+          {current ? <button>Edit Button</button> : null}
+        </div>
+        <div>
+          {/* <Link to={email}>Email</Link> */}
+          <Link to="evboggs94@gmail.com">Email</Link>
+          {current ? <button>Edit Button</button> : null}
+        </div>
+        <div>
+          {/* <Link to={linkedin}>LinkedIn</Link> */}
+          <NavLink to="https://www.linkedin.com/in/evansboggs/">
+            LinkedIn
+          </NavLink>
+          {linkedin}
+          {current ? <button>Edit Button</button> : null}
+        </div>
+      </div>
     </div>
   );
 }
