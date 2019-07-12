@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { setUser } from "../../dux/reducers/userReducer";
 
+
 function RecProfile(props) {
   console.log(props);
   const decoded = decodeURIComponent(props.match.params.email);
