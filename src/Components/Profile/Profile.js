@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import AppHeader from "../AppHeader/AppHeader";
 import { Link, NavLink } from "react-router-dom";
+import EditProfile from "./EditProfile";
 // import usefetch from "../usefetch";
 import { connect } from "react-redux";
 import { setUser } from "../../dux/reducers/userReducer";
@@ -9,8 +10,9 @@ function Profile(props) {
   console.log(props);
   const decoded = decodeURIComponent(props.match.params.email);
   const current = props.user.user.email === decoded;
-
   const { allSkills } = props.skills;
+
+  let [className, setClassName] = useState("profile");
 
   const {
     developer,
@@ -31,37 +33,40 @@ function Profile(props) {
       {/* </div> */}
       <div>
         <div>
-          <img src={profile_pic} />
-          {current ? <button>Edit Button</button> : null}
+          <div>
+            <img src={profile_pic} />
+          </div>
+          <div>{`${first} ${last}`}</div>
+          <div>{title}</div>
         </div>
         <div>
-          {`${first} ${last}`}
-          {current ? <button>Edit Button</button> : null}
-        </div>
-        <div>
-          {title}
-          {current ? <button>Edit Button</button> : null}
+          Contact Info
+          <div>
+            <a href={portfolio} target="_blank">
+              Portfolio
+            </a>
+          </div>
+          <div>
+            <a href={email} target="_blank">
+              Email
+            </a>
+          </div>
+          <div>
+            <a href={linkedin} target="_blank">
+              LinkedIn
+            </a>
+          </div>
+          {current ? (
+            <button onClick={() => setClassName(className + " edit")}>
+              Edit Profile
+            </button>
+          ) : (
+            <button>Follow</button>
+          )}
         </div>
       </div>
-      <div>
-        Contact Info
-        <div>
-          <Link to={portfolio}>Portfolio</Link>
-          {current ? <button>Edit Button</button> : null}
-        </div>
-        <div>
-          {/* <Link to={email}>Email</Link> */}
-          <Link to="evboggs94@gmail.com">Email</Link>
-          {current ? <button>Edit Button</button> : null}
-        </div>
-        <div>
-          {/* <Link to={linkedin}>LinkedIn</Link> */}
-          <NavLink to="https://www.linkedin.com/in/evansboggs/">
-            LinkedIn
-          </NavLink>
-          {linkedin}
-          {current ? <button>Edit Button</button> : null}
-        </div>
+      <div className={className}>
+        <EditProfile {...props} />
       </div>
     </div>
   );
