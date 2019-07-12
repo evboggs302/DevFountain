@@ -22,14 +22,23 @@ function Header(props) {
     const { email } = props.user.user;
     var encode = encodeURIComponent(email);
     // return <Redirect to={`/profile/${encode}`} />;
-    return <Redirect to='/marketplace' />
+    return <Redirect to="/marketplace" />;
   }
 
   return (
     <div className="login-container">
-          <input onChange={e => setEmail(e.target.value)} placeholder="Email"className="input"  />
-          <input onChange={e => setPassword(e.target.value)} type="password" placeholder="Password" className="input" />
-          <button onClick={() => login({ email, password })}>Login</button>
+      <input
+        onChange={e => setEmail(e.target.value)}
+        placeholder="Email"
+        className="input"
+      />
+      <input
+        onChange={e => setPassword(e.target.value)}
+        type="password"
+        placeholder="Password"
+        className="input"
+      />
+      <button onClick={() => login({ email, password })}>Login</button>
     </div>
   );
 }

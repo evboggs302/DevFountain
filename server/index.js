@@ -1,9 +1,15 @@
 const express = require("express");
 const app = express();
+// const server = require("http").createServer(app);
+// const sessionService = require("./sessionService");
+const session = require("express-session");
+// const io = require("socket.io")(server);
+// var pgSession = require("connect-pg-simple")(session);
+// const cookieParser = require("cookie-parser");
 const massive = require("massive");
 require("dotenv").config();
 app.use(express.json());
-const session = require("express-session");
+// app.user(cookieParser("somesecret"))
 const nodemailer = require("nodemailer");
 
 const {
@@ -49,19 +55,26 @@ const {
 app.use(express.json());
 app.use(
   session({
+    //store: new pgSession(P{
+    //  conString: process.env.CONNECTION_STRING
+    // })
     saveUninitialized: false,
     secret: SESSION_SECRET,
     resave: true,
+    //key: "express.sid"
     cookie: {
       maxAge: 1209600000 // 2week cookie
     }
   })
 );
 
+// let db;
 massive(CONNECTION_STRING).then(db => {
   app.set("db", db);
   console.log("db is connected");
 });
+
+// massive(CONNECTION_STRING).then(dbInstance => )
 
 // user EndPoints
 app.post("/api/login", login);
