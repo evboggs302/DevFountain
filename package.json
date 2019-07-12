@@ -35,8 +35,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "jest": "jest"
+    "jest": "jest",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -57,20 +57,5 @@
     "@testing-library/react": "^8.0.4",
     "@testing-library/react-hooks": "^1.1.0",
     "concurrently": "^4.1.1"
-  },
-  "description": "Sup Group!",
-  "directories": {
-    "test": "test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Joe-Esgar/DevFountain.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Joe-Esgar/DevFountain/issues"
-  },
-  "homepage": "https://github.com/Joe-Esgar/DevFountain#readme"
+  }
 }
