@@ -63,13 +63,13 @@ github.com --> pull requests --> New pull request
 - When testing the connection a call makes to the server/DB, reference the successful tests in in the below path:
 
 ```
-server/controllers/userController.test.js
+src/TESTS/userController.test.js
 ```
 
 - To make these tests run, you will need to use the below command line for the correst test to run;
 
 ```
-npm run jest
+npm run test
 ```
 
 ## _Unit Testing (single function)_
@@ -77,13 +77,14 @@ npm run jest
 - When testing the data and functionality of a hook, reference the successful tests in in in the below path:
 
 ```
-src/testHook.test.js
+src/TESTS/testHook.test.js
+src/TESTS/useFetch.test.js
 ```
 
 - To make these tests run, you will need to use the below command line for the correst test to run;
 
 ```
-npm test
+npm run test
 ```
 
 ##### _This README created by [Evan Boggs](https://github.com/evboggs302)_
