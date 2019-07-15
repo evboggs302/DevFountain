@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import RegisterForm from "./RegisterForm/RegisterForm";
 import Header from "../Header/Header";
 import "./Home.scss";
@@ -8,10 +8,10 @@ function Home(props) {
   return (
     <div>
       <div>
-        <Header />
+        <Header {...props} />
       </div>
       <div className="home-register">
-        <RegisterForm />
+        <RegisterForm {...props} />
       </div>
     </div>
   );
