@@ -18,7 +18,6 @@ function App(props) {
   //Getting all developers from marketplace endpoint
   const { data: devs } = UseFetch("/api/marketplace", true, []);
 
-  console.log(devs);
   useEffect(() => {
     props.setSkills(skills);
   }, [skills]);

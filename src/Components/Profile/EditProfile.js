@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { setUser } from "../../dux/reducers/userReducer";
 
 function EditProfile(props) {
-  console.log(props);
+  const { allSkills } = props.skills;
   const {
     developer,
     email,
@@ -27,6 +27,10 @@ function EditProfile(props) {
   let [newPic, setPic] = useState(null);
 
   let { postDataWithId: updateInfo } = usefetch("/api/edit", false);
+  let { postDataWithId: addSkill, deleteData: removeSkill } = usefetch(
+    "/api/skills/:id",
+    false
+  );
 
   const finished = () => {
     let dataToPost = {
@@ -36,6 +40,7 @@ function EditProfile(props) {
       linkedin: newLinked || linkedin,
       portfolio: newPortfolio || portfolio,
       profile_pic: newPic || profile_pic
+      // skills: newSkills || skills
     };
     updateInfo(user_id, dataToPost);
     setClassName("profile");
