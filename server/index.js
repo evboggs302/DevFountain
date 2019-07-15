@@ -1,9 +1,17 @@
 const express = require("express");
 const app = express();
+const server = require("http").createServer(app);
+const sessionService = require("./sessionService");
+const session = require("express-session");
+const io = require("socket.io")(server);
+// pgSession handles connecting to the db to the session table
+var pgSession = require("connect-pg-simple")(session);
+// handles the cookie data
+const cookieParser = require("cookie-parser");
 const massive = require("massive");
 require("dotenv").config();
 app.use(express.json());
-const session = require("express-session");
+
 const nodemailer = require("nodemailer");
 const cloudinary = require("cloudinary");
 
@@ -27,8 +35,7 @@ const { getLikes, like, unlike } = require("./controllers/likeController");
 const {
   getAllSkills,
   getMySkills,
-  addSkills,
-  removeSkills
+  newSkills
 } = require("./controllers/skillsController");
 
 const {
@@ -48,21 +55,56 @@ const {
   CLOUDINARY_SECRET_API
 } = process.env;
 
-app.use(express.json());
+app.use(cookieParser(SESSION_SECRET));
+
 app.use(
   session({
+    store: new pgSession({
+      conString: CONNECTION_STRING
+    }),
     saveUninitialized: false,
     secret: SESSION_SECRET,
     resave: true,
+    key: "express.sid", // not sure what this is
     cookie: {
       maxAge: 1209600000 // 2week cookie
     }
   })
 );
 
-massive(CONNECTION_STRING).then(db => {
+// not sure of the difference
+let db;
+massive(CONNECTION_STRING).then(databaseInstance => {
+  db = databaseInstance;
   app.set("db", db);
-  console.log("db is connected");
+});
+
+io.use(function(socket, next) {
+  const parseCookie = cookieParser(SESSION_SECRET);
+  let handshake = socket.request;
+  parseCookie(handshake, null, function(err, data) {
+    sessionService.get(handshake, next, db);
+  });
+});
+
+// app.get("/", (req, res) => {
+//   if (req.query.name) {
+//     req.session.user = req.query.name;
+//     res.send(req.session);
+//   } else {
+//     res.send("send a name query");
+//   }
+// });
+
+io.sockets.on("connection", socket => {
+  console.log("cool", socket.request.session.sess);
+  io.on("message", userMessage => {
+    const { email, message } = userMessage;
+    io.emit("message", `${email} || ${message}`);
+  });
+  io.on("join room", info => {
+    joinRoom(info, socket, db);
+  });
 });
 
 // user EndPoints
@@ -79,9 +121,7 @@ app.get("/api/allskills", getAllSkills);
 // returns the skill id's and the user's id
 app.get("/api/skills/:email", getMySkills);
 // takes a skill id as a param and the user's id off their session to add a skill
-app.post("/api/skills/:id", addSkills);
-// does the same as the post to delete the skill from the list
-app.delete("/api/skills/:id", removeSkills);
+app.put("/api/skills/", newSkills);
 
 // post endpoints
 //gets all of a user's posts with their email
@@ -109,7 +149,11 @@ app.get("/api/messages", getMyMessages);
 app.post("/api/messages/:email", sendMessage);
 app.delete("api/messages/:id", deleteMessage);
 
-
+// Following Endpoints
+const {getWhoIamFollowing, follow, followingPosts} = require('./controllers/followController')
+app.get('/api/following/:id', getWhoIamFollowing )
+app.post('/api/follow', follow)
+app.get('/api/following-posts/:id', followingPosts )
 
 
 // Nodemailer
@@ -170,4 +214,4 @@ app.get('/api/upload', (req, res) => {
 
 const port = SERVER_PORT || 4000;
 console.log(port);
-app.listen(port, () => console.log(`Listening on port ${port}`));
+server.listen(port, () => console.log(`Listening on port ${port}`));

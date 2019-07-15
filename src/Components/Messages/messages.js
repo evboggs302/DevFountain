@@ -1,12 +1,12 @@
-import React from "react";
-import UseFetch from "../usefetch";
-import {
-  setFromUser,
-  setMessage,
-  setTimeSent
-} from "../../dux/reducers/messageReducer";
+import React, { useState, useEffect } from "react";
+import usefetch from "../usefetch";
+import { connect } from "react-redux";
+import { setMessages } from "../../dux/reducers/messageReducer";
 
 function Messages(props) {
+  console.log(props);
+  const { data: messages } = usefetch("/api/messages", true, []);
+  props.setMessages(messages);
   return <div />;
 }
 
@@ -15,9 +15,7 @@ const mapStateToProps = reduxState => {
 };
 
 const mapDispatchToProps = {
-  setFromUser,
-  setMessage,
-  setTimeSent
+  setMessages
 };
 
 const invokedConnect = connect(

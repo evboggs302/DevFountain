@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import usefetch from "../usefetch";
-import { connect, useDispatch } from "react-redux";
+import { connect} from "react-redux";
 import { setUser } from "../../dux/reducers/userReducer";
+import { connect } from "react-redux";
+import { setMySkills } from "../../dux/reducers/skillsReducer";
+import Select from "react-select";
 import Axios from "axios";
 
 
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/devmountain-phx/image/upload'
 
-
-
 function EditProfile(props) {
-  console.log(props);
+  const { allSkills, mySkills } = props.skills;
   const {
     developer,
     email,
@@ -25,6 +26,7 @@ function EditProfile(props) {
   } = props.user.user;
 
   let [newFirst, setFirst] = useState(null);
+  let [newSkills, setSkills] = useState(mySkills);
   let [newLast, setLast] = useState(null);
   let [newTitle, setTitle] = useState(null);
   let [newLinked, setLinked] = useState(null);
@@ -35,6 +37,18 @@ function EditProfile(props) {
 
 
   let { postDataWithId: updateInfo } = usefetch("/api/edit", false);
+  let { putData: updateSkills } = usefetch(`/api/skills/${user_id}`, false);
+
+  // console.log(allSkills);
+  var options = [];
+  allSkills.map(e => {
+    return options.push({
+      value: e.skill,
+      label: e.skill,
+      skill_id: e.skill_id,
+      icon: e.icon
+    });
+  });
 
   const finished = () => {
     let dataToPost = {
@@ -42,10 +56,14 @@ function EditProfile(props) {
       last: newLast || last,
       title: newTitle || title,
       linkedin: newLinked || linkedin,
-      portfolio: newPortfolio || portfolio
       // profile_pic: newPic || profile_pic
+      portfolio: newPortfolio || portfolio,
+      profile_pic: newPic || profile_pic
+      // skills: newSkills || mySkills
     };
     updateInfo(user_id, dataToPost);
+    setMySkills(newSkills);
+    updateSkills(user_id, newSkills);
     setClassName("profile");
   };
 
@@ -78,6 +96,28 @@ function saveImageToDB(){
   Axios.post('/api/image', uploadedImage) 
 }
 
+  var titleFiller;
+  if (!title) {
+    titleFiller = "Your Title";
+  } else {
+    titleFiller = title;
+  }
+  var linkedinFiller;
+  if (!linkedin) {
+    linkedinFiller = "Your LinkedIn";
+  } else {
+    linkedinFiller = title;
+  }
+  var portfolioFiller;
+  if (!portfolio) {
+    portfolioFiller = "Your Portfolio";
+  } else {
+    portfolioFiller = title;
+  }
+
+  console.log("props:", props);
+  console.log("options", options);
+  console.log("my skills", newSkills);
 
   return (
     <div className={className}>
@@ -92,8 +132,10 @@ function saveImageToDB(){
           <input placeholder={last} onChange={e => setLast(e.target.value)} />
         </div>
         <div>
-          {title}
-          <input placeholder={title} onChange={e => setTitle(e.target.value)} />
+          <input
+            placeholder={titleFiller}
+            onChange={e => setTitle(e.target.value)}
+          />
         </div>
         <div>
 
@@ -101,16 +143,24 @@ function saveImageToDB(){
         </div>
         <div>
           <input
-            placeholder={linkedin}
+            placeholder={linkedinFiller}
             onChange={e => setLinked(e.target.value)}
           />
         </div>
         <div>
           <input
-            placeholder={portfolio}
+            placeHolder={portfolioFiller}
             onChange={e => setPortfolio(e.target.value)}
           />
         </div>
+        <Select
+          closeMenuOnSelect={false}
+          defaultValue={"Select Your Skills"}
+          isMulti
+          name="colors"
+          options={options}
+          onChange={setSkills}
+        />
       </div>
       <button onClick={() => finished()}>Finished Editing</button>
        
@@ -124,7 +174,7 @@ const mapStateToProps = reduxState => {
 };
 
 const mapDispatchToProps = {
-  setUser
+  setMySkills
 };
 
 const invokedConnect = connect(
