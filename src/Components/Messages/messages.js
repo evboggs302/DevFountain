@@ -5,11 +5,7 @@ import { setMessages } from "../../dux/reducers/messageReducer";
 
 function Messages(props) {
   console.log(props);
-  const { data: messages, fetchData: getMessages } = usefetch(
-    "/api/messages",
-    true,
-    []
-  );
+  const { data: messages } = usefetch("/api/messages", true, []);
   props.setMessages(messages);
   return <div />;
 }
