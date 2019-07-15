@@ -1,10 +1,12 @@
 import init from "jooks";
-import UseFetch from "./useFetch";
+import UseFetch from "../Components/usefetch";
+
+// Evan's Unit Testing
 
 // Without JOOKS, you will get the following error message during your testing: "Invariant Violation: Invalid hook call. Hooks can only be called inside of the body of a function component". JOOKS has a built in environment that is a function.
 
 describe("UseFetch hook", () => {
-  // Initialising the Jooks wrapper
+  // Initialize the Jooks wrapper
   const jooks = init(() => UseFetch());
 
   it("initial values test", () => {

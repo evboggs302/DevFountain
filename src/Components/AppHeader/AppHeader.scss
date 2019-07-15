@@ -1,5 +1,21 @@
+$dark-color: #29303B;
+$light-color: #2E3540;
+$blue-color: #3279FF;
+$light-gray: #F5F5F5;
+
 .app-header {
-    background-color: blue;
-    height: 100px;
-    color: white;
+    height: 50px;
+    background-color: $light-color;
+    padding-right: 20px;
+    // position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    align-content: center;
+}
+
+.logout-btn {
+    border: none;
 }
