@@ -46,9 +46,8 @@ module.exports = {
     });
   },
   register: (req, res, next) => {
-
     //default profile pic for users when they sign up
-    
+
     const { first, last, developer, email, password, default_pic } = req.body;
     const db = req.app.get("db");
     db.check_existing_users(email).then(found => {
@@ -57,12 +56,17 @@ module.exports = {
       } else {
         bcrypt.genSalt(saltRounds).then(salt => {
           bcrypt.hash(password, salt).then(hashedPassword => {
-            db.register([first, last, developer, email, hashedPassword, default_pic]).then(
-              createdUser => {
-                (req.session.user = createdUser[0]),
-                  res.status(200).send(req.session.user);
-              }
-            );
+            db.register([
+              first,
+              last,
+              developer,
+              email,
+              hashedPassword,
+              default_pic
+            ]).then(createdUser => {
+              (req.session.user = createdUser[0]),
+                res.status(200).send(req.session.user);
+            });
           });
         });
       }
@@ -116,6 +120,19 @@ module.exports = {
             res.status(500).send("Change failed.");
           });
       }
+    });
+  },
+  // takes an info object, a socket, and a database param
+  joinRoom(info, socket, db) {
+    // we join the socket named after the concat of the user emails, with the first name in alphabetical order first
+    socket.join(info.roomName);
+    // we use the email of the recipient to find the recipient's id
+    db.getId(info.email2).then(rId => {
+      // we take the sender's id off the info object, the user_id off the recipient db call response,
+      // and then emit the messages on the socket
+      db.getMessages(info.user_id, rId.user_id).then(messages => {
+        socket.emit("messages", messages);
+      });
     });
   }
 };

@@ -1,15 +1,17 @@
 const express = require("express");
 const app = express();
-// const server = require("http").createServer(app);
-// const sessionService = require("./sessionService");
+const server = require("http").createServer(app);
+const sessionService = require("./sessionService");
 const session = require("express-session");
-// const io = require("socket.io")(server);
-// var pgSession = require("connect-pg-simple")(session);
-// const cookieParser = require("cookie-parser");
+const io = require("socket.io")(server);
+// pgSession handles connecting to the db to the session table
+var pgSession = require("connect-pg-simple")(session);
+// handles the cookie data
+const cookieParser = require("cookie-parser");
 const massive = require("massive");
 require("dotenv").config();
 app.use(express.json());
-// app.user(cookieParser("somesecret"))
+
 const nodemailer = require("nodemailer");
 
 const {
@@ -52,29 +54,57 @@ const {
   CONNECTION_STRING
 } = process.env;
 
-app.use(express.json());
+app.use(cookieParser(SESSION_SECRET));
+
 app.use(
   session({
-    //store: new pgSession(P{
-    //  conString: process.env.CONNECTION_STRING
-    // })
+    store: new pgSession({
+      conString: CONNECTION_STRING
+    }),
     saveUninitialized: false,
     secret: SESSION_SECRET,
     resave: true,
-    //key: "express.sid"
+    key: "express.sid", // not sure what this is
     cookie: {
       maxAge: 1209600000 // 2week cookie
     }
   })
 );
 
-// let db;
-massive(CONNECTION_STRING).then(db => {
+// not sure of the difference
+let db;
+massive(CONNECTION_STRING).then(databaseInstance => {
+  db = databaseInstance;
   app.set("db", db);
-  console.log("db is connected");
 });
 
-// massive(CONNECTION_STRING).then(dbInstance => )
+io.use(function(socket, next) {
+  const parseCookie = cookieParser(SESSION_SECRET);
+  let handshake = socket.request;
+  parseCookie(handshake, null, function(err, data) {
+    sessionService.get(handshake, next, db);
+  });
+});
+
+// app.get("/", (req, res) => {
+//   if (req.query.name) {
+//     req.session.user = req.query.name;
+//     res.send(req.session);
+//   } else {
+//     res.send("send a name query");
+//   }
+// });
+
+io.sockets.on("connection", socket => {
+  console.log("cool", socket.request.session.sess);
+  io.on("message", userMessage => {
+    const { email, message } = userMessage;
+    io.emit("message", `${email} || ${message}`);
+  });
+  io.on("join room", info => {
+    joinRoom(info, socket, db);
+  });
+});
 
 // user EndPoints
 app.post("/api/login", login);
@@ -159,4 +189,4 @@ app.post("/api/send", (req, res, next) => {
 
 const port = SERVER_PORT || 4000;
 console.log(port);
-app.listen(port, () => console.log(`Listening on port ${port}`));
+server.listen(port, () => console.log(`Listening on port ${port}`));
