@@ -1,16 +1,18 @@
-import React, { Component, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { setUser, setFollowing } from "../../dux/reducers/userReducer";
 import { connect } from "react-redux";
 import "./AppHeader.scss";
 import axios from "axios";
-import UseFetch from '../usefetch'
-import {NavLink} from 'react-router-dom';
+import UseFetch from "../usefetch";
+import { NavLink } from "react-router-dom";
 
 function AppHeader(props) {
-  
-  const {data: following, fetchDataWithId: whoIamFollowing} = UseFetch('/api/following', true, [])
-  const {user_id} = props.user.user
-  
+  const { data: following, fetchDataWithId: whoIamFollowing } = UseFetch(
+    "/api/following",
+    true,
+    []
+  );
+  const { user_id } = props.user.user;
 
   // this Use Effect is to hit the whoIamFollowing endpoint and update the state(following) to have include the people who you are following
   useEffect(() => {
@@ -29,22 +31,19 @@ function AppHeader(props) {
       console.log("hit inside app header");
 
       props.setUser(null);
+      props.history.push("/");
     });
   };
-
-  
-
-  if (!props.user.user) {
-    window.location.pathname = "/";
-  }
 
   return (
     <div className="app-header">
       <nav>
-        <NavLink to='/marketplace'>MarketPlace</NavLink>
-        <NavLink to='/newsfeed'>NewsFeed</NavLink>
+        <NavLink to="/marketplace">MarketPlace</NavLink>
+        <NavLink to="/newsfeed">NewsFeed</NavLink>
       </nav>
-      <button className="logout-btn" onClick={() => logout()}>Logout</button>
+      <button className="logout-btn" onClick={() => logout()}>
+        Logout
+      </button>
     </div>
   );
 }
