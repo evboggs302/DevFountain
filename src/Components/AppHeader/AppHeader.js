@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import "./AppHeader.scss";
 import axios from "axios";
 import UseFetch from "../usefetch";
+import { NavLink } from "react-router-dom";
 
 function AppHeader(props) {
   const { data: following, fetchDataWithId: whoIamFollowing } = UseFetch(
@@ -30,18 +31,16 @@ function AppHeader(props) {
       console.log("hit inside app header");
 
       props.setUser(null);
+      props.history.push("/");
     });
   };
 
-  console.log(props);
-
-  if (!props.user.user) {
-    window.location.pathname = "/";
-  }
-
   return (
     <div className="app-header">
-      <button className="message-route">Messages</button>
+      <nav>
+        <NavLink to="/marketplace">MarketPlace</NavLink>
+        <NavLink to="/newsfeed">NewsFeed</NavLink>
+      </nav>
       <button className="logout-btn" onClick={() => logout()}>
         Logout
       </button>

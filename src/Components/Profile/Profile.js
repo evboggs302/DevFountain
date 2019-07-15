@@ -5,9 +5,33 @@ import EditProfile from "./EditProfile";
 import useFetch from "../usefetch";
 import { connect } from "react-redux";
 import { setMySkills } from "../../dux/reducers/skillsReducer";
+import { setUser } from "../../dux/reducers/userReducer";
 
 function Profile(props) {
   console.log(props);
+  const { data: user } = useFetch("/api/user", true, null);
+  useEffect(() => {
+    if (user) {
+      props.setUser(user);
+    }
+  }, [user]);
+
+  // const { data: mySkillz, fetchDataWithId: getMySkills } = useFetch(
+  //   `/api/skills/${user_id}`,
+  //   false
+  // );
+
+  // useEffect(() => {
+  //   getMySkills();
+  //   setMySkills(mySkillz);
+  // }, [mySkillz]);
+
+  let [className, setClassName] = useState("profile");
+
+  if (!props.user.user) {
+    return <div />;
+  }
+
   const {
     developer,
     email,
@@ -21,17 +45,6 @@ function Profile(props) {
   } = props.user.user;
   const decoded = decodeURIComponent(props.match.params.email);
   const current = props.user.user.email === decoded;
-  const { data: mySkillz, fetchDataWithId: getMySkills } = useFetch(
-    `/api/skills/${user_id}`,
-    false
-  );
-
-  useEffect(() => {
-    getMySkills();
-    setMySkills(mySkillz);
-  }, [mySkillz]);
-
-  let [className, setClassName] = useState("profile");
 
   // var mySkillsMapped;
   // if (developer) {
@@ -45,7 +58,7 @@ function Profile(props) {
   //   });
   // }
 
-  console.log(mySkillz);
+  // console.log(mySkillz);
 
   return (
     <div>
@@ -101,7 +114,8 @@ const mapStateToProps = reduxState => {
 };
 
 const mapDispatchToProps = {
-  setMySkills
+  setMySkills,
+  setUser
 };
 
 const invokedConnect = connect(

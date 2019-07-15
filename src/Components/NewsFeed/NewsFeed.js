@@ -1,12 +1,52 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
+import AppHeader from '../AppHeader/AppHeader'
+import {connect} from 'react-redux'
+import {followingPosts} from '../../dux/reducers/postsReducer'
+import usefetch from '../usefetch'
+import axios from 'axios'
 
-class NewsFeed extends Component {
-    render () {
-        return (
-            <div>News Feed</div>
-        )
-    }
-   
+function NewsFeed (props ){
+
+    // Getting all the posts of the people who you follow
+    let postsToSee = []
+    const {following} = props.user
+    const {data: posts, fetchDataWithId: getPosts} = usefetch('/api/following-posts', true, [])
+
+    useEffect(()=> {
+        following.map(val => {
+            console.log(val)
+            axios.get(`/api/following-posts/${val}`)
+            .then(res => {
+                if(res.data.length > 0){
+                    console.log(res.data)
+                    postsToSee.push(res.data)
+                }
+                console.log(postsToSee)
+            })
+        })
+    }, [])
+    console.log(postsToSee)
+
+    return (
+        <div>
+            <header>
+                <AppHeader />
+            </header>
+            <main>
+                Newsfeed
+            </main>
+        </div>
+    )
 }
 
-export default NewsFeed
+const mapPropsToState = (reduxState) => {
+    return reduxState
+}
+
+const mappedDispatchToProps = {
+    followingPosts
+}
+
+const myConnect = connect(mapPropsToState, mappedDispatchToProps)
+
+export default myConnect(NewsFeed)
