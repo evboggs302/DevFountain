@@ -2,15 +2,14 @@ import React, { Component, useEffect } from 'react';
 import AppHeader from '../AppHeader/AppHeader'
 import {connect} from 'react-redux'
 import {followingPosts} from '../../dux/reducers/postsReducer'
-import usefetch from '../usefetch'
 import axios from 'axios'
+import './NewsFeed.scss'
 
 function NewsFeed (props ){
 
     // Getting all the posts of the people who you follow
     let postsToSee = []
     const {following} = props.user
-    const {data: posts, fetchDataWithId: getPosts} = usefetch('/api/following-posts', true, [])
 
     useEffect(()=> {
         following.map(val => {
@@ -19,11 +18,40 @@ function NewsFeed (props ){
                 if(res.data.length > 0){
                     postsToSee.push(res.data)
                 }
-                props.followingPosts(postsToSee)
+                props.followingPosts(postsToSee) //setting posts unto redux
             })
+            .catch(err => console.log('Error getting posts of those who you follow'))
         })
     }, [])
-    console.log(props)
+    
+
+    // Display each post
+    
+    let {followingPosts} = props.posts
+    let mappedPosts;
+    if(followingPosts){
+        followingPosts = followingPosts.flat()
+        console.log(followingPosts)
+        mappedPosts = followingPosts.map(val => {
+            console.log(val)
+            return (
+                <div className='post-card'>
+                    <div className='post-user-info'>
+                        <img src={val.profile_pic} />
+                        <div className ='user-info'>
+                            <h1>{val.first} {val.last}</h1>
+                            <h2>{val.time_entered}</h2>
+                        </div>
+                    </div>
+                    <div className='post-content'>
+                        <p>{val.content}</p>
+                    </div>
+                    
+                    
+                </div>
+            )
+        })
+    }
 
     return (
         <div>
@@ -31,7 +59,7 @@ function NewsFeed (props ){
                 <AppHeader />
             </header>
             <main>
-                Newsfeed
+                <div className='newsfeed'>{mappedPosts}</div>
             </main>
         </div>
     )

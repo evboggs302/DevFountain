@@ -26,8 +26,6 @@ function App(props) {
     props.setDevelopers(devs);
   }, [devs]);
 
-  console.log(props);
-
   return (
     <div className="App">
       <ToastContainer autoClose={2000} />
