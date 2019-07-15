@@ -147,6 +147,13 @@ app.get("/api/messages", getMyMessages);
 app.post("/api/messages/:email", sendMessage);
 app.delete("api/messages/:id", deleteMessage);
 
+// Following Endpoints
+const {getWhoIamFollowing, follow, followingPosts} = require('./controllers/followController')
+app.get('/api/following/:id', getWhoIamFollowing )
+app.post('/api/follow', follow)
+app.get('/api/following-posts/:id', followingPosts )
+
+
 // Nodemailer
 app.post("/api/send", (req, res, next) => {
   const { name, email, title, message } = req.body;

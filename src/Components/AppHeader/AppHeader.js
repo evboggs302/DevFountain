@@ -3,15 +3,14 @@ import { setUser, setFollowing } from "../../dux/reducers/userReducer";
 import { connect } from "react-redux";
 import "./AppHeader.scss";
 import axios from "axios";
-import UseFetch from "../usefetch";
+import UseFetch from '../usefetch'
+import {NavLink} from 'react-router-dom';
 
 function AppHeader(props) {
-  const { data: following, fetchDataWithId: whoIamFollowing } = UseFetch(
-    "/api/following",
-    true,
-    []
-  );
-  const { user_id } = props.user.user;
+  
+  const {data: following, fetchDataWithId: whoIamFollowing} = UseFetch('/api/following', true, [])
+  const {user_id} = props.user.user
+  
 
   // this Use Effect is to hit the whoIamFollowing endpoint and update the state(following) to have include the people who you are following
   useEffect(() => {
@@ -33,7 +32,7 @@ function AppHeader(props) {
     });
   };
 
-  console.log(props);
+  
 
   if (!props.user.user) {
     window.location.pathname = "/";
@@ -41,9 +40,11 @@ function AppHeader(props) {
 
   return (
     <div className="app-header">
-      <button className="logout-btn" onClick={() => logout()}>
-        Logout
-      </button>
+      <nav>
+        <NavLink to='/marketplace'>MarketPlace</NavLink>
+        <NavLink to='/newsfeed'>NewsFeed</NavLink>
+      </nav>
+      <button className="logout-btn" onClick={() => logout()}>Logout</button>
     </div>
   );
 }
