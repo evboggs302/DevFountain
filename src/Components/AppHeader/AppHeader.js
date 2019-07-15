@@ -11,17 +11,18 @@ function AppHeader(props) {
   const {data: following, fetchDataWithId: whoIamFollowing} = UseFetch('/api/following', true, [])
   const {user_id} = props.user.user
   
-  // this useEffect hits the whoIamFollowing endpoint and updates the state (following) to include the people who you are following
-  useEffect(() => {
-    whoIamFollowing(user_id)
-  }, [])
-  
-  useEffect(() => {
-    props.setFollowing(following)
-  }, [following])
 
+  // this Use Effect is to hit the whoIamFollowing endpoint and update the state(following) to have include the people who you are following
+  useEffect(() => {
+    whoIamFollowing(user_id);
+  }, []);
 
-  
+  useEffect(() => {
+    props.setFollowing(following);
+    return () => props.setFollowing(following);
+  }, [following]);
+
+  console.log(props);
   const logout = () => {
     axios.get("/api/logout").then(res => {
       console.log("user logged out");

@@ -143,11 +143,18 @@ const Formik = withFormik({
         default_pic
       })
       .then(res => {
-        let user_id = res.data.user_id
+        let user_id = res.data.user_id;
         if (res.data === "Email already exists!") {
           alert("Email already exists!");
         } else {
-          theProps.setUser({ first, last, developer, email, default_pic, user_id  });
+          theProps.setUser({
+            first,
+            last,
+            developer,
+            email,
+            default_pic,
+            user_id
+          });
           resetForm();
         }
       })

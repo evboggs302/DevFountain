@@ -4,7 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import EditProfile from "./EditProfile";
 import useFetch from "../usefetch";
 import { connect } from "react-redux";
-import { setUser } from "../../dux/reducers/userReducer";
+import { setMySkills } from "../../dux/reducers/skillsReducer";
 
 function Profile(props) {
   console.log(props);
@@ -19,32 +19,33 @@ function Profile(props) {
     title,
     user_id
   } = props.user.user;
-  let decoded = decodeURIComponent(props.match.params.email);
-  let current = props.user.user.email === decoded;
-  const { data: mySkills, fetchDataWithId: getMySkills } = useFetch(
+  const decoded = decodeURIComponent(props.match.params.email);
+  const current = props.user.user.email === decoded;
+  const { data: mySkillz, fetchDataWithId: getMySkills } = useFetch(
     `/api/skills/${user_id}`,
     false
   );
 
   useEffect(() => {
     getMySkills();
-  }, [mySkills]);
+    setMySkills(mySkillz);
+  }, [mySkillz]);
 
   let [className, setClassName] = useState("profile");
 
-  
+  // var mySkillsMapped;
+  // if (developer) {
+  //   mySkillsMapped = mySkills.map((e, index) => {
+  //     console.log(e);
+  //     return (
+  //       <div key={index}>
+  //         <h3>{`${e.skill} ${e.icon}`}</h3>
+  //       </div>
+  //     );
+  //   });
+  // }
 
-  var mySkillsMapped;
-  if (developer) {
-    mySkillsMapped = mySkills.map((e, index) => {
-      console.log(e);
-      return (
-        <div key={index}>
-          <h3>{`${e.skill} ${e.icon}`}</h3>
-        </div>
-      );
-    });
-  }
+  console.log(mySkillz);
 
   return (
     <div>
@@ -76,6 +77,7 @@ function Profile(props) {
               </a>
             </div>
             {developer ? <div>display users skills here</div> : null}
+            {/* {mySkillsMapped.length ? <div>{mySkillsMapped}</div> : null} */}
             {current ? (
               <button onClick={() => setClassName(className + " edit")}>
                 Edit Profile
@@ -85,7 +87,7 @@ function Profile(props) {
             )}
           </div>
         </div>
-        {mySkillsMapped.length ? <div>{mySkillsMapped}</div> : null}
+        {/* {myPostsMapped.length ? <div>{myPostsMapped}</div> : null} */}
       </div>
       <div className={className}>
         <EditProfile {...props} />
@@ -99,7 +101,7 @@ const mapStateToProps = reduxState => {
 };
 
 const mapDispatchToProps = {
-  setUser
+  setMySkills
 };
 
 const invokedConnect = connect(

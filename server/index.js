@@ -26,8 +26,7 @@ const { getLikes, like, unlike } = require("./controllers/likeController");
 const {
   getAllSkills,
   getMySkills,
-  addSkills,
-  removeSkills
+  newSkills
 } = require("./controllers/skillsController");
 
 const {
@@ -77,9 +76,7 @@ app.get("/api/allskills", getAllSkills);
 // returns the skill id's and the user's id
 app.get("/api/skills/:email", getMySkills);
 // takes a skill id as a param and the user's id off their session to add a skill
-app.post("/api/skills/:id", addSkills);
-// does the same as the post to delete the skill from the list
-app.delete("/api/skills/:id", removeSkills);
+app.put("/api/skills/", newSkills);
 
 // post endpoints
 //gets all of a user's posts with their email
