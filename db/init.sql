@@ -50,6 +50,6 @@ create table following
 
 create table hasskills
 (
-    skill_id integer references skills(skill_id),
-    user_id integer references users(user_id)
+    user_id integer references users(user_id),
+    skills integer[]
 );
