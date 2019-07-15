@@ -13,6 +13,7 @@ require("dotenv").config();
 app.use(express.json());
 
 const nodemailer = require("nodemailer");
+const cloudinary = require("cloudinary");
 
 const {
   login,
@@ -50,7 +51,8 @@ const {
   EMAIL,
   EMAIL_PASSWORD,
   SESSION_SECRET,
-  CONNECTION_STRING
+  CONNECTION_STRING,
+  CLOUDINARY_SECRET_API
 } = process.env;
 
 app.use(cookieParser(SESSION_SECRET));
@@ -181,6 +183,25 @@ app.post("/api/send", (req, res, next) => {
     }
   });
 });
+
+//cloudinary
+//this endpoint will pass a signature to the front end that will allow an image to have access to 
+//the cloudinary account.
+app.get('/api/upload', (req, res) => {
+  //timestamp in UNIX Format
+  const timestamp = Math.round((new Date()).getTime() / 1000);
+  const api_secret = CLOUDINARY_SECRET_API;
+  //built in cloundinary api sign request to create hashed signature w/ api secret and UNIX timestamp
+  const signature = cloudinary.utils.api_sign_request({timestamp: timestamp}, api_secret);
+  //signature object to send to the front-end
+  const payload = {
+    signature: signature,
+    timestamp: timestamp
+  };
+  res.json(payload)
+})
+
+
 
 // create sockets for messaging
 
