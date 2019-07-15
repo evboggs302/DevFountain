@@ -8,6 +8,10 @@ import { setMySkills } from "../../dux/reducers/skillsReducer";
 
 function Profile(props) {
   console.log(props);
+  if (!props.user.user) {
+    window.location.pathname = "/";
+  }
+
   const {
     developer,
     email,
