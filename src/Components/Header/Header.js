@@ -21,12 +21,7 @@ function Header(props) {
     const { email } = props.user.user;
     var encode = encodeURIComponent(email);
     // return <Redirect to={`/profile/${encode}`} />;
-<<<<<<< HEAD
-    return <Redirect to="/marketplace" />;
-=======
-    return <Redirect to={'/marketplace'} />
-   
->>>>>>> ada40f976d94cf70b154ee54ed4903e34b9489ad
+    return <Redirect to={"/marketplace"} />;
   }
 
   return (
