@@ -1,10 +1,26 @@
-import React, { Component } from "react";
-import { setUser } from "../../dux/reducers/userReducer";
+import React, { Component, useEffect } from "react";
+import { setUser, setFollowing } from "../../dux/reducers/userReducer";
 import { connect } from "react-redux";
 import "./AppHeader.scss";
 import axios from "axios";
+import UseFetch from '../usefetch'
 
 function AppHeader(props) {
+  
+  const {data: following, fetchDataWithId: whoIamFollowing} = UseFetch('/api/following', true, [])
+  const {user_id} = props.user.user
+  
+  // this Use Effect is to hit the whoIamFollowing endpoint and update the state(following) to have include the people who you are following
+  useEffect(() => {
+    whoIamFollowing(user_id)
+  }, [])
+  
+  useEffect(() => {
+    props.setFollowing(following)
+  }, [following])
+
+
+  console.log(props)
   const logout = () => {
     axios.get("/api/logout").then(res => {
       console.log("user logged out");
@@ -31,7 +47,8 @@ const mapStateToProps = reduxState => {
 };
 
 const mapDispatchToProps = {
-  setUser
+  setUser,
+  setFollowing
 };
 
 const invokedConnect = connect(
