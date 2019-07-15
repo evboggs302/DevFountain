@@ -14,18 +14,16 @@ function NewsFeed (props ){
 
     useEffect(()=> {
         following.map(val => {
-            console.log(val)
             axios.get(`/api/following-posts/${val}`)
             .then(res => {
                 if(res.data.length > 0){
-                    console.log(res.data)
                     postsToSee.push(res.data)
                 }
-                console.log(postsToSee)
+                props.followingPosts(postsToSee)
             })
         })
     }, [])
-    console.log(postsToSee)
+    console.log(props)
 
     return (
         <div>
