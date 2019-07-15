@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { setUser, setFollowing } from "../../dux/reducers/userReducer";
 import { connect } from "react-redux";
 import "./AppHeader.scss";
@@ -41,6 +41,7 @@ function AppHeader(props) {
 
   return (
     <div className="app-header">
+      <button className="message-route">Messages</button>
       <button className="logout-btn" onClick={() => logout()}>
         Logout
       </button>
