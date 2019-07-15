@@ -7,7 +7,6 @@ import { connect } from "react-redux";
 import { setMySkills } from "../../dux/reducers/skillsReducer";
 
 function Profile(props) {
-  console.log(props);
   if (!props.user.user) {
     window.location.pathname = "/";
   }
@@ -23,32 +22,29 @@ function Profile(props) {
     title,
     user_id
   } = props.user.user;
+
   const decoded = decodeURIComponent(props.match.params.email);
   const current = props.user.user.email === decoded;
+
   const { data: mySkillz, fetchDataWithId: getMySkills } = useFetch(
-    `/api/skills/${user_id}`,
-    false
+    `/api/skills/`,
+    false,
+    []
   );
 
   useEffect(() => {
-    getMySkills();
+    console.log("hit server for my info");
+    getMySkills(email);
+  }, []);
+
+  useEffect(() => {
+    console.log("send to dux", mySkillz);
     setMySkills(mySkillz);
   }, [mySkillz]);
 
   let [className, setClassName] = useState("profile");
 
-  // var mySkillsMapped;
-  // if (developer) {
-  //   mySkillsMapped = mySkills.map((e, index) => {
-  //     console.log(e);
-  //     return (
-  //       <div key={index}>
-  //         <h3>{`${e.skill} ${e.icon}`}</h3>
-  //       </div>
-  //     );
-  //   });
-  // }
-
+  console.log(props);
   console.log(mySkillz);
 
   return (
