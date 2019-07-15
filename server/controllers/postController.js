@@ -19,12 +19,14 @@ module.exports = {
 
   createPost: (req, res, next) => {
     // the content of the message comes from the req.body.
-    const { content } = req.body;
+    const { content} = req.body;
+    let postDate = new Date().toDateString();
+    
     // the user_id comes off the req.session.user
     const { user_id } = req.session.user;
     const db = req.app.get("db");
     // a new date is created with the date constructor
-    db.makePost([content, new Date(), user_id])
+    db.makePost([content, postDate, user_id])
       .then(newPosts => {
         res.status(200).send(newPosts);
       })

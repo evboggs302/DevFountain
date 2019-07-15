@@ -7,6 +7,8 @@ import './MarketPlace.scss'
 import usefetch from '../usefetch'
 
 function MarketPlace(props) {
+
+  // These are used for the Redirecting action
   const [state, setState] = useState(false)
   const [developer, setDeveloper] = useState(null)
   console.log(props)
@@ -17,11 +19,14 @@ function MarketPlace(props) {
   }
 
 
+  // When user clicks on the follow button, 'followDeveloper' then makes a POST to the endpoint 'follow' and updates the following table in SQL
   const {data: developerToFollow, postData: postData} = usefetch('/api/follow', true, [])
+  const [followButton, setFollowButton] = useState(false)
   const {user_id} = props.user.user
-  
+
   let followDeveloper = (id) => {
     postData([user_id, id])
+    setFollowButton(true)
   }
 
   // Rendering each developers info on marketplace
@@ -41,7 +46,7 @@ function MarketPlace(props) {
             <h2 className='dev-title'>Title: {dev.title} </h2>
             <h2 className='dev-email'>Email: {dev.email}</h2>
             <button className='view-developer' onClick={()=>redirectToDeveloper(encoded)}>View Developer</button>
-            <button onClick={() => followDeveloper(dev.user_id)}>Follow</button>
+            {!followButton ? <button onClick={() => followDeveloper(dev.user_id)}>Follow</button>: <button>Unfollow</button>}
           </div>
         /* </Link> */
       );

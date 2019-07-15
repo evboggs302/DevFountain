@@ -2,13 +2,15 @@ const initialState = {
   userWhoPosted: null,
   content: "",
   postTime: "",
-  likeCount: null
+  likeCount: null,
+  followingPosts: null
 };
 
 const USER_WHO_POSTED = "USER_WHO_POSTED";
 const CONTENT = "CONTENT";
 const POST_TIME = "POST_TIME";
 const LIKE_COUNT = "LIKE_COUNT";
+const FOLLOWING_POSTS = "FOLLOWING_POSTS"
 
 export default function postsReducer(state = initialState, action) {
   switch (action.type) {
@@ -24,6 +26,8 @@ export default function postsReducer(state = initialState, action) {
     case LIKE_COUNT:
       console.log("This post has this many likes", action.payload);
       return { ...state, likeCount: action.payload };
+    case FOLLOWING_POSTS:
+      return {...state, followingPosts: action.payload}
     default:
       return "this is the initial state", state;
   }
@@ -55,4 +59,11 @@ export function likeCount(count) {
     type: LIKE_COUNT,
     payload: count
   };
+}
+
+export function followingPosts(posts){
+  return {
+    type: FOLLOWING_POSTS,
+    payload: posts
+  }
 }
