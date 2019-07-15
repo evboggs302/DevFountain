@@ -11,6 +11,7 @@ import { setSkills } from "./dux/reducers/skillsReducer";
 import { setDevelopers } from "./dux/reducers/marketplaceReducer";
 import UseFetch from "./Components/usefetch";
 import { ToastContainer } from "react-toastify";
+import NewsFeed from './Components/NewsFeed/NewsFeed'
 
 function App(props) {
   const { data: skills } = UseFetch("/api/allskills", true, []);
@@ -18,9 +19,6 @@ function App(props) {
   //Getting all developers from marketplace endpoint
   const { data: devs } = UseFetch("/api/marketplace", true, []);
 
-  
-
-  console.log(devs);
   useEffect(() => {
     props.setSkills(skills);
   }, [skills]);
@@ -38,6 +36,7 @@ function App(props) {
         <Route exact path="/" component={Home} />
         <Route path="/profile/:email" component={Profile} />
         <Route path="/marketplace" component={MarketPlace} />
+        <Route path='/newsfeed' component={NewsFeed} />
       </Switch>
     </div>
   );

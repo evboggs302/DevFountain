@@ -8,19 +8,6 @@ import { setUser } from "../../dux/reducers/userReducer";
 
 function Profile(props) {
   console.log(props);
-  const decoded = decodeURIComponent(props.match.params.email);
-  const current = props.user.user.email === decoded;
-  const { data: mySkills, fetchDataWithId: getMySkills } = useFetch(
-    `/api/skills/${user_id}`,
-    false
-  );
-
-  useEffect(() => {
-    getMySkills();
-  }, [mySkills]);
-
-  let [className, setClassName] = useState("profile");
-
   const {
     developer,
     email,
@@ -32,6 +19,20 @@ function Profile(props) {
     title,
     user_id
   } = props.user.user;
+  let decoded = decodeURIComponent(props.match.params.email);
+  let current = props.user.user.email === decoded;
+  const { data: mySkills, fetchDataWithId: getMySkills } = useFetch(
+    `/api/skills/${user_id}`,
+    false
+  );
+
+  useEffect(() => {
+    getMySkills();
+  }, [mySkills]);
+
+  let [className, setClassName] = useState("profile");
+
+  
 
   var mySkillsMapped;
   if (developer) {

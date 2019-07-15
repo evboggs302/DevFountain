@@ -124,6 +124,8 @@ const Formik = withFormik({
       "https://www.uic.mx/posgrados/files/2018/05/default-user.png";
     console.log(isDeveloper);
 
+    console.log(theProps)
+
     let developer;
     if (isDeveloper === "developer") {
       developer = "t";
