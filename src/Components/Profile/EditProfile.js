@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import usefetch from "../usefetch";
 import { connect } from "react-redux";
-import { setMySkills } from "../../dux/reducers/skillsReducer";
+import { setPersonalSkills } from "../../dux/reducers/skillsdux/skillsReducer";
 import Select from "react-select";
 
 function EditProfile(props) {
@@ -53,7 +53,7 @@ function EditProfile(props) {
       // skills: newSkills || mySkills
     };
     updateInfo(user_id, dataToPost);
-    setMySkills(newSkills);
+    setPersonalSkills(newSkills);
     updateSkills(user_id, newSkills);
     setClassName("profile");
   };
@@ -132,7 +132,7 @@ const mapStateToProps = reduxState => {
 };
 
 const mapDispatchToProps = {
-  setMySkills
+  setPersonalSkills
 };
 
 const invokedConnect = connect(

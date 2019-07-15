@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from "react";
 import AppHeader from "../AppHeader/AppHeader";
-import { Link, NavLink } from "react-router-dom";
+import ViewSkills from "./ViewSkills";
 import EditProfile from "./EditProfile";
 import useFetch from "../usefetch";
 import { connect } from "react-redux";
-import { setMySkills } from "../../dux/reducers/skillsReducer";
+import { setUser } from "../../dux/reducers/userReducer";
 
 function Profile(props) {
+  console.log(props);
+  const { data: user } = useFetch("/api/user", true, null);
+  useEffect(() => {
+    if (user) {
+      props.setUser(user);
+    }
+  }, [user]);
+
+  let [className, setClassName] = useState("profile");
+
   if (!props.user.user) {
-    window.location.pathname = "/";
+    return <div />;
   }
 
   const {
@@ -25,27 +35,6 @@ function Profile(props) {
 
   const decoded = decodeURIComponent(props.match.params.email);
   const current = props.user.user.email === decoded;
-
-  const { data: mySkillz, fetchDataWithId: getMySkills } = useFetch(
-    `/api/skills/`,
-    false,
-    []
-  );
-
-  useEffect(() => {
-    console.log("hit server for my info");
-    getMySkills(email);
-  }, []);
-
-  useEffect(() => {
-    console.log("send to dux", mySkillz);
-    setMySkills(mySkillz);
-  }, [mySkillz]);
-
-  let [className, setClassName] = useState("profile");
-
-  console.log(props);
-  console.log(mySkillz);
 
   return (
     <div>
@@ -76,7 +65,7 @@ function Profile(props) {
                 LinkedIn
               </a>
             </div>
-            {developer ? <div>display users skills here</div> : null}
+            {developer ? <ViewSkills {...props} /> : null}
             {/* {mySkillsMapped.length ? <div>{mySkillsMapped}</div> : null} */}
             {current ? (
               <button onClick={() => setClassName(className + " edit")}>
@@ -101,7 +90,7 @@ const mapStateToProps = reduxState => {
 };
 
 const mapDispatchToProps = {
-  setMySkills
+  setUser
 };
 
 const invokedConnect = connect(

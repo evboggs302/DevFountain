@@ -4,7 +4,7 @@ import userReducer from "./reducers/userReducer";
 import messageReducer from "./reducers/messageReducer";
 import postsReducer from "./reducers/postsReducer";
 import marketplaceReducer from "./reducers/marketplaceReducer";
-import allSkills from "./reducers/skillsReducer";
+import allSkills from "./reducers/skillsdux/skillsReducer";
 
 const rootReducer = combineReducers({
   user: userReducer,
