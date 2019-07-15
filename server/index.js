@@ -107,9 +107,6 @@ app.get("/api/messages", getMyMessages);
 app.post("/api/messages/:email", sendMessage);
 app.delete("api/messages/:id", deleteMessage);
 
-
-
-
 // Nodemailer
 app.post("/api/send", (req, res, next) => {
   const { name, email, title, message } = req.body;
