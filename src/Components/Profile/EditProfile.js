@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import usefetch from "../usefetch";
 import { connect } from "react-redux";
-import { setUser } from "../../dux/reducers/userReducer";
+import { setMySkills } from "../../dux/reducers/skillsReducer";
+import Select from "react-select";
 
 function EditProfile(props) {
-  const { allSkills } = props.skills;
+  const { allSkills, mySkills } = props.skills;
   const {
     developer,
     email,
@@ -19,6 +20,7 @@ function EditProfile(props) {
   } = props.user.user;
 
   let [newFirst, setFirst] = useState(null);
+  let [newSkills, setSkills] = useState(mySkills);
   let [newLast, setLast] = useState(null);
   let [newTitle, setTitle] = useState(null);
   let [newLinked, setLinked] = useState(null);
@@ -27,10 +29,18 @@ function EditProfile(props) {
   let [newPic, setPic] = useState(null);
 
   let { postDataWithId: updateInfo } = usefetch("/api/edit", false);
-  let { postDataWithId: addSkill, deleteData: removeSkill } = usefetch(
-    "/api/skills/:id",
-    false
-  );
+  let { putData: updateSkills } = usefetch(`/api/skills/${user_id}`, false);
+
+  // console.log(allSkills);
+  var options = [];
+  allSkills.map(e => {
+    return options.push({
+      value: e.skill,
+      label: e.skill,
+      skill_id: e.skill_id,
+      icon: e.icon
+    });
+  });
 
   const finished = () => {
     let dataToPost = {
@@ -40,11 +50,35 @@ function EditProfile(props) {
       linkedin: newLinked || linkedin,
       portfolio: newPortfolio || portfolio,
       profile_pic: newPic || profile_pic
-      // skills: newSkills || skills
+      // skills: newSkills || mySkills
     };
     updateInfo(user_id, dataToPost);
+    updateSkills(newSkills);
     setClassName("profile");
   };
+
+  var titleFiller;
+  if (!title) {
+    titleFiller = "Your Title";
+  } else {
+    titleFiller = title;
+  }
+  var linkedinFiller;
+  if (!linkedin) {
+    linkedinFiller = "Your LinkedIn";
+  } else {
+    linkedinFiller = title;
+  }
+  var portfolioFiller;
+  if (!portfolio) {
+    portfolioFiller = "Your Portfolio";
+  } else {
+    portfolioFiller = title;
+  }
+
+  console.log("props:", props);
+  console.log("options", options);
+  console.log("my skills", newSkills);
 
   return (
     <div className={className}>
@@ -54,27 +88,38 @@ function EditProfile(props) {
           <button onClick={() => setPic()}>Change Picture</button>
         </div>
         <div>
-          <input placeHolder={first} onChange={e => setFirst(e.target.value)} />
-          <input placeHolder={last} onChange={e => setLast(e.target.value)} />
+          <input placeholder={first} onChange={e => setFirst(e.target.value)} />
+          <input placeholder={last} onChange={e => setLast(e.target.value)} />
         </div>
         <div>
-          <input placeHolder={title} onChange={e => setTitle(e.target.value)} />
+          <input
+            placeholder={titleFiller}
+            onChange={e => setTitle(e.target.value)}
+          />
         </div>
         <div>
           <div>{email}</div>
         </div>
         <div>
           <input
-            placeHolder={linkedin}
+            placeholder={linkedinFiller}
             onChange={e => setLinked(e.target.value)}
           />
         </div>
         <div>
           <input
-            placeHolder={portfolio}
+            placeHolder={portfolioFiller}
             onChange={e => setPortfolio(e.target.value)}
           />
         </div>
+        <Select
+          closeMenuOnSelect={false}
+          defaultValue={"Select Your Skills"}
+          isMulti
+          name="colors"
+          options={options}
+          onChange={setSkills}
+        />
       </div>
       <button onClick={() => finished()}>Finished Editing</button>
     </div>
@@ -86,7 +131,7 @@ const mapStateToProps = reduxState => {
 };
 
 const mapDispatchToProps = {
-  setUser
+  setMySkills
 };
 
 const invokedConnect = connect(

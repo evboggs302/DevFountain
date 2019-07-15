@@ -70,5 +70,31 @@ module.exports = {
         console.log(err);
         res.status(500).send("Sorry something went wrong.");
       });
+  },
+  newSkills: (req, res, next) => {
+    // we take a skill id as a parameter
+    // const { id } = req.body;
+    console.log(req.body);
+    // user id comes off the session.user object
+    const { user_id } = req.session.user;
+    const db = req.app.get("db");
+    // we check for duplicate key pairs
+    // db.checkForSkillDupes([user_id]).then(checkedSkills => {
+    //   if (checkedSkills[0]) {
+    //     // error handling
+    //     res.status(500).send("No double likes");
+    //     return console.log("no dupes");
+    //   } else {
+    //     // if no duplicate then we add the new pair
+    //     db.addSkills([id, user_id])
+    //       .then(skills => {
+    //         res.status(200).send(skills);
+    //       })
+    //       .catch(err => {
+    //         console.log(err);
+    //         res.status(500).send("Sorry try again later.");
+    //       });
+    //   }
+    // });
   }
 };

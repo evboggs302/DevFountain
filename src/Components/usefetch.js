@@ -41,7 +41,7 @@ export default function UseFetch(url, getExists = true, iV = null) {
 
   function putData(id, dataToPost) {
     setLoading(true);
-    axios.post(`${url}/${id}`, dataToPost).then(res => {
+    axios.put(`${url}/${id}`, dataToPost).then(res => {
       setData(res.data);
       setLoading(false);
     });

@@ -17,10 +17,6 @@ function App(props) {
 
   //Getting all developers from marketplace endpoint
   const { data: devs } = UseFetch("/api/marketplace", true, []);
-
-  
-
-  console.log(devs);
   useEffect(() => {
     props.setSkills(skills);
   }, [skills]);
@@ -36,7 +32,11 @@ function App(props) {
       <ToastContainer autoClose={2000} />
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/profile/:email" component={Profile} />
+        {/* <Route path="/profile/:email" component={Profile} /> */}
+        <Route
+          path="/profile/:email"
+          render={props => <Profile {...props} />}
+        />
         <Route path="/marketplace" component={MarketPlace} />
       </Switch>
     </div>
