@@ -76,7 +76,7 @@ app.get("/api/allskills", getAllSkills);
 // returns the skill id's and the user's id
 app.get("/api/skills/:email", getMySkills);
 // takes a skill id as a param and the user's id off their session to add a skill
-app.put("/api/skills/:id", newSkills);
+app.put("/api/skills/", newSkills);
 
 // post endpoints
 //gets all of a user's posts with their email

@@ -53,7 +53,8 @@ function EditProfile(props) {
       // skills: newSkills || mySkills
     };
     updateInfo(user_id, dataToPost);
-    updateSkills(newSkills);
+    setMySkills(newSkills);
+    updateSkills(user_id, newSkills);
     setClassName("profile");
   };
 
