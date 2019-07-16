@@ -36,6 +36,10 @@ function MarketPlace(props) {
     setFollowButton(true);
   };
 
+  if (!props.user.user) {
+    return <div />;
+  }
+
   // Rendering each developers info on marketplace
   const developers = props.marketplace.allDevelopers;
   let mappedDevs;
