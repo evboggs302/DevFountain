@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import usefetch from "../usefetch";
 import { connect } from "react-redux";
-import { setUser } from "../../dux/reducers/userReducer";
+// import { setUser } from "../../dux/reducers/userReducer";
 import { setPersonalSkills } from "../../dux/reducers/skillsReducer";
 import Select from "react-select";
 import axios from "axios";
