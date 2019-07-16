@@ -61,5 +61,39 @@ module.exports = {
         console.log(err, req.params);
         res.status(500).send("Something went wrong");
       });
+  },
+
+  getMyRooms: (req, res, next) => {
+    const db = req.app.get("db");
+    const { email } = req.session.user;
+    db.getRooms(email)
+      .then(rooms => {
+        res.status(200).send(rooms);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).send("Something has gone horribly wrong");
+      });
+  },
+
+  createRoom: (req, res, next) => {
+    const db = req.app.get("db");
+    const { email } = req.session.user;
+    const { email2 } = req.params;
+    let arr = [email, email2];
+    let sort = arr.sort();
+    let join = sort.join("");
+    db.checkIfRoom(join).then(roomFound => {
+      if (!roomFound.length) {
+        db.createRoom(email, email2, join)
+          .then(rooms => {
+            res.status(200).send(rooms);
+          })
+          .catch(err => {
+            console.log(err);
+            res.status(500).send("Something went wrong");
+          });
+      }
+    });
   }
 };
