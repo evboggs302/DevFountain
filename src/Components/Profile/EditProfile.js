@@ -28,7 +28,6 @@ function EditProfile(props) {
   let [newTitle, setTitle] = useState(null);
   let [newLinked, setLinked] = useState(null);
   let [newSkills, setTHESkills] = useState([]);
-  let [test, setTest] = useState("");
   let [newPortfolio, setPortfolio] = useState(null);
   let [className, setClassName] = useState("profile edit");
   let [uploadedImage, setUploadedImage] = useState(null);
