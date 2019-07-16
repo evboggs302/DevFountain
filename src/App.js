@@ -7,7 +7,7 @@ import MarketPlace from "./Components/MarketPlace/MarketPlace";
 import "./reset.css";
 import "./App.scss";
 import { connect } from "react-redux";
-import { setSkills } from "./dux/reducers/skillsdux/skillsReducer";
+import { setSkills } from "./dux/reducers/skillsReducer";
 import { setDevelopers } from "./dux/reducers/marketplaceReducer";
 import UseFetch from "./Components/usefetch";
 import { ToastContainer } from "react-toastify";
