@@ -12,14 +12,6 @@ function MarketPlace(props) {
   const [state, setState] = useState(false);
   const [developer, setDeveloper] = useState(null);
 
-  if (!props.user.user) {
-    return (
-      <div>
-        <AppHeader />
-      </div>
-    );
-  }
-
   console.log(props);
 
   let redirectToDeveloper = email => {
@@ -34,16 +26,20 @@ function MarketPlace(props) {
     []
   );
 
-  const { user_id } = props.user.user;
+  // if(props.user.user){
+
+  // }
+  
 
   let followDeveloper = id => {
-    postData([user_id, id]);
-    setFollowButton(true);
+    if(props.user.user){
+      const { user_id } = props.user.user;
+      postData([user_id, id]);
+      setFollowButton(true);
+    }
+    
   };
 
-  if (!props.user.user) {
-    return <div />;
-  }
 
   // Rendering each developers info on marketplace
   const developers = props.marketplace.allDevelopers;
@@ -86,6 +82,14 @@ function MarketPlace(props) {
         /* </Link> */
       );
     });
+  }
+
+  if (!props.user.user) {
+    return (
+      <div>
+        <AppHeader />
+      </div>
+    );
   }
 
   return (
