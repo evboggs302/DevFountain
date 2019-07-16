@@ -4,11 +4,13 @@ import { connect } from "react-redux";
 import { followingPosts } from "../../dux/reducers/postsReducer";
 import axios from "axios";
 import "./NewsFeed.scss";
+import CreatePost from './CreatePost'
 
 function NewsFeed(props) {
-  // Getting all the posts of the people who you follow
-  let postsToSee = [];
-  const { following } = props.user;
+
+    console.log(props.user)
+    const {following} = props.user
+    let postsToSee = []
 
   useEffect(() => {
     if (props.user.user) {
@@ -40,7 +42,6 @@ function NewsFeed(props) {
     followingPosts = followingPosts.flat();
     console.log(followingPosts);
     mappedPosts = followingPosts.map(val => {
-      console.log(val);
       return (
         <div className="post-card">
           <div className="post-user-info">
@@ -69,6 +70,7 @@ function NewsFeed(props) {
         <AppHeader />
       </header>
       <main>
+        <CreatePost />
         <div className="newsfeed">{mappedPosts}</div>
       </main>
     </div>
