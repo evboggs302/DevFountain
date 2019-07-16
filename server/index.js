@@ -20,7 +20,8 @@ const {
   register,
   userInfo,
   logout,
-  edit
+  edit,
+  updateProfilePic
 } = require("./controllers/userController");
 
 const {
@@ -114,6 +115,9 @@ app.post("/api/register", register);
 app.put("/api/edit", edit);
 app.get("/api/user", userInfo);
 app.get("/api/logout", logout);
+
+//update user profile pic endpoint
+app.put("/api/image", updateProfilePic);
 
 // skills endpoints
 // Gets a list of all skills and associated values
