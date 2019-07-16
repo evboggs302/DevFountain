@@ -26,11 +26,12 @@ function MarketPlace(props) {
     []
   );
 
-  const { user_id } = props.user.user;
-
   let followDeveloper = id => {
-    postData([user_id, id]);
-    setFollowButton(true);
+    if (props.user.user) {
+      const { user_id } = props.user.user;
+      postData([user_id, id]);
+      setFollowButton(true);
+    }
   };
 
   // Rendering each developers info on marketplace
