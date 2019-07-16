@@ -77,6 +77,7 @@ let db;
 massive(CONNECTION_STRING).then(databaseInstance => {
   db = databaseInstance;
   app.set("db", db);
+  console.log("db is connected");
 });
 
 io.use(function(socket, next) {
@@ -150,11 +151,14 @@ app.post("/api/messages/:email", sendMessage);
 app.delete("api/messages/:id", deleteMessage);
 
 // Following Endpoints
-const {getWhoIamFollowing, follow, followingPosts} = require('./controllers/followController')
-app.get('/api/following/:id', getWhoIamFollowing )
-app.post('/api/follow', follow)
-app.get('/api/following-posts/:id', followingPosts )
-
+const {
+  getWhoIamFollowing,
+  follow,
+  followingPosts
+} = require("./controllers/followController");
+app.get("/api/following/:id", getWhoIamFollowing);
+app.post("/api/follow", follow);
+app.get("/api/following-posts/:id", followingPosts);
 
 // Nodemailer
 app.post("/api/send", (req, res, next) => {

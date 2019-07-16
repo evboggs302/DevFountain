@@ -7,11 +7,12 @@ import MarketPlace from "./Components/MarketPlace/MarketPlace";
 import "./reset.css";
 import "./App.scss";
 import { connect } from "react-redux";
-import { setSkills } from "./dux/reducers/skillsReducer";
+import { setSkills } from "./dux/reducers/skillsdux/skillsReducer";
 import { setDevelopers } from "./dux/reducers/marketplaceReducer";
 import UseFetch from "./Components/usefetch";
 import { ToastContainer } from "react-toastify";
-import NewsFeed from './Components/NewsFeed/NewsFeed'
+import NewsFeed from "./Components/NewsFeed/NewsFeed";
+import Messages from "./Components/Messages/messages";
 
 function App(props) {
   const { data: skills } = UseFetch("/api/allskills", true, []);
@@ -26,8 +27,6 @@ function App(props) {
     props.setDevelopers(devs);
   }, [devs]);
 
-  console.log(props);
-
   return (
     <div className="App">
       <ToastContainer autoClose={2000} />
@@ -39,7 +38,8 @@ function App(props) {
           render={props => <Profile {...props} />}
         />
         <Route path="/marketplace" component={MarketPlace} />
-        <Route path='/newsfeed' component={NewsFeed} />
+        <Route path="/newsfeed" component={NewsFeed} />
+        <Route path="/messages" component={Messages} />
       </Switch>
     </div>
   );
