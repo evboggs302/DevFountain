@@ -7,9 +7,10 @@ export default function CreatePost() {
     const {data: data, postData: postData} = UseFetch('/api/post', true, null)
 
     function createPost(content){
-        console.log(content)
-        postData({content})
-        console.log(data)
+        if(content!==null){
+            console.log(content)
+            postData({content})
+        }
     }
     
     function handleChange(e){
