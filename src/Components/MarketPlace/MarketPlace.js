@@ -11,8 +11,13 @@ function MarketPlace(props) {
   // These are used for the Redirecting action
   const [state, setState] = useState(false);
   const [developer, setDeveloper] = useState(null);
+
   if (!props.user.user) {
-    return <div />;
+    return (
+      <div>
+        <AppHeader />
+      </div>
+    );
   }
 
   console.log(props);

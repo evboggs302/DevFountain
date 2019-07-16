@@ -31,7 +31,11 @@ function NewsFeed(props) {
   }, []);
 
   if (!props.user.user) {
-    return <div />;
+    return (
+      <div>
+        <AppHeader />
+      </div>
+    );
   }
 
   // Display each post
