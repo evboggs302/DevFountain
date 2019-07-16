@@ -6,10 +6,6 @@ import axios from "axios";
 import "./NewsFeed.scss";
 
 function NewsFeed(props) {
-  if (!props.user.user) {
-    return <div />;
-  }
-
   // Getting all the posts of the people who you follow
   let postsToSee = [];
   const { following } = props.user;
@@ -56,6 +52,9 @@ function NewsFeed(props) {
         </div>
       );
     });
+  }
+  if (!props.user.user) {
+    return <div />;
   }
 
   return (
