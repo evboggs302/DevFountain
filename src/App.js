@@ -12,7 +12,8 @@ import { setDevelopers } from "./dux/reducers/marketplaceReducer";
 import UseFetch from "./Components/usefetch";
 import { ToastContainer } from "react-toastify";
 import NewsFeed from "./Components/NewsFeed/NewsFeed";
-import Messages from "./Components/Messages/messages";
+import Messages from "./Components/Messages/Messages";
+import Message from "./Components/Messages/Message";
 
 function App(props) {
   const { data: skills } = UseFetch("/api/allskills", true, []);
@@ -40,6 +41,7 @@ function App(props) {
         <Route path="/marketplace" component={MarketPlace} />
         <Route path="/newsfeed" component={NewsFeed} />
         <Route path="/messages" component={Messages} />
+        <Route path="/message/:email" component={Message} />
       </Switch>
     </div>
   );
