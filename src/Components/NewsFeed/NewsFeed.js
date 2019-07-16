@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { followingPosts } from "../../dux/reducers/postsReducer";
 import axios from "axios";
 import "./NewsFeed.scss";
-import CreatePost from './CreatePost'
+import CreatePost from './createpost/CreatePost'
 
 function NewsFeed(props) {
 
@@ -14,19 +14,22 @@ function NewsFeed(props) {
 
   useEffect(() => {
     if (props.user.user) {
-      following.map(val => {
-        axios
-          .get(`/api/following-posts/${val}`)
-          .then(res => {
-            if (res.data.length > 0) {
-              postsToSee.push(res.data);
-            }
-            props.followingPosts(postsToSee); //setting posts unto redux
-          })
-          .catch(err =>
-            console.log("Error getting posts of those who you follow")
-          );
-      });
+        console.log(following)
+        if(following!= null){
+            following.map(val => {
+                axios
+                .get(`/api/following-posts/${val}`)
+                .then(res => {
+                    if (res.data.length > 0) {
+                    postsToSee.push(res.data);
+                    }
+                    props.followingPosts(postsToSee); //setting posts unto redux
+                })
+                .catch(err =>
+                    console.log("Error getting posts of those who you follow")
+                );
+            });
+        }
     }
   }, []);
 
