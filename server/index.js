@@ -112,7 +112,7 @@ io.sockets.on("connection", socket => {
 // user EndPoints
 app.post("/api/login", login);
 app.post("/api/register", register);
-app.put("/api/edit", edit);
+app.put("/api/edit/:id", edit);
 app.get("/api/user", userInfo);
 app.get("/api/logout", logout);
 
