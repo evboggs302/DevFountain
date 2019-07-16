@@ -6,7 +6,6 @@ import AppHeader from "../AppHeader/AppHeader";
 
 function ViewSkills(props) {
   const { allSkills, mySkills } = props.skills;
-  console.log(allSkills);
   console.log(mySkills);
 
   const {
@@ -22,7 +21,7 @@ function ViewSkills(props) {
   } = props.user.user;
 
   const { data: mySkillz, fetchDataWithId: getMySkills } = useFetch(
-    `/api/skills/`,
+    `/api/skills`,
     false,
     []
   );
@@ -36,10 +35,10 @@ function ViewSkills(props) {
   }, [mySkillz]);
 
   var mySkillys = [];
-  if (mySkillz) {
+  if (mySkills) {
     for (let k = 0; k < allSkills.length; k++) {
-      for (let i = 0; i < mySkillz.length; i++) {
-        if (allSkills[k].skill_id === mySkillz[i]) {
+      for (let i = 0; i < mySkills.length; i++) {
+        if (allSkills[k].skill_id === mySkills[i]) {
           mySkillys.push(allSkills[k]);
         }
       }
@@ -54,9 +53,11 @@ function ViewSkills(props) {
       </div>
     );
   });
-
+  console.log(allSkills);
+  console.log(mySkills);
   console.log("mySkillz: ", mySkillz);
   console.log("mySkillys: ", mySkillys);
+  console.log("mapped: ", mappedSkills);
 
   if (!props.user.user) {
     return (
@@ -65,7 +66,7 @@ function ViewSkills(props) {
       </div>
     );
   }
-
+  console.log(props);
   return <div>{mappedSkills}</div>;
 }
 
