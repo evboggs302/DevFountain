@@ -53,8 +53,3 @@ create table hasskills
     user_id integer references users(user_id),
     skills integer[]
 );
-
-
-update users
-set profile_pic = 'https://res.cloudinary.com/devmountain-phx/image/upload/v1563294470/w3xwtzygb0bw9f5yywcb.jpg'
-where user_id = 59;
