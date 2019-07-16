@@ -42,7 +42,9 @@ const {
 const {
   getMyMessages,
   sendMessage,
-  deleteMessage
+  deleteMessage,
+  getMyRooms,
+  createRoom
 } = require("./controllers/messageController");
 
 const { allUsers } = require("./controllers/marketplaceController");
@@ -112,7 +114,7 @@ io.sockets.on("connection", socket => {
 // user EndPoints
 app.post("/api/login", login);
 app.post("/api/register", register);
-app.put("/api/edit", edit);
+app.put("/api/edit/:id", edit);
 app.get("/api/user", userInfo);
 app.get("/api/logout", logout);
 
@@ -153,6 +155,8 @@ app.get("/api/marketplace", allUsers);
 app.get("/api/messages", getMyMessages);
 app.post("/api/messages/:email", sendMessage);
 app.delete("api/messages/:id", deleteMessage);
+app.get("/api/rooms", getMyRooms);
+app.post("/api/rooms/:email", createRoom);
 
 // Following Endpoints
 const {

@@ -28,12 +28,11 @@ function EditProfile(props) {
   let [newTitle, setTitle] = useState(null);
   let [newLinked, setLinked] = useState(null);
   let [newSkills, setTHESkills] = useState([]);
-  let [test, setTest] = useState('');
   let [newPortfolio, setPortfolio] = useState(null);
   let [className, setClassName] = useState("profile edit");
-  let [uploadedImage, setUploadedImage] = useState("");
+  let [uploadedImage, setUploadedImage] = useState(null);
   let [loading, setLoading] = useState(false);
-  let { postDataWithId: updateInfo } = usefetch("/api/edit", false);
+  let { putData: updateInfo } = usefetch("/api/edit", false);
 
   const finished = () => {
     let dataToPost = {
@@ -45,7 +44,10 @@ function EditProfile(props) {
     };
     console.log(dataToPost);
     updateInfo(user_id, dataToPost);
-    saveImageToDB();
+    if (uploadedImage) {
+      console.log("pic is changing");
+      saveImageToDB();
+    }
     updateSkills();
     setClassName("profile");
   };
@@ -125,17 +127,18 @@ function EditProfile(props) {
         });
     });
   };
-//then we will want to save the image to the users profile pic in the database
+  //then we will want to save the image to the users profile pic in the database
   function saveImageToDB() {
-    console.log(uploadedImage)
-    axios.put(`/api/image/${user_id}`, {profile_pic: uploadedImage}).then(res => {
-      console.log(res.data)
-      props.setUser(res.data)
-      setTest('Hello');
-      // setLoading(false);
-    }).catch(err => {
-      console.log("image did not update", err)
-    })
+    console.log(uploadedImage);
+    axios
+      .put(`/api/image/${user_id}`, { profile_pic: uploadedImage })
+      .then(res => {
+        console.log(res.data);
+        props.setUser(res.data);
+      })
+      .catch(err => {
+        console.log("image did not update", err);
+      });
   }
 
   var titleFiller;
@@ -227,5 +230,8 @@ const mapDispatchToProps = {
 //   mapDispatchToProps
 // );
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditProfile)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EditProfile);
 // export default invokedConnect(EditProfile);
