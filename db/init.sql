@@ -51,5 +51,14 @@ create table following
 create table hasskills
 (
     user_id integer references users(user_id),
-    skills integer[]
+    skills integer
+    []
 );
+
+    create table rooms
+    (
+        room_id serial primary key,
+        first_email text not null,
+        second_email text not null,
+        room_name text not null
+    );
