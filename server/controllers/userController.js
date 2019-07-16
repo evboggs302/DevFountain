@@ -125,10 +125,13 @@ module.exports = {
   //updating the user's profile picture
   updateProfilePic: (req, res, next) => {
     const { id } = req.params;
+    console.log("this is the id", req.params)
     const { profile_pic } = req.body;
+    console.log("this is the profile pic coming off the body", req.body.profile_pic)
     const db = req.app.get("db");
     db.updateProfilePic([id, profile_pic]).then(newProfilePic => {
-      res.status(200).send(newProfilePic)
+      console.log("profile pic returned", newProfilePic)
+      res.status(200).send(newProfilePic[0])
     }).catch(err => {
       console.log("pic did not update", err)
       res.status(500).send("Error with not updating picture")
