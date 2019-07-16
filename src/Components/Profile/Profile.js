@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { setUser } from "../../dux/reducers/userReducer";
 
 function Profile(props) {
-  console.log(props);
+  // console.log(props);
 
   let [className, setClassName] = useState("profile");
 

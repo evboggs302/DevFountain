@@ -125,8 +125,8 @@ app.get("/api/allskills", getAllSkills);
 // takes an email as a param and finds the associated userId to allow us to get all of that user's skills
 // returns the skill id's and the user's id
 app.get("/api/skills/:email", getMySkills);
-// takes a skill id as a param and the user's id off their session to add a skill
-app.put("/api/skills/", newSkills);
+// take an array of skill ID's as a body req
+app.put("/api/new_skills", newSkills);
 
 // post endpoints
 //gets all of a user's posts with their email
@@ -193,23 +193,24 @@ app.post("/api/send", (req, res, next) => {
 });
 
 //cloudinary
-//this endpoint will pass a signature to the front end that will allow an image to have access to 
+//this endpoint will pass a signature to the front end that will allow an image to have access to
 //the cloudinary account.
-app.get('/api/upload', (req, res) => {
+app.get("/api/upload", (req, res) => {
   //timestamp in UNIX Format
-  const timestamp = Math.round((new Date()).getTime() / 1000);
+  const timestamp = Math.round(new Date().getTime() / 1000);
   const api_secret = CLOUDINARY_SECRET_API;
   //built in cloundinary api sign request to create hashed signature w/ api secret and UNIX timestamp
-  const signature = cloudinary.utils.api_sign_request({timestamp: timestamp}, api_secret);
+  const signature = cloudinary.utils.api_sign_request(
+    { timestamp: timestamp },
+    api_secret
+  );
   //signature object to send to the front-end
   const payload = {
     signature: signature,
     timestamp: timestamp
   };
-  res.json(payload)
-})
-
-
+  res.json(payload);
+});
 
 // create sockets for messaging
 
@@ -221,5 +222,4 @@ app.get('/api/upload', (req, res) => {
 // });
 
 const port = SERVER_PORT || 4000;
-console.log(port);
 server.listen(port, () => console.log(`Listening on port ${port}`));

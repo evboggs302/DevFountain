@@ -34,7 +34,6 @@ function EditProfile(props) {
   let [uploadedImage, setUploadedImage] = useState("");
   let [loading, setLoading] = useState(false);
   let { postDataWithId: updateInfo } = usefetch("/api/edit", false);
-  let { putData: updateSkills } = usefetch(`/api/skills/`, false);
 
   const finished = () => {
     let dataToPost = {
@@ -44,12 +43,16 @@ function EditProfile(props) {
       linkedin: newLinked || linkedin,
       portfolio: newPortfolio || portfolio
     };
+    console.log(dataToPost);
     updateInfo(user_id, dataToPost);
-    saveImageToDB();
-    props.setPersonalSkills(newSkills);
-    updateSkills(user_id, newSkills);
+    // saveImageToDB();
+    updateSkills();
     setClassName("profile");
   };
+
+  useEffect(() => {
+    setTHESkills(mySkills);
+  }, []);
 
   useEffect(() => {
     var prevSavedSkills = [];
@@ -73,14 +76,27 @@ function EditProfile(props) {
     setTHESkills(currentSkills);
   }, [mySkills]);
 
-  var options = [];
-  allSkills.map(e => {
-    return options.push({
+  const updateSkills = () => {
+    let skillID = newSkills.map(e => e.skill_id);
+    console.log(skillID);
+    axios
+      .put(`/api/new_skills`, { skillID })
+      .then(response => {
+        console.log(response.data.skills);
+        props.setPersonalSkills(response.data.skills);
+      })
+      .catch(err => console.log(err));
+  };
+
+  //////////////////////\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
+  var options = allSkills.map(e => {
+    return {
       value: e.skill,
       label: e.skill,
       skill_id: e.skill_id,
       icon: e.icon
-    });
+    };
   });
 
   //cloudinary.
@@ -141,7 +157,7 @@ function EditProfile(props) {
     portfolioFiller = title;
   }
 
-  console.log("props:", props);
+  // console.log("props:", props);
   console.log("newSkills:", newSkills);
 
   return (
