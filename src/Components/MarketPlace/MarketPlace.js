@@ -27,14 +27,12 @@ function MarketPlace(props) {
   );
 
   let followDeveloper = id => {
-    if(props.user.user){
+    if (props.user.user) {
       const { user_id } = props.user.user;
       postData([user_id, id]);
       setFollowButton(true);
     }
-    
   };
-
 
   // Rendering each developers info on marketplace
   const developers = props.marketplace.allDevelopers;
@@ -86,7 +84,6 @@ function MarketPlace(props) {
       </div>
     );
   }
-
   return (
     <div>
       <AppHeader />
