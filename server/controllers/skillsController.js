@@ -15,19 +15,17 @@ module.exports = {
   // gets an email as a parameter
   getMySkills: (req, res, next) => {
     const { email } = req.params;
+    const { user_id } = req.session.user;
     const db = req.app.get("db");
     // email is passed to getSkills pt1 which finds a user.
-    db.getSkills(email).then(user => {
-      // we take the user_id off of the response and then find the matching id pairs
-      db.getSkillstwo(user[0].user_id)
-        .then(skills => {
-          res.status(200).send(skills);
-        })
-        .catch(err => {
-          console.log(err);
-          res.status(500).send("Whoops we had an issue");
-        });
-    });
+    db.getSkillstwo(user_id)
+      .then(response => {
+        res.status(200).send(response[0].skills);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).send("Whoops we had an issue");
+      });
   },
 
   newSkills: (req, res, next) => {

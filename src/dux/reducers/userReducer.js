@@ -4,7 +4,7 @@ const initialState = {
 };
 
 const SET_USER = "SET_USER";
-const SET_FOLLOWING = "SET_FOLLOWING"
+const SET_FOLLOWING = "SET_FOLLOWING";
 
 export default function userReducer(state = initialState, action) {
   switch (action.type) {
@@ -12,8 +12,8 @@ export default function userReducer(state = initialState, action) {
       console.log("this is the user who logged in ", action.payload);
       return { ...state, user: action.payload };
     case SET_FOLLOWING:
-      console.log('These are the poeple who you follow', action.payload)
-      return {...state, following: action.payload};
+      console.log("These are the poeple who you follow", action.payload);
+      return { ...state, following: action.payload };
     default:
       return state;
   }
@@ -26,9 +26,9 @@ export function setUser(user) {
   };
 }
 
-export function setFollowing(following){
+export function setFollowing(following) {
   return {
     type: SET_FOLLOWING,
     payload: following
-  }
+  };
 }

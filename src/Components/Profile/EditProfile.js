@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import usefetch from "../usefetch";
-import { connect} from "react-redux";
+import { connect } from "react-redux";
 import { setUser } from "../../dux/reducers/userReducer";
-import { setMySkills } from "../../dux/reducers/skillsReducer";
+import { setPersonalSkills } from "../../dux/reducers/skillsdux/skillsReducer";
 import Select from "react-select";
-import Axios from "axios";
+import axios from "axios";
 
-
-const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/devmountain-phx/image/upload'
+const CLOUDINARY_UPLOAD_URL =
+  "https://api.cloudinary.com/v1_1/devmountain-phx/image/upload";
 
 function EditProfile(props) {
   const { allSkills, mySkills } = props.skills;
@@ -34,7 +34,6 @@ function EditProfile(props) {
   let [uploadedImage, setUploadedImage] = useState("");
   let [loading, setLoading] = useState(false);
 
-
   let { postDataWithId: updateInfo } = usefetch("/api/edit", false);
   let { putData: updateSkills } = usefetch(`/api/skills/${user_id}`, false);
 
@@ -55,22 +54,21 @@ function EditProfile(props) {
       last: newLast || last,
       title: newTitle || title,
       linkedin: newLinked || linkedin,
-      // profile_pic: newPic || profile_pic
-      portfolio: newPortfolio || portfolio,
-      profile_pic: profile_pic
+      portfolio: newPortfolio || portfolio
       // skills: newSkills || mySkills
     };
     updateInfo(user_id, dataToPost);
-    setMySkills(newSkills);
+    saveImageToDB();
+    setPersonalSkills(newSkills);
     updateSkills(user_id, newSkills);
     setClassName("profile");
   };
 
   //cloudinary.
   //this function will initiate the signature request from the server when someone has uploaded an image to the client.
-  const handleImageUpload = (file) => {
+  const handleImageUpload = file => {
     //axios call to server to request hashed signature
-    Axios.get('/api/upload').then(response => {
+    axios.get("/api/upload").then(response => {
       //store the payload passed from the server from the axios call and insert it along
       //with the image-file, api key, and timestamp into a new form using new FormData()
       let formData = new FormData();
@@ -80,20 +78,22 @@ function EditProfile(props) {
       formData.append("file", file[0]);
       setLoading(true);
 
-   
-      Axios.post(CLOUDINARY_UPLOAD_URL, formData).then(response => {
-        console.log(response.data)
-        //once an image is uploaded, cloundinary will send a response back with a secure url.
-        setUploadedImage(response.data.secure_url);
-      }).catch(err => {
-        console.log("image did not upload", err)
-      })
-    }) 
-}
+      axios
+        .post(CLOUDINARY_UPLOAD_URL, formData)
+        .then(response => {
+          console.log(response.data);
+          //once an image is uploaded, cloundinary will send a response back with a secure url.
+          setUploadedImage(response.data.secure_url);
+        })
+        .catch(err => {
+          console.log("image did not upload", err);
+        });
+    });
+  };
 
-function saveImageToDB(){
-  Axios.post('/api/image', uploadedImage) 
-}
+  function saveImageToDB() {
+    axios.post("/api/image", uploadedImage);
+  }
 
   var titleFiller;
   if (!title) {
@@ -116,14 +116,17 @@ function saveImageToDB(){
 
   console.log("props:", props);
   console.log("options", options);
-  console.log("my skills", newSkills);
+  console.log("NEWskills", newSkills);
 
   return (
     <div className={className}>
       <div>
         <div>
           <img src={profile_pic} />
-          <input type="file" onChange={(e) => handleImageUpload(e.target.files)}/>
+          <input
+            type="file"
+            onChange={e => handleImageUpload(e.target.files)}
+          />
           {/* <button onClick={() => }>Apply</button> */}
         </div>
         <div>
@@ -137,7 +140,6 @@ function saveImageToDB(){
           />
         </div>
         <div>
-
           <div>{email}</div>
         </div>
         <div>
@@ -154,7 +156,7 @@ function saveImageToDB(){
         </div>
         <Select
           closeMenuOnSelect={false}
-          defaultValue={"Select Your Skills"}
+          defaultValue={mySkills}
           isMulti
           name="colors"
           options={options}
@@ -162,8 +164,6 @@ function saveImageToDB(){
         />
       </div>
       <button onClick={() => finished()}>Finished Editing</button>
-       
-
     </div>
   );
 }
@@ -173,7 +173,7 @@ const mapStateToProps = reduxState => {
 };
 
 const mapDispatchToProps = {
-  setMySkills
+  setPersonalSkills
 };
 
 const invokedConnect = connect(
