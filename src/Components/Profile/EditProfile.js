@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
 import usefetch from "../usefetch";
 import { connect } from "react-redux";
 import { setUser } from "../../dux/reducers/userReducer";
