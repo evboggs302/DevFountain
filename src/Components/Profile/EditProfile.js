@@ -45,7 +45,7 @@ function EditProfile(props) {
     };
     console.log(dataToPost);
     updateInfo(user_id, dataToPost);
-    // saveImageToDB();
+    saveImageToDB();
     updateSkills();
     setClassName("profile");
   };
