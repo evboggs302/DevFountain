@@ -9,6 +9,12 @@ function ViewSkills(props) {
   console.log(allSkills);
   console.log(mySkills);
 
+  if (!props.user.user) {
+    <div>
+      <AppHeader />
+    </div>;
+  }
+
   const {
     developer,
     email,
