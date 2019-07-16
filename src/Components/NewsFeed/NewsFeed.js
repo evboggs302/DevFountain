@@ -13,6 +13,8 @@ function NewsFeed(props) {
     let postsToSee = []
 
   useEffect(() => {
+      console.log('hi')
+      console.log(props)
     if (props.user.user) {
         console.log(following)
         if(following!= null){
@@ -23,6 +25,8 @@ function NewsFeed(props) {
                     if (res.data.length > 0) {
                     postsToSee.push(res.data);
                     }
+                    console.log(props)
+                    console.log(postsToSee)
                     props.followingPosts(postsToSee); //setting posts unto redux
                 })
                 .catch(err =>
@@ -42,15 +46,16 @@ function NewsFeed(props) {
   }
 
   // Display each post
-
   let { followingPosts } = props.posts;
+  console.log(props)
   let mappedPosts;
   if (followingPosts) {
     followingPosts = followingPosts.flat();
     console.log(followingPosts);
     mappedPosts = followingPosts.map(val => {
+        console.log(val)
       return (
-        <div className="post-card">
+        <div className="post-card" >
           <div className="post-user-info">
             <img src={val.profile_pic} />
             <div className="user-info">

@@ -9,6 +9,7 @@ import { NavLink } from "react-router-dom";
 function AppHeader(props) {
   const { data: user } = UseFetch("/api/user", true, null);
   useEffect(() => {
+    console.log(props)
     if (user) {
       props.setUser(user);
     }
@@ -28,7 +29,7 @@ function AppHeader(props) {
     props.setFollowing(following);
   }, [following]);
 
-  
+
   if (!props.user.user) {
     return <div />;
   }
