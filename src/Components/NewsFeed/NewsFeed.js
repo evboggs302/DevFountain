@@ -9,17 +9,12 @@ import CreatePost from './createpost/CreatePost'
 
 function NewsFeed(props) {
 
-console.log(props.user)
 const {following} = props.user
 let postsToSee = []
 
   useEffect(() => {
-      console.log('hi')
-      console.log(props)
     if (props.user.user !== null) {
-        console.log(following)
         if(following!= null){
-            console.log('what is up')
             following.map(val => {
                 axios
                 .get(`/api/following-posts/${val}`)
@@ -27,8 +22,6 @@ let postsToSee = []
                     if (res.data.length > 0) {
                     postsToSee.push(res.data);
                     }
-                    console.log(props)
-                    console.log(postsToSee)
                     props.followingPosts(postsToSee); //setting posts unto redux
                 })
                 .catch(err =>
@@ -49,13 +42,11 @@ let postsToSee = []
 
   // Display each post
   let { followingPosts } = props.posts;
-  console.log(props)
   let mappedPosts;
   if (followingPosts) {
     followingPosts = followingPosts.flat();
-    console.log(followingPosts);
+    
     mappedPosts = followingPosts.map(val => {
-        console.log(val)
       return (
         <div className="post-card" >
           <div className="post-user-info">
