@@ -12,7 +12,11 @@ function Profile(props) {
   let [className, setClassName] = useState("profile");
 
   if (!props.user.user) {
-    return <div />;
+    return (
+      <div>
+        <AppHeader />
+      </div>
+    );
   }
 
   const {
