@@ -80,15 +80,15 @@ module.exports = {
     res.status(200).send("we be logged out, mama!");
   },
   edit: (req, res, next) => {
+    const db = req.app.get("db");
     //need user id from front end off of user object
     const { id } = req.params;
     //grab all malleable data from req.body
-    const { first, last, title, linkedin, portfolio, profile_pic } = req.body;
-    //console log for data track
-    console.log(first, last, title, linkedin, portfolio, profile_pic);
+    console.log("body: ", req.body);
+    const { first, last, title, linkedin, portfolio } = req.body;
     //find the proper user to edit
-    db.selectUserById(id).then(foundUser => {
-      console.log("FoundUser:", foundUser);
+    db.selectUserByID(id).then(foundUser => {
+      console.log("FoundUser: ", foundUser);
       if (foundUser.length) {
         //values will equal the old if no new value is passed
         let newFirst = first || foundUser[0].first;
@@ -96,7 +96,7 @@ module.exports = {
         let newTitle = title || foundUser[0].title;
         let newLinkedin = linkedin || foundUser[0].linkedin;
         let newPortfolio = portfolio || foundUser[0].portfolio;
-        let newProfile_pic = profile_pic || foundUser[0].profile_pic;
+        let profile_pic = foundUser[0].profile_pic;
         //pass the new values in to replace old
         db.changeUserInfo([
           newFirst,
@@ -104,14 +104,13 @@ module.exports = {
           newTitle,
           newLinkedin,
           newPortfolio,
-          newProfile_pic,
+          profile_pic,
           id
         ])
           .then(updatedUser => {
             //New user object is returned
-            req.session.user = updatedUser;
             console.log("UpdatedUser:", updatedUser);
-            req.session.user = updatedUser;
+            req.session.user = updatedUser[0];
             res.status(200).send(req.session.user);
           })
           .catch(err => {
@@ -127,12 +126,14 @@ module.exports = {
     const { id } = req.params;
     const { profile_pic } = req.body;
     const db = req.app.get("db");
-    db.updateProfilePic([id, profile_pic]).then(newProfilePic => {
-      res.status(200).send(newProfilePic)
-    }).catch(err => {
-      console.log("pic did not update", err)
-      res.status(500).send("Error with not updating picture")
-    })
+    db.updateProfilePic([id, profile_pic])
+      .then(newProfilePic => {
+        res.status(200).send(newProfilePic[0]);
+      })
+      .catch(err => {
+        console.log("pic did not update", err);
+        res.status(500).send("Error with not updating picture");
+      });
   },
 
   // takes an info object, a socket, and a database param
