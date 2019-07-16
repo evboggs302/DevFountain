@@ -1,15 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import usefetch from "../usefetch";
-<<<<<<< HEAD
-import { connect} from "react-redux";
-import { setUser } from "../../dux/reducers/userReducer";
-import { setMySkills } from "../../dux/reducers/skillsReducer";
-=======
 import { connect } from "react-redux";
 import { setUser } from "../../dux/reducers/userReducer";
 import { setPersonalSkills } from "../../dux/reducers/skillsdux/skillsReducer";
->>>>>>> 7aac074534cbc5e5088ae2dff403492fc32fab7e
 import Select from "react-select";
 import axios from "axios";
 
@@ -61,12 +55,8 @@ function EditProfile(props) {
       last: newLast || last,
       title: newTitle || title,
       linkedin: newLinked || linkedin,
-<<<<<<< HEAD
       portfolio: newPortfolio || portfolio,
       // profile_pic: newPic || profile_pic
-=======
-      portfolio: newPortfolio || portfolio
->>>>>>> 7aac074534cbc5e5088ae2dff403492fc32fab7e
       // skills: newSkills || mySkills
     };
     updateInfo(user_id, dataToPost);
@@ -90,24 +80,6 @@ function EditProfile(props) {
       formData.append("file", file[0]);
       setLoading(true);
 
-<<<<<<< HEAD
-      
-      Axios.post(CLOUDINARY_UPLOAD_URL, formData).then(response => {
-        console.log(response.data)
-        //once an image is uploaded, cloundinary will send a response back with a secure url.
-        setUploadedImage(response.data.secure_url);
-       
-      }).catch(err => {
-        console.log("image did not upload", err)
-      })
-    }) 
-}
-
-// function saveImageToDB(){
-//   Axios.post('/api/image', uploadedImage) 
-
-// }
-=======
       axios
         .post(CLOUDINARY_UPLOAD_URL, formData)
         .then(response => {
@@ -124,7 +96,6 @@ function EditProfile(props) {
   function saveImageToDB() {
     axios.post("/api/image", uploadedImage);
   }
->>>>>>> 7aac074534cbc5e5088ae2dff403492fc32fab7e
 
   var titleFiller;
   if (!title) {
@@ -154,18 +125,11 @@ function EditProfile(props) {
       <div>
         <div>
           <img src={profile_pic} />
-<<<<<<< HEAD
-          <input type="file" onChange={(e) => handleImageUpload(e.target.files)}/>
-          <div>
-           {/* <img src={newPic}/> */}
-          </div>
-=======
           <input
             type="file"
             onChange={e => handleImageUpload(e.target.files)}
           />
           {/* <button onClick={() => }>Apply</button> */}
->>>>>>> 7aac074534cbc5e5088ae2dff403492fc32fab7e
         </div>
         <div>
           <input placeholder={first} onChange={e => setFirst(e.target.value)} />
