@@ -5,14 +5,13 @@ const initialState = {
 
 const ALL_SKILLS = "ALL_SKILLS";
 const SET_PERSONAL_SKILLS = "SET_PERSONAL_SKILLS";
+const SET_NEW_SKILLS = "SET_NEW_SKILLS";
 
 export default function Skills(state = initialState, action) {
   switch (action.type) {
     case ALL_SKILLS:
-      console.log("these are all the skills", action.payload);
       return { ...state, allSkills: action.payload };
     case SET_PERSONAL_SKILLS:
-      console.log("these are my skills", action.payload);
       return { ...state, mySkills: action.payload };
     default:
       return state;
@@ -27,7 +26,6 @@ export function setSkills(skills) {
 }
 
 export function setPersonalSkills(skills) {
-  console.log(skills);
   return {
     type: SET_PERSONAL_SKILLS,
     payload: skills
