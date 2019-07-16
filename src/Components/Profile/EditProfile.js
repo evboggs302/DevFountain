@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
 import usefetch from "../usefetch";
 import { connect } from "react-redux";
-import { setUser } from "../../dux/reducers/userReducer";
-import { setPersonalSkills } from "../../dux/reducers/skillsdux/skillsReducer";
+// import { setUser } from "../../dux/reducers/userReducer";
+import { setPersonalSkills } from "../../dux/reducers/skillsReducer";
 import Select from "react-select";
 import axios from "axios";
 
@@ -25,20 +24,54 @@ function EditProfile(props) {
   } = props.user.user;
 
   let [newFirst, setFirst] = useState(null);
-  let [newSkills, setSkills] = useState(mySkills);
   let [newLast, setLast] = useState(null);
   let [newTitle, setTitle] = useState(null);
   let [newLinked, setLinked] = useState(null);
+  let [newSkills, setTHESkills] = useState([]);
   let [newPortfolio, setPortfolio] = useState(null);
   let [className, setClassName] = useState("profile edit");
   let [uploadedImage, setUploadedImage] = useState("");
   let [loading, setLoading] = useState(false);
-  // let [newPic, setPic] = useState("");
-
   let { postDataWithId: updateInfo } = usefetch("/api/edit", false);
-  let { putData: updateSkills } = usefetch(`/api/skills/${user_id}`, false);
+  let { putData: updateSkills } = usefetch(`/api/skills/`, false);
 
-  // console.log(allSkills);
+  const finished = () => {
+    let dataToPost = {
+      first: newFirst || first,
+      last: newLast || last,
+      title: newTitle || title,
+      linkedin: newLinked || linkedin,
+      portfolio: newPortfolio || portfolio
+    };
+    updateInfo(user_id, dataToPost);
+    saveImageToDB();
+    props.setPersonalSkills(newSkills);
+    updateSkills(user_id, newSkills);
+    setClassName("profile");
+  };
+
+  useEffect(() => {
+    var prevSavedSkills = [];
+    if (mySkills) {
+      for (let k = 0; k < allSkills.length; k++) {
+        for (let i = 0; i < mySkills.length; i++) {
+          if (allSkills[k].skill_id === mySkills[i]) {
+            prevSavedSkills.push(allSkills[k]);
+          }
+        }
+      }
+    }
+    var currentSkills = prevSavedSkills.map(e => {
+      return {
+        value: e.skill,
+        label: e.skill,
+        skill_id: e.skill_id,
+        icon: e.icon
+      };
+    });
+    setTHESkills(currentSkills);
+  }, [mySkills]);
+
   var options = [];
   allSkills.map(e => {
     return options.push({
@@ -48,23 +81,6 @@ function EditProfile(props) {
       icon: e.icon
     });
   });
-
-  const finished = () => {
-    let dataToPost = {
-      first: newFirst || first,
-      last: newLast || last,
-      title: newTitle || title,
-      linkedin: newLinked || linkedin,
-      portfolio: newPortfolio || portfolio,
-      // profile_pic: newPic || profile_pic
-      // skills: newSkills || mySkills
-    };
-    updateInfo(user_id, dataToPost);
-    saveImageToDB();
-    setPersonalSkills(newSkills);
-    updateSkills(user_id, newSkills);
-    setClassName("profile");
-  };
 
   //cloudinary.
   //this function will initiate the signature request from the server when someone has uploaded an image to the client.
@@ -117,8 +133,7 @@ function EditProfile(props) {
   }
 
   console.log("props:", props);
-  console.log("options", options);
-  console.log("NEWskills", newSkills);
+  console.log("newSkills:", newSkills);
 
   return (
     <div className={className}>
@@ -152,18 +167,22 @@ function EditProfile(props) {
         </div>
         <div>
           <input
-            placeHolder={portfolioFiller}
+            placeholder={portfolioFiller}
             onChange={e => setPortfolio(e.target.value)}
           />
         </div>
-        <Select
-          closeMenuOnSelect={false}
-          defaultValue={mySkills}
-          isMulti
-          name="colors"
-          options={options}
-          onChange={setSkills}
-        />
+        {developer ? (
+          <Select
+            name="skills"
+            isMulti
+            options={options}
+            onChange={setTHESkills}
+            value={newSkills}
+            isSearchable={true}
+            backspaceRemovesValue={true}
+            closeMenuOnSelect={false}
+          />
+        ) : null}
       </div>
       <button onClick={() => finished()}>Finished Editing</button>
     </div>
