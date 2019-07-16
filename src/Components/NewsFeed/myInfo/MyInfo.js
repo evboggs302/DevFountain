@@ -5,6 +5,13 @@ import {connect} from 'react-redux'
 function MyInfo(props) {
     const {user} = props.user
     console.log(user)
+    if(user){
+        return (
+            <div>
+                <h1>{user.first} {user.last}</h1>
+            </div>
+        )
+    }
     
     return (
         <div>
