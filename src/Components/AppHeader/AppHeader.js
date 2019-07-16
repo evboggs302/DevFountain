@@ -54,9 +54,17 @@ function AppHeader(props) {
     });
   };
 
+  let encode;
+  if (props.user && props.user.user && props.user.user.first) {
+    const { email } = props.user.user;
+    encode = encodeURIComponent(email);
+  }
+
+  
   return (
     <div className="app-header">
       <nav>
+        <NavLink to={`/profile/${encode}`}>Profile</NavLink>
         <NavLink to="/marketplace">MarketPlace</NavLink>
         <NavLink to="/newsfeed">NewsFeed</NavLink>
       </nav>
