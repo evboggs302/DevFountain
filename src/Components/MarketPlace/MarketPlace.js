@@ -26,11 +26,6 @@ function MarketPlace(props) {
     []
   );
 
-  // if(props.user.user){
-
-  // }
-  
-
   let followDeveloper = id => {
     if(props.user.user){
       const { user_id } = props.user.user;

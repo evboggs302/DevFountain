@@ -4,20 +4,22 @@ import { connect } from "react-redux";
 import { followingPosts } from "../../dux/reducers/postsReducer";
 import axios from "axios";
 import "./NewsFeed.scss";
+import UseFetch from '../usefetch'
 import CreatePost from './createpost/CreatePost'
 
 function NewsFeed(props) {
 
-    console.log(props.user)
-    const {following} = props.user
-    let postsToSee = []
+console.log(props.user)
+const {following} = props.user
+let postsToSee = []
 
   useEffect(() => {
       console.log('hi')
       console.log(props)
-    if (props.user.user) {
+    if (props.user.user !== null) {
         console.log(following)
         if(following!= null){
+            console.log('what is up')
             following.map(val => {
                 axios
                 .get(`/api/following-posts/${val}`)
@@ -33,9 +35,9 @@ function NewsFeed(props) {
                     console.log("Error getting posts of those who you follow")
                 );
             });
-        }
-    }
-  }, []);
+            } 
+        } 
+    }, [following]);
 
   if (!props.user.user) {
     return (
