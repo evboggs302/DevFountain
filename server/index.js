@@ -42,7 +42,9 @@ const {
 const {
   getMyMessages,
   sendMessage,
-  deleteMessage
+  deleteMessage,
+  getMyRooms,
+  createRoom
 } = require("./controllers/messageController");
 
 const { allUsers } = require("./controllers/marketplaceController");
@@ -153,6 +155,8 @@ app.get("/api/marketplace", allUsers);
 app.get("/api/messages", getMyMessages);
 app.post("/api/messages/:email", sendMessage);
 app.delete("api/messages/:id", deleteMessage);
+app.get("/api/rooms", getMyRooms);
+app.post("/api/rooms/:email", createRoom);
 
 // Following Endpoints
 const {
@@ -193,23 +197,24 @@ app.post("/api/send", (req, res, next) => {
 });
 
 //cloudinary
-//this endpoint will pass a signature to the front end that will allow an image to have access to 
+//this endpoint will pass a signature to the front end that will allow an image to have access to
 //the cloudinary account.
-app.get('/api/upload', (req, res) => {
+app.get("/api/upload", (req, res) => {
   //timestamp in UNIX Format
-  const timestamp = Math.round((new Date()).getTime() / 1000);
+  const timestamp = Math.round(new Date().getTime() / 1000);
   const api_secret = CLOUDINARY_SECRET_API;
   //built in cloundinary api sign request to create hashed signature w/ api secret and UNIX timestamp
-  const signature = cloudinary.utils.api_sign_request({timestamp: timestamp}, api_secret);
+  const signature = cloudinary.utils.api_sign_request(
+    { timestamp: timestamp },
+    api_secret
+  );
   //signature object to send to the front-end
   const payload = {
     signature: signature,
     timestamp: timestamp
   };
-  res.json(payload)
-})
-
-
+  res.json(payload);
+});
 
 // create sockets for messaging
 
