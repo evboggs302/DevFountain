@@ -30,6 +30,7 @@ function ViewSkills(props) {
     setPersonalSkills(mySkillz);
   }, [mySkillz]);
 
+  console.log(mySkillz);
   return <div />;
 }
 
