@@ -14,7 +14,6 @@ module.exports = {
   },
   // gets an email as a parameter
   getMySkills: (req, res, next) => {
-    const { email } = req.params;
     const { user_id } = req.session.user;
     const db = req.app.get("db");
     // email is passed to getSkills pt1 which finds a user.
@@ -29,19 +28,18 @@ module.exports = {
   },
 
   newSkills: (req, res, next) => {
-    // we take a skill id as a parameter
-    // const { id } = req.body;
-    console.log(req.body);
+    // we take an array of skill ID's as a parameter
+    const { skillID } = req.body;
     // user id comes off the session.user object
-    // const { user_id } = req.session.user;
-    // const db = req.app.get("db");
-    // db.updateSkills([user_id, skills])
-    //   .then(newSkills => {
-    //     res.status(200).send(newSkills);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //     res.status(500).send("Sorry try again later.");
-    //   });
+    const { user_id } = req.session.user;
+    const db = req.app.get("db");
+    db.updateSkills([user_id, skillID])
+      .then(newSkills => {
+        res.status(200).send(newSkills[0]);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).send("adding skills failed");
+      });
   }
 };
