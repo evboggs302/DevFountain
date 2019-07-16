@@ -10,6 +10,8 @@ function NewsFeed (props ){
     // Getting all the posts of the people who you follow
     let postsToSee = []
     const {following} = props.user
+    console.log(props)
+    console.log(following)
 
     useEffect(()=> {
         following.map(val => {

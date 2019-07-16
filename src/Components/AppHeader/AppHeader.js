@@ -15,15 +15,18 @@ function AppHeader(props) {
   }, [user]);
 
   // this Use Effect is to hit the whoIamFollowing endpoint and update the state(following) to have include the people who you are following
-  // useEffect(() => {
-  //   if (props.user.user) {
-  //     axioscall(id);
-  //   }
-  // }, []);
+  const {data: following, fetchDataWithId: axioscall} = UseFetch('/api/following')
+  useEffect(() => {
+    console.log(props)
+    if (props.user.user) {
+      const {user_id} = props.user.user
+      axioscall(user_id);
+    }
+  }, []);
 
-  // useEffect(() => {
-  //   props.setFollowing(following);
-  // }, [following]);
+  useEffect(() => {
+    props.setFollowing(following);
+  }, [following]);
 
   console.log(props);
   const logout = () => {
