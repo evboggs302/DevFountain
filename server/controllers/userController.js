@@ -122,6 +122,19 @@ module.exports = {
       }
     });
   },
+  //updating the user's profile picture
+  updateProfilePic: (req, res, next) => {
+    const { id } = req.params;
+    const { profile_pic } = req.body;
+    const db = req.app.get("db");
+    db.updateProfilePic([id, profile_pic]).then(newProfilePic => {
+      res.status(200).send(newProfilePic)
+    }).catch(err => {
+      console.log("pic did not update", err)
+      res.status(500).send("Error with not updating picture")
+    })
+  },
+
   // takes an info object, a socket, and a database param
   joinRoom(info, socket, db) {
     // we join the socket named after the concat of the user emails, with the first name in alphabetical order first

@@ -4,31 +4,40 @@ import { connect } from "react-redux";
 import { followingPosts } from "../../dux/reducers/postsReducer";
 import axios from "axios";
 import "./NewsFeed.scss";
-import CreatePost from './CreatePost'
+import UseFetch from '../usefetch'
+import CreatePost from './createpost/CreatePost'
 
 function NewsFeed(props) {
 
-    console.log(props.user)
-    const {following} = props.user
-    let postsToSee = []
+console.log(props.user)
+const {following} = props.user
+let postsToSee = []
 
   useEffect(() => {
-    if (props.user.user) {
-      following.map(val => {
-        axios
-          .get(`/api/following-posts/${val}`)
-          .then(res => {
-            if (res.data.length > 0) {
-              postsToSee.push(res.data);
-            }
-            props.followingPosts(postsToSee); //setting posts unto redux
-          })
-          .catch(err =>
-            console.log("Error getting posts of those who you follow")
-          );
-      });
-    }
-  }, []);
+      console.log('hi')
+      console.log(props)
+    if (props.user.user !== null) {
+        console.log(following)
+        if(following!= null){
+            console.log('what is up')
+            following.map(val => {
+                axios
+                .get(`/api/following-posts/${val}`)
+                .then(res => {
+                    if (res.data.length > 0) {
+                    postsToSee.push(res.data);
+                    }
+                    console.log(props)
+                    console.log(postsToSee)
+                    props.followingPosts(postsToSee); //setting posts unto redux
+                })
+                .catch(err =>
+                    console.log("Error getting posts of those who you follow")
+                );
+            });
+            } 
+        } 
+    }, [following]);
 
   if (!props.user.user) {
     return (
@@ -39,15 +48,16 @@ function NewsFeed(props) {
   }
 
   // Display each post
-
   let { followingPosts } = props.posts;
+  console.log(props)
   let mappedPosts;
   if (followingPosts) {
     followingPosts = followingPosts.flat();
     console.log(followingPosts);
     mappedPosts = followingPosts.map(val => {
+        console.log(val)
       return (
-        <div className="post-card">
+        <div className="post-card" >
           <div className="post-user-info">
             <img src={val.profile_pic} />
             <div className="user-info">
