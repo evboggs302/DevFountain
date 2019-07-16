@@ -31,7 +31,7 @@ $light-gray: #F5F5F5;
 }
 
 .help-text {
-    background-color: $light-color;
+    background-color: #DB4646;
     color: white;
     display: inline-block;
     position: absolute;
@@ -45,7 +45,7 @@ $light-gray: #F5F5F5;
 }
 
 .help-triangle {
-    color: $dark-color;
+    color: #DB4646;
     position: absolute;
     font-size: 20px; 
     left: 10px;
@@ -55,15 +55,22 @@ $light-gray: #F5F5F5;
 }
 
 .select {
-    background-color: $blue-color;
-    color: white;
-    padding: 12px;
+    // background-color: #677284;
+    background-color: white;
+    justify-content: center;
+    color: $light-color;
+    padding: 10px;
     margin-top: 10px;
-    width: 200px;
+    width: 100%;
+    align-self: flex-end;
+    text-align: center;
     border: none;
-    outline: none;
-    -webkit-appearance: button;
-    appearance: button;
+    -moz-appearance: none ;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeBAMAAADJHrORAAAAGFBMVEUAAAAuNUAuNUAuNUAuNUAuNUAuNUAuNUACUA6CAAAAB3RSTlMAGjG+6/P1wTTolgAAAChJREFUGFdjYBgOwLy8vNwBiS8G5Csg8RnTy4tQNIihSAMVBDEMTwAA27MFyalfYEgAAAAASUVORK5CYII=');
+    background-repeat: no-repeat;
+    background-position: right center;
   
 }
 
@@ -86,16 +93,17 @@ $light-gray: #F5F5F5;
         background-color: rgba(255, 255, 255, 0.2);
 }
 
-.submit-btn {
+.join-btn {
     margin: 20px auto;
     padding: 10px 15px;
     width: 100%;
     border-style: none;
-    background: $dark-color;
+    background: $light-color;
     color: white;
+    
 }
 
-// .submit-btn:hover {
-//     background-color: $light-gray;
-//     color: $dark-color;
-// }
+.join-btn:hover {
+    background-color: $dark-color;
+    
+}

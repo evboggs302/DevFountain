@@ -37,7 +37,7 @@ function Header(props) {
         placeholder="Password"
         className="input"
       />
-      <button onClick={() => login({ email, password })}>Login</button>
+      <button onClick={() => login({ email, password })} className="login-btn">Login</button>
     </div>
   );
 }

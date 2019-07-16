@@ -3,7 +3,6 @@ import { Link, NavLink } from "react-router-dom";
 import usefetch from "../usefetch";
 import { connect} from "react-redux";
 import { setUser } from "../../dux/reducers/userReducer";
-import { connect } from "react-redux";
 import { setMySkills } from "../../dux/reducers/skillsReducer";
 import Select from "react-select";
 import Axios from "axios";
@@ -34,6 +33,7 @@ function EditProfile(props) {
   let [className, setClassName] = useState("profile edit");
   let [uploadedImage, setUploadedImage] = useState("");
   let [loading, setLoading] = useState(false);
+  // let [newPic, setPic] = useState("");
 
 
   let { postDataWithId: updateInfo } = usefetch("/api/edit", false);
@@ -56,9 +56,8 @@ function EditProfile(props) {
       last: newLast || last,
       title: newTitle || title,
       linkedin: newLinked || linkedin,
-      // profile_pic: newPic || profile_pic
       portfolio: newPortfolio || portfolio,
-      profile_pic: newPic || profile_pic
+      // profile_pic: newPic || profile_pic
       // skills: newSkills || mySkills
     };
     updateInfo(user_id, dataToPost);
@@ -81,20 +80,22 @@ function EditProfile(props) {
       formData.append("file", file[0]);
       setLoading(true);
 
-   
+      
       Axios.post(CLOUDINARY_UPLOAD_URL, formData).then(response => {
         console.log(response.data)
         //once an image is uploaded, cloundinary will send a response back with a secure url.
         setUploadedImage(response.data.secure_url);
+       
       }).catch(err => {
         console.log("image did not upload", err)
       })
     }) 
 }
 
-function saveImageToDB(){
-  Axios.post('/api/image', uploadedImage) 
-}
+// function saveImageToDB(){
+//   Axios.post('/api/image', uploadedImage) 
+
+// }
 
   var titleFiller;
   if (!title) {
@@ -125,7 +126,9 @@ function saveImageToDB(){
         <div>
           <img src={profile_pic} />
           <input type="file" onChange={(e) => handleImageUpload(e.target.files)}/>
-          {/* <button onClick={() => }>Apply</button> */}
+          <div>
+           {/* <img src={newPic}/> */}
+          </div>
         </div>
         <div>
           <input placeholder={first} onChange={e => setFirst(e.target.value)} />
