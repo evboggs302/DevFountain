@@ -20,7 +20,7 @@ function AppHeader(props) {
 
   // this Use Effect is to hit the whoIamFollowing endpoint and update the state(following) to have include the people who you are following
   // useEffect(() => {
-  //   if (props.user) {
+  //   if (props.user.user) {
   //     axioscall(id)
   // }, []);
 
