@@ -8,24 +8,31 @@ import CreatePost from './CreatePost'
 
 function NewsFeed(props) {
 
-    // Getting all the posts of the people who you follow
-    let postsToSee = []
+    console.log(props.user)
     const {following} = props.user
-    console.log(props)
-    console.log(following)
+    let postsToSee = []
 
-    useEffect(()=> {
-        following.map(val => {
-            axios.get(`/api/following-posts/${val}`)
-            .then(res => {
-                if(res.data.length > 0){
-                    postsToSee.push(res.data)
-                }
-                props.followingPosts(postsToSee) //setting posts unto redux
-            })
-            .catch(err => console.log('Error getting posts of those who you follow'))
-        })
-    }, []);
+  useEffect(() => {
+    if (props.user.user) {
+      following.map(val => {
+        axios
+          .get(`/api/following-posts/${val}`)
+          .then(res => {
+            if (res.data.length > 0) {
+              postsToSee.push(res.data);
+            }
+            props.followingPosts(postsToSee); //setting posts unto redux
+          })
+          .catch(err =>
+            console.log("Error getting posts of those who you follow")
+          );
+      });
+    }
+  }, []);
+
+  if (!props.user.user) {
+    return <div />;
+  }
 
   // Display each post
 
