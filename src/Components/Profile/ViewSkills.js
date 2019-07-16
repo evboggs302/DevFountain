@@ -2,18 +2,12 @@ import React, { useState, useEffect } from "react";
 import useFetch from "../usefetch";
 import { connect } from "react-redux";
 import { setPersonalSkills } from "../../dux/reducers/skillsReducer";
-import { all } from "q";
+import AppHeader from "../AppHeader/AppHeader";
 
 function ViewSkills(props) {
   const { allSkills, mySkills } = props.skills;
   console.log(allSkills);
   console.log(mySkills);
-
-  if (!props.user.user) {
-    <div>
-      <AppHeader />
-    </div>;
-  }
 
   const {
     developer,
@@ -52,10 +46,27 @@ function ViewSkills(props) {
     }
   }
 
+  const mappedSkills = mySkillys.map(e => {
+    return (
+      <div key={e.skill_id}>
+        <h5>{e.skill}</h5>
+        <img src={e.icon} alt="skill icon" />
+      </div>
+    );
+  });
+
   console.log("mySkillz: ", mySkillz);
   console.log("mySkillys: ", mySkillys);
 
-  return <div />;
+  if (!props.user.user) {
+    return (
+      <div>
+        <AppHeader />
+      </div>
+    );
+  }
+
+  return <div>{mappedSkills}</div>;
 }
 
 const mapStateToProps = reduxState => {
