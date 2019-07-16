@@ -119,7 +119,7 @@ app.get("/api/user", userInfo);
 app.get("/api/logout", logout);
 
 //update user profile pic endpoint
-app.put("/api/image", updateProfilePic);
+app.put("/api/image/:id", updateProfilePic);
 
 // skills endpoints
 // Gets a list of all skills and associated values
@@ -127,8 +127,8 @@ app.get("/api/allskills", getAllSkills);
 // takes an email as a param and finds the associated userId to allow us to get all of that user's skills
 // returns the skill id's and the user's id
 app.get("/api/skills/:email", getMySkills);
-// takes a skill id as a param and the user's id off their session to add a skill
-app.put("/api/skills/", newSkills);
+// take an array of skill ID's as a body req
+app.put("/api/new_skills", newSkills);
 
 // post endpoints
 //gets all of a user's posts with their email
@@ -226,5 +226,4 @@ app.get("/api/upload", (req, res) => {
 // });
 
 const port = SERVER_PORT || 4000;
-console.log(port);
 server.listen(port, () => console.log(`Listening on port ${port}`));
