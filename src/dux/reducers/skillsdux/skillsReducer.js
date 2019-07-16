@@ -7,7 +7,6 @@ const ALL_SKILLS = "ALL_SKILLS";
 const SET_PERSONAL_SKILLS = "SET_PERSONAL_SKILLS";
 
 export default function Skills(state = initialState, action) {
-  console.log(action);
   switch (action.type) {
     case ALL_SKILLS:
       console.log("these are all the skills", action.payload);

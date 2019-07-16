@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { setPersonalSkills } from "../../dux/reducers/skillsdux/skillsReducer";
 
 function ViewSkills(props) {
+  const { allSkills, mySkills } = props.skills;
   const {
     developer,
     email,
@@ -27,10 +28,12 @@ function ViewSkills(props) {
   }, []);
 
   useEffect(() => {
-    setPersonalSkills(mySkillz);
+    props.setPersonalSkills(mySkillz);
   }, [mySkillz]);
 
-  console.log(mySkillz);
+  // var mySkillys =
+  // var mappedSkills =
+
   return <div />;
 }
 

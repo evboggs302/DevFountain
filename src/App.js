@@ -12,6 +12,7 @@ import { setDevelopers } from "./dux/reducers/marketplaceReducer";
 import UseFetch from "./Components/usefetch";
 import { ToastContainer } from "react-toastify";
 import NewsFeed from "./Components/NewsFeed/NewsFeed";
+import Messages from "./Components/Messages/messages";
 
 function App(props) {
   const { data: skills } = UseFetch("/api/allskills", true, []);
@@ -26,8 +27,6 @@ function App(props) {
     props.setDevelopers(devs);
   }, [devs]);
 
-  console.log(props);
-
   return (
     <div className="App">
       <ToastContainer autoClose={2000} />
@@ -40,6 +39,7 @@ function App(props) {
         />
         <Route path="/marketplace" component={MarketPlace} />
         <Route path="/newsfeed" component={NewsFeed} />
+        <Route path="/messages" component={Messages} />
       </Switch>
     </div>
   );

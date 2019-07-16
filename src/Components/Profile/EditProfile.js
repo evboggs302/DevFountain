@@ -116,7 +116,7 @@ function EditProfile(props) {
 
   console.log("props:", props);
   console.log("options", options);
-  console.log("my skills", newSkills);
+  console.log("NEWskills", newSkills);
 
   return (
     <div className={className}>
@@ -156,7 +156,7 @@ function EditProfile(props) {
         </div>
         <Select
           closeMenuOnSelect={false}
-          defaultValue={"Select Your Skills"}
+          defaultValue={mySkills}
           isMulti
           name="colors"
           options={options}
