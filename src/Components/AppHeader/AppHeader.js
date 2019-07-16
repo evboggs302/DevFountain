@@ -7,17 +7,22 @@ import UseFetch from "../usefetch";
 import { NavLink } from "react-router-dom";
 
 function AppHeader(props) {
-  const { data: following, fetchDataWithId: whoIamFollowing } = UseFetch(
-    "/api/following",
-    true,
-    []
-  );
-  const { user_id } = props.user.user;
+  const { data: user } = UseFetch("/api/user", true, null);
+  useEffect(() => {
+    if (user) {
+      props.setUser(user);
+    }
+  }, [user]);
+
+  if (!props.user.user) {
+    return <div />;
+  }
 
   // this Use Effect is to hit the whoIamFollowing endpoint and update the state(following) to have include the people who you are following
-  useEffect(() => {
-    whoIamFollowing(user_id);
-  }, []);
+  // useEffect(() => {
+  //   if (props.user.user) {
+  //     axioscall(id)
+  // }, []);
 
   useEffect(() => {
     props.setFollowing(following);
@@ -41,6 +46,7 @@ function AppHeader(props) {
         <NavLink to="/marketplace">MarketPlace</NavLink>
         <NavLink to="/newsfeed">NewsFeed</NavLink>
       </nav>
+      <NavLink to="/messages">Messages</NavLink>
       <button className="logout-btn" onClick={() => logout()}>
         Logout
       </button>

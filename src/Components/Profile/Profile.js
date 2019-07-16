@@ -9,12 +9,6 @@ import { setUser } from "../../dux/reducers/userReducer";
 
 function Profile(props) {
   console.log(props);
-  const { data: user } = useFetch("/api/user", true, null);
-  useEffect(() => {
-    if (user) {
-      props.setUser(user);
-    }
-  }, [user]);
 
   // const { data: mySkillz, fetchDataWithId: getMySkills } = useFetch(
   //   `/api/skills/${user_id}`,
