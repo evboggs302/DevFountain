@@ -46,10 +46,19 @@ function ViewSkills(props) {
     }
   }
 
+  const mappedSkills = mySkillys.map(e => {
+    return (
+      <div key={e.skill_id}>
+        <h5>{e.skill}</h5>
+        <img src={e.icon} alt="skill icon" />
+      </div>
+    );
+  });
+
   console.log("mySkillz: ", mySkillz);
   console.log("mySkillys: ", mySkillys);
 
-  return <div />;
+  return <div>{mappedSkills}</div>;
 }
 
 const mapStateToProps = reduxState => {

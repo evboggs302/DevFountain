@@ -60,7 +60,6 @@ function Profile(props) {
               </a>
             </div>
             {developer ? <ViewSkills {...props} /> : null}
-            {/* {mySkillsMapped.length ? <div>{mySkillsMapped}</div> : null} */}
             {current ? (
               <button onClick={() => setClassName(className + " edit")}>
                 Edit Profile
