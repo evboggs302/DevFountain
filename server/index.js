@@ -117,7 +117,7 @@ app.get("/api/user", userInfo);
 app.get("/api/logout", logout);
 
 //update user profile pic endpoint
-app.put("/api/image", updateProfilePic);
+app.put("/api/image/:id", updateProfilePic);
 
 // skills endpoints
 // Gets a list of all skills and associated values
