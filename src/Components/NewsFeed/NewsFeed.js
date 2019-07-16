@@ -6,29 +6,31 @@ import axios from "axios";
 import "./NewsFeed.scss";
 
 function NewsFeed(props) {
-  if (!props.user.user) {
-    return <div />;
-  }
-
   // Getting all the posts of the people who you follow
   let postsToSee = [];
   const { following } = props.user;
 
   useEffect(() => {
-    following.map(val => {
-      axios
-        .get(`/api/following-posts/${val}`)
-        .then(res => {
-          if (res.data.length > 0) {
-            postsToSee.push(res.data);
-          }
-          props.followingPosts(postsToSee); //setting posts unto redux
-        })
-        .catch(err =>
-          console.log("Error getting posts of those who you follow")
-        );
-    });
+    if (props.user.user) {
+      following.map(val => {
+        axios
+          .get(`/api/following-posts/${val}`)
+          .then(res => {
+            if (res.data.length > 0) {
+              postsToSee.push(res.data);
+            }
+            props.followingPosts(postsToSee); //setting posts unto redux
+          })
+          .catch(err =>
+            console.log("Error getting posts of those who you follow")
+          );
+      });
+    }
   }, []);
+
+  if (!props.user.user) {
+    return <div />;
+  }
 
   // Display each post
 

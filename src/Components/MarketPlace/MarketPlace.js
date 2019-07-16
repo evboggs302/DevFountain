@@ -7,14 +7,10 @@ import "./MarketPlace.scss";
 import usefetch from "../usefetch";
 
 function MarketPlace(props) {
-  if (!props.user.user) {
-    return <div />;
-  }
-
   // These are used for the Redirecting action
   const [state, setState] = useState(false);
   const [developer, setDeveloper] = useState(null);
-  console.log(props);
+  // console.log(props);
 
   let redirectToDeveloper = email => {
     setState(true);
@@ -34,6 +30,10 @@ function MarketPlace(props) {
     postData([user_id, id]);
     setFollowButton(true);
   };
+
+  if (!props.user.user) {
+    return <div />;
+  }
 
   // Rendering each developers info on marketplace
   const developers = props.marketplace.allDevelopers;
