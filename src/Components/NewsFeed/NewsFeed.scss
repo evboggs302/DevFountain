@@ -1,0 +1,28 @@
+.post-card{
+    background: grey;
+    display: flex;
+    flex-direction: column;
+    max-width: 750px;
+    margin: 10px auto;
+}
+
+.post-user-info{
+    // background:red;
+    display: flex;
+    align-items: center;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    min-height: 75px;
+}
+
+.user-info, .post-user-info, .post-content{
+    margin-left: 15px;
+}
+
+.post-user-info > img {
+    width: 60px;
+}
+
+.post-content {
+    min-height: 100px;
+}

@@ -3,7 +3,6 @@ import { Link, NavLink } from "react-router-dom";
 import usefetch from "../usefetch";
 import { connect} from "react-redux";
 import { setUser } from "../../dux/reducers/userReducer";
-import { connect } from "react-redux";
 import { setMySkills } from "../../dux/reducers/skillsReducer";
 import Select from "react-select";
 import Axios from "axios";
@@ -58,7 +57,7 @@ function EditProfile(props) {
       linkedin: newLinked || linkedin,
       // profile_pic: newPic || profile_pic
       portfolio: newPortfolio || portfolio,
-      profile_pic: newPic || profile_pic
+      profile_pic: profile_pic
       // skills: newSkills || mySkills
     };
     updateInfo(user_id, dataToPost);
