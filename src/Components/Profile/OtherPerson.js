@@ -19,15 +19,19 @@ function OtherPerson(props) {
     linkedin,
     portfolio
   } = props.user.otherPerson;
-  useEffect(() => {
-    axios.get(`/api/their_skills/${decoded}`).then(response => {
-      console.log(response.data);
-      let skillzExist = response.data.length;
-      if (skillzExist) {
-        props.setTheirSkills(response.data);
-      }
-    });
-  }, [props.user.otherPerson]);
+  useEffect(
+    () => {
+      axios.get(`/api/their_skills/${decoded}`).then(response => {
+        console.log(response.data);
+        let skillzExist = response.data.length;
+        if (skillzExist) {
+          props.setTheirSkills(response.data);
+        }
+      });
+    },
+    []
+    //  [props.user.otherPerson]
+  );
 
   console.log(props);
   return (

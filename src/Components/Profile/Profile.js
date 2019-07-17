@@ -35,13 +35,13 @@ function Profile(props) {
     user_id
   } = props.user.user;
 
-  if (!current) {
-    axios.get(`/api/others/${decoded}`).then(response => {
-      console.log(response.data);
-      props.setOtherPerson(response.data);
-      return;
-    });
-  }
+  // if (!current) {
+  //   axios.get(`/api/others/${decoded}`).then(response => {
+  //     console.log(response.data);
+  //     props.setOtherPerson(response.data);
+  //     return;
+  //   });
+  // }
 
   console.log(props);
   return (
