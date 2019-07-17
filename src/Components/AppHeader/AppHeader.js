@@ -28,9 +28,10 @@ function AppHeader(props) {
     []
   );
   useEffect(() => {
-    const { user_id } = props.user.user;
-    setWhoImFollowing(user_id);
-    // props.setFollowing(following);
+    if (props.user.user) {
+      const { user_id } = props.user.user;
+      setWhoImFollowing(user_id);
+    }
   }, [props.user.user]);
 
   useEffect(() => {
