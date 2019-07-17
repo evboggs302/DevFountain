@@ -19,7 +19,6 @@ module.exports = {
 
   createPost: (req, res, next) => {
     // the content of the message comes from the req.body.
-    console.log(req.body)
     const { content} = req.body;
     console.log(content)
     let postDate = new Date().toDateString();

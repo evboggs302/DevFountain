@@ -6,6 +6,7 @@ import axios from "axios";
 import "./NewsFeed.scss";
 import UseFetch from '../usefetch'
 import CreatePost from './createpost/CreatePost'
+import MyInfo from './myInfo/MyInfo'
 
 function NewsFeed(props) {
 
@@ -69,14 +70,21 @@ let postsToSee = []
     return <div />;
   }
 
+  console.log(props)
   return (
     <div>
       <header>
         <AppHeader />
       </header>
-      <main>
-        <CreatePost />
-        <div className="newsfeed">{mappedPosts}</div>
+      <main className='newsfeed-page'>
+        <div>
+          <MyInfo />
+        </div>
+        <div className="newsfeed">
+          <CreatePost />
+          <div >{mappedPosts}</div>
+        </div>
+        
       </main>
     </div>
   );
