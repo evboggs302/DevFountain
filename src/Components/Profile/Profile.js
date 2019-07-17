@@ -62,7 +62,7 @@ function Profile(props) {
                 </div>
                 <h1 className="user-name">{`${first} ${last}`}</h1>
               </div>
-              <div>
+              <div className="profile-btn-top">
                 {current ? (
                   <button onClick={() => setClassName(className + " edit")}>
                     Edit Profile
@@ -73,30 +73,33 @@ function Profile(props) {
               </div>
             </div>
           </div>
-          <div className="user-info">
-            <h1>{title}</h1>
-            <div>
-              <a href={portfolio} target="_blank">
-                <FaFolderOpen className="info-icon" />
-                Portfolio
-              </a>
-            </div>
-            <div>
+          <div className="user-info-box">
+            <div className="user-info">
+              <h1>{title}</h1>
               <div>
-                <FaEnvelope className="info-icon" />
-                {email}
+                <a href={portfolio} target="_blank">
+                  <FaFolderOpen className="info-icon" />
+                  Portfolio
+                </a>
+              </div>
+              <div>
+                <div>
+                  <FaEnvelope className="info-icon" />
+                  {email}
+                </div>
+              </div>
+              <div>
+                <a href={linkedin} target="_blank">
+                  <FaLinkedin className="info-icon" />
+                  LinkedIn
+                </a>
               </div>
             </div>
-            <div>
-              <a href={linkedin} target="_blank">
-                <FaLinkedin className="info-icon" />
-                LinkedIn
-              </a>
+            <div className="skills-box">
+                {developer ? <ViewSkills {...props}/> : null}
             </div>
           </div> 
-          <div className="skills-box">
-              {developer ? <ViewSkills {...props}/> : null}
-          </div>
+          
           <div className={className}>
             <EditProfile {...props} />
           </div>

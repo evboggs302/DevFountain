@@ -91,11 +91,13 @@ function OtherPerson(props) {
             LinkedIn
           </a>
         </div>
-        <div>{mappedSkills}</div>
         <button>Follow</button>
         <button>Message</button>
       </div>
       {/* {myPostsMapped.length ? <div>{myPostsMapped}</div> : null} */}
+      <div>
+        {mappedSkills}
+      </div>
     </div>
   );
 }

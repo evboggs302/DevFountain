@@ -1,3 +1,18 @@
+$dark-color: #29303B;
+$light-color: #2E3540;
+$blue-color: #3279FF;
+$light-gray: #F5F5F5;
+
+
+.skill-one {
+    display: inline;
+}
+
+.skill-name {
+    font-size: 13px;
+    display: inline;
+}
+
 .skill-icon {
     height: 40px;
     width: auto;
@@ -5,13 +20,14 @@
 }
 
 .skills {
-    background-color: rgb(196, 168, 223);
-    height: 300px;
-    width: 300px;
-    // display: flex;
-	// flex-direction: row;
-	// flex-wrap: nowrap;
-	// justify-content: flex-end;
-	// align-items: center;
-    // align-content: center;
+    height: 200px;
+    width: 200px;
+    background-color: $light-gray;
+    border:  2px solid #29303B;
+    margin-top: 30px;
+    margin-right: 50px;
+    padding-left: 30px;
+    color: $light-color;
+    overflow: auto;
+    
 }
