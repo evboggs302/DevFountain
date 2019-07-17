@@ -1,8 +1,8 @@
 insert into hasskills
-    (skill_id, user_id)
+    (user_id, skills)
 values
     ($1, $2);
 
 select *
 from hasskills
-where user_id = $2;
+where user_id = $1;

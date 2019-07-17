@@ -19,6 +19,12 @@ module.exports = {
     // email is passed to getSkills pt1 which finds a user.
     db.getSkillstwo(user_id)
       .then(response => {
+        if (!response.length) {
+          db.addSkills([user_id, []]).then(newSkillSet => {
+            console.log(newSkillSet[0]);
+            res.status(200).send(newSkillSet[0].skills);
+          });
+        }
         res.status(200).send(response[0].skills);
       })
       .catch(err => {
