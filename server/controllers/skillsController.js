@@ -45,12 +45,17 @@ module.exports = {
   theirSkills: (req, res, next) => {
     const { email } = req.params;
     const db = req.app.get("db");
+
     db.getSkills(email).then(them => {
-      console.log(them);
-      db.getSkillstwo(them[0].user_id).then(theirSkills => {
-        console.log(theirSkills);
-        res.status(200).send(theirSkills[0]);
-      });
+      console.log("this is them: ", them);
+      if (!them.length) {
+        res.status(500).send([]);
+      } else {
+        db.getSkillstwo(them[0].user_id).then(theirSkills => {
+          console.log("this is theirSkills: ", theirSkills);
+          res.status(200).send(theirSkills[0]);
+        });
+      }
     });
   }
 };
