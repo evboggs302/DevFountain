@@ -95,7 +95,7 @@ function OtherPerson(props) {
         <button>Follow</button>
         <button>Message</button>
       </div>
-      {/* {myPostsMapped.length ? <div>{myPostsMapped}</div> : null} */}
+      {/* SHOW THEIR POSTS */}
     </div>
   );
 }
