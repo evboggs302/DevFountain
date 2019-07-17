@@ -166,11 +166,11 @@ app.post("/api/rooms/:email", createRoom);
 // Following Endpoints
 const {
   getWhoIamFollowing,
-  follow,
+  updateFollowing,
   followingPosts
 } = require("./controllers/followController");
 app.get("/api/following/:id", getWhoIamFollowing);
-app.post("/api/follow", follow);
+app.put("/api/following/:id", updateFollowing);
 app.get("/api/following-posts/:id", followingPosts);
 
 // Nodemailer

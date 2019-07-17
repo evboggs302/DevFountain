@@ -10,7 +10,7 @@ import "./AppHeader.scss";
 import axios from "axios";
 import UseFetch from "../usefetch";
 import { NavLink } from "react-router-dom";
-import DevLogo from '../../media/DF-long_white.png'
+import DevLogo from "../../media/DF-long_white.png";
 
 function AppHeader(props) {
   const { data: user } = UseFetch("/api/user", true, null);
@@ -22,16 +22,22 @@ function AppHeader(props) {
   }, [user]);
 
   // this Use Effect is to hit the whoIamFollowing endpoint and update the state(following) to have include the people who you are following
-  const { data: following, fetchDataWithId: axioscall } = UseFetch(
-    "/api/following"
+  const { data: following, fetchDataWithId: setWhoImFollowing } = UseFetch(
+    "/api/following",
+    false,
+    []
   );
   useEffect(() => {
-    console.log(props);
     if (props.user.user) {
       const { user_id } = props.user.user;
-      axioscall(user_id);
+      setWhoImFollowing(user_id);
     }
-  }, []);
+  }, [props.user.user]);
+
+  useEffect(() => {
+    console.log("following state hit:", following);
+    props.setFollowing(following);
+  }, [following]);
 
   useEffect(() => {
     if (props.match.params.email) {
@@ -57,29 +63,13 @@ function AppHeader(props) {
     }
   }, [props.user.otherPerson.email]);
 
-  useEffect(() => {
-    props.setFollowing(following);
-  }, [following]);
-
   if (!props.user.user) {
     return <div />;
   }
 
-  // const {data: following} = useFetch("", true, []);
-
-  // useEffect(() => {
-  //   if (props.user.user) {
-  //     axioscall(id).then()
-  // }, []);
-
-  // this Use Effect is to hit the whoIamFollowing endpoint and update the state(following) to have include the people who you are following
-
-  console.log(props);
   const logout = () => {
     axios.get("/api/logout").then(res => {
       console.log("user logged out");
-      console.log("hit inside app header");
-
       props.setUser(null);
       props.history.push("/");
     });
@@ -94,7 +84,7 @@ function AppHeader(props) {
 
   return (
     <div className="app-header">
-      <img src={DevLogo} alt="dev fountain logo" className="app-header-logo"/>
+      <img src={DevLogo} alt="dev fountain logo" className="app-header-logo" />
       <nav>
         <NavLink to={`/profile/${encode}`}>Profile</NavLink>
         <NavLink to="/marketplace">MarketPlace</NavLink>

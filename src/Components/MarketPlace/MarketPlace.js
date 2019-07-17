@@ -1,43 +1,73 @@
 import React, { useState, useEffect } from "react";
 import { setDevelopers } from "../../dux/reducers/marketplaceReducer";
+import { setFollowing } from "../../dux/reducers/userReducer";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import AppHeader from "../AppHeader/AppHeader";
 import "./MarketPlace.scss";
 import usefetch from "../usefetch";
+import axios from "axios";
 
 function MarketPlace(props) {
-  const [followButton, setFollowButton] = useState(false);
+  // const [followButton, setFollowButton] = useState(false);
   // These are used for the Redirecting action
-  const [state, setState] = useState(false);
+  const [redirect, setRedirect] = useState(false);
   const [developer, setDeveloper] = useState(null);
 
   console.log(props);
 
-  let redirectToDeveloper = email => {
-    setState(true);
+  const redirectToDeveloper = email => {
     setDeveloper(email);
+    setRedirect(true);
   };
 
-  // When user clicks on the follow button, 'followDeveloper' then makes a POST to the endpoint 'follow' and updates the following table in SQL
-  const { data: developerToFollow, postData: postData } = usefetch(
-    "/api/follow",
-    true,
+  // When user clicks on the follow button, 'followDeveloper' then makes a Put to the endpoint 'follow' and updates the following table in SQL
+  const { data: devsIFollow, putData: updateFollowing } = usefetch(
+    "/api/following",
+    false,
     []
   );
 
-  let followDeveloper = id => {
-    if (props.user.user) {
-      const { user_id } = props.user.user;
-      postData([user_id, id]);
-      setFollowButton(true);
-    }
+  const addDev = id => {
+    const { user_id } = props.user.user;
+    const { following } = props.user;
+    let copy = following.slice();
+    copy.push(id);
+    console.log("og list: ", following);
+    console.log("copy: ", copy);
+    axios
+      .put(`/api/following/${user_id}`, { newFollowing: copy })
+      .then(response => {
+        console.log(response.data);
+        props.setFollowing(response.data);
+      });
   };
+
+  const removeDev = id => {
+    const { user_id } = props.user.user;
+    const { following } = props.user;
+    let list = following.slice();
+    let index = list.indexOf(id);
+    list.splice(index, 1);
+    console.log("og list: ", list);
+    axios
+      .put(`/api/following/${user_id}`, { newFollowing: list })
+      .then(response => {
+        console.log(response.data);
+        props.setFollowing(response.data);
+      });
+  };
+
+  useEffect(() => {
+    console.log("following data updated:", devsIFollow);
+    props.setFollowing(devsIFollow);
+  }, [devsIFollow]);
 
   // Rendering each developers info on marketplace
   const developers = props.marketplace.allDevelopers;
+  const alreadyFollowing = props.user.following;
   let mappedDevs;
-  if (developers !== null) {
+  if (developers && alreadyFollowing) {
     mappedDevs = developers.map(dev => {
       const encoded = encodeURIComponent(dev.email);
       const default_pic =
@@ -66,10 +96,10 @@ function MarketPlace(props) {
           >
             View Developer
           </button>
-          {!followButton ? (
-            <button onClick={() => followDeveloper(dev.user_id)}>Follow</button>
+          {!alreadyFollowing.includes(dev.user_id) ? (
+            <button onClick={() => addDev(dev.user_id)}>Follow</button>
           ) : (
-            <button>Unfollow</button>
+            <button onClick={() => removeDev(dev.user_id)}>Unfollow</button>
           )}
         </div>
         /* </Link> */
@@ -84,11 +114,13 @@ function MarketPlace(props) {
       </div>
     );
   }
+
+  console.log(props);
   return (
     <div>
       <AppHeader {...props} />
       <main className="devs">
-        {state ? <Redirect to={`profile/${developer}`} /> : null}
+        {redirect ? <Redirect to={`profile/${developer}`} /> : null}
         {mappedDevs}
       </main>
     </div>
@@ -100,7 +132,8 @@ const mapPropsToState = reduxState => {
 };
 
 const mappedDispatchToProps = {
-  setDevelopers
+  setDevelopers,
+  setFollowing
 };
 const myConnect = connect(
   mapPropsToState,

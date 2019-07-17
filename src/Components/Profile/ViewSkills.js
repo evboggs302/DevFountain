@@ -3,12 +3,10 @@ import useFetch from "../usefetch";
 import { connect } from "react-redux";
 import { setPersonalSkills } from "../../dux/reducers/skillsReducer";
 import AppHeader from "../AppHeader/AppHeader";
-import './ViewSkills.scss';
+import "./ViewSkills.scss";
 
 function ViewSkills(props) {
   const { allSkills, mySkills } = props.skills;
-  console.log(mySkills);
-
   const {
     developer,
     email,
@@ -54,11 +52,6 @@ function ViewSkills(props) {
       </div>
     );
   });
-  console.log(allSkills);
-  console.log(mySkills);
-  console.log("mySkillz: ", mySkillz);
-  console.log("mySkillys: ", mySkillys);
-  console.log("mapped: ", mappedSkills);
 
   if (!props.user.user) {
     return (
@@ -67,7 +60,7 @@ function ViewSkills(props) {
       </div>
     );
   }
-  console.log(props);
+
   return <div>{mappedSkills}</div>;
 }
 
