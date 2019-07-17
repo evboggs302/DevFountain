@@ -22,19 +22,21 @@ function Header(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+
   function toLogin(email, password){
     login({ email, password })
-    userData = null
     console.log(userData)
+  
+    // Check to see if login is incorrect
+    if(userData === 'Incorrect username/password'){
+      userData = null
+      console.log(userData)
+      toast('Invalid Email/Password', {type: 'error'})
+    }
   }
   console.log(userData)
   
-  //Check to see if login is incorrect
-  if(userData == 'Incorrect username/password'){
-    userData = null
-    console.log(userData)
-    toast('Invalid Email/Password', {type: 'error'})
-  }
+  
 
 
   if (props.user && props.user.user && props.user.user.first) {
