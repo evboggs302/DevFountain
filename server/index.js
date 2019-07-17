@@ -20,6 +20,7 @@ const {
   register,
   userInfo,
   logout,
+  othersInfo,
   edit,
   updateProfilePic
 } = require("./controllers/userController");
@@ -36,7 +37,8 @@ const { getLikes, like, unlike } = require("./controllers/likeController");
 const {
   getAllSkills,
   getMySkills,
-  newSkills
+  newSkills,
+  theirSkills
 } = require("./controllers/skillsController");
 
 const {
@@ -117,7 +119,8 @@ app.post("/api/register", register);
 app.put("/api/edit/:id", edit);
 app.get("/api/user", userInfo);
 app.get("/api/logout", logout);
-
+// other users' info
+app.get("/api/others/:email", othersInfo);
 //update user profile pic endpoint
 app.put("/api/image/:id", updateProfilePic);
 
@@ -129,6 +132,8 @@ app.get("/api/allskills", getAllSkills);
 app.get("/api/skills/:email", getMySkills);
 // take an array of skill ID's as a body req
 app.put("/api/new_skills", newSkills);
+// get other users skills
+app.get("/api/their_skills/:email", theirSkills);
 
 // post endpoints
 //gets all of a user's posts with their email

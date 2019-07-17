@@ -151,67 +151,72 @@ function EditProfile(props) {
   if (!linkedin) {
     linkedinFiller = "Your LinkedIn";
   } else {
-    linkedinFiller = title;
+    linkedinFiller = linkedin;
   }
   var portfolioFiller;
   if (!portfolio) {
     portfolioFiller = "Your Portfolio";
   } else {
-    portfolioFiller = title;
+    portfolioFiller = portfolio;
   }
 
-  // console.log("props:", props);
-  console.log("newSkills:", newSkills);
+  const decoded = decodeURIComponent(props.match.params.email);
+  const current = props.user.user.email === decoded;
 
   return (
     <div className={className}>
-      <div>
+      {current ? (
         <div>
-          <img src={profile_pic} />
-          <input
-            type="file"
-            onChange={e => handleImageUpload(e.target.files)}
-          />
+          <div>
+            <img src={profile_pic} />
+            <input
+              type="file"
+              onChange={e => handleImageUpload(e.target.files)}
+            />
+          </div>
+          <div>
+            <input
+              placeholder={first}
+              onChange={e => setFirst(e.target.value)}
+            />
+            <input placeholder={last} onChange={e => setLast(e.target.value)} />
+          </div>
+          <div>
+            <input
+              placeholder={titleFiller}
+              onChange={e => setTitle(e.target.value)}
+            />
+          </div>
+          <div>
+            <div>{email}</div>
+          </div>
+          <div>
+            <input
+              placeholder={linkedinFiller}
+              onChange={e => setLinked(e.target.value)}
+            />
+          </div>
+          <div>
+            <input
+              placeholder={portfolioFiller}
+              onChange={e => setPortfolio(e.target.value)}
+            />
+          </div>
+          {developer ? (
+            <Select
+              name="skills"
+              isMulti
+              options={options}
+              onChange={setTHESkills}
+              value={newSkills}
+              isSearchable={true}
+              backspaceRemovesValue={true}
+              closeMenuOnSelect={false}
+            />
+          ) : null}
+          <button onClick={() => finished()}>Finished Editing</button>
         </div>
-        <div>
-          <input placeholder={first} onChange={e => setFirst(e.target.value)} />
-          <input placeholder={last} onChange={e => setLast(e.target.value)} />
-        </div>
-        <div>
-          <input
-            placeholder={titleFiller}
-            onChange={e => setTitle(e.target.value)}
-          />
-        </div>
-        <div>
-          <div>{email}</div>
-        </div>
-        <div>
-          <input
-            placeholder={linkedinFiller}
-            onChange={e => setLinked(e.target.value)}
-          />
-        </div>
-        <div>
-          <input
-            placeholder={portfolioFiller}
-            onChange={e => setPortfolio(e.target.value)}
-          />
-        </div>
-        {developer ? (
-          <Select
-            name="skills"
-            isMulti
-            options={options}
-            onChange={setTHESkills}
-            value={newSkills}
-            isSearchable={true}
-            backspaceRemovesValue={true}
-            closeMenuOnSelect={false}
-          />
-        ) : null}
-      </div>
-      <button onClick={() => finished()}>Finished Editing</button>
+      ) : null}
     </div>
   );
 }

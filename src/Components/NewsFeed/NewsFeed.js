@@ -4,38 +4,37 @@ import { connect } from "react-redux";
 import { followingPosts } from "../../dux/reducers/postsReducer";
 import axios from "axios";
 import "./NewsFeed.scss";
-import UseFetch from '../usefetch'
-import CreatePost from './createpost/CreatePost'
+import UseFetch from "../usefetch";
+import CreatePost from "./createpost/CreatePost";
 
 function NewsFeed(props) {
-
-const {following} = props.user
-let postsToSee = []
+  const { following } = props.user;
+  let postsToSee = [];
 
   useEffect(() => {
     if (props.user.user !== null) {
-        if(following!= null){
-            following.map(val => {
-                axios
-                .get(`/api/following-posts/${val}`)
-                .then(res => {
-                    if (res.data.length > 0) {
-                    postsToSee.push(res.data);
-                    }
-                    props.followingPosts(postsToSee); //setting posts unto redux
-                })
-                .catch(err =>
-                    console.log("Error getting posts of those who you follow")
-                );
-            });
-            } 
-        } 
-    }, [following]);
+      if (following != null) {
+        following.map(val => {
+          axios
+            .get(`/api/following-posts/${val}`)
+            .then(res => {
+              if (res.data.length > 0) {
+                postsToSee.push(res.data);
+              }
+              props.followingPosts(postsToSee); //setting posts unto redux
+            })
+            .catch(err =>
+              console.log("Error getting posts of those who you follow")
+            );
+        });
+      }
+    }
+  }, [following]);
 
   if (!props.user.user) {
     return (
       <div>
-        <AppHeader />
+        <AppHeader {...props} />
       </div>
     );
   }
@@ -45,10 +44,10 @@ let postsToSee = []
   let mappedPosts;
   if (followingPosts) {
     followingPosts = followingPosts.flat();
-    
+
     mappedPosts = followingPosts.map(val => {
       return (
-        <div className="post-card" >
+        <div className="post-card">
           <div className="post-user-info">
             <img src={val.profile_pic} />
             <div className="user-info">
@@ -72,10 +71,10 @@ let postsToSee = []
   return (
     <div>
       <header>
-        <AppHeader />
+        <AppHeader {...props} />
       </header>
       <main>
-        <CreatePost />
+        <CreatePost {...props} />
         <div className="newsfeed">{mappedPosts}</div>
       </main>
     </div>
