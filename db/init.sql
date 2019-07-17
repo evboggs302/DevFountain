@@ -44,15 +44,14 @@ create table postlikes
 
 create table following
 (
-    follower integer references users(user_id),
-    followed integer references users(user_id)
+    user_id integer references users(user_id),
+    followed integer[]
 );
 
 create table hasskills
 (
     user_id integer references users(user_id),
-    skills integer
-    []
+    skills integer[]
 );
 
     create table rooms
