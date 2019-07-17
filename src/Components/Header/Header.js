@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import DevLogo from '../../media/DF-long_white.png'
 import "./Header.scss";
 import {toast} from 'react-toastify'
+import axios from 'axios'
 
 import 'react-toastify/dist/ReactToastify.css'
 toast.configure()
@@ -14,40 +15,32 @@ function Header(props) {
   //calling usefetch and destructering "fetchdata" and "postdata" using aliases userData for fetchdata and login for postData.
   let { data: userData, postData: login } = usefetch("/api/login", false);
 
-  useEffect(() => {
-    console.log("Setting user", userData);
-    props.setUser(userData);
-  }, [userData]);
+  // useEffect(() => {
+  //   console.log("Setting user", userData);
+  //   props.setUser(userData);
+  // }, [userData]);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-
   function toLogin(email, password){
-    login({ email, password })
-    console.log(userData)
-  
-    // Check to see if login is incorrect
-    if(userData === 'Incorrect username/password'){
-      userData = null
-      console.log(userData)
-      toast('Invalid Email/Password', {type: 'error'})
-    }
+    axios.post('/api/login', ({email, password}))
+    .then(res => {
+      if(res.data == 'Incorrect username/password'){
+        toast('Invalid Email/Password', {type: 'error'})
+      }
+      props.setUser(res.data)
+    })
   }
-  console.log(userData)
-  
-  
 
 
   if (props.user && props.user.user && props.user.user.first) {
     const { email } = props.user.user;
     var encode = encodeURIComponent(email);
     return <Redirect to={`/profile/${encode}`} />;
-    // return <Redirect to={'/marketplace'} />
   }
 
   return (
-  
     <div className="header-container">
       <img src={DevLogo} alt="dev fountain logo"/>
       <form>
