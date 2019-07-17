@@ -21,7 +21,7 @@ function MyInfo(props) {
                 <img src={user.profile_pic} />
                 <h1>{user.first} {user.last}</h1>
                 <h2>Following {following.length} Developers</h2>
-                <button onClick={() => editProfile(encode)}>Edit Your Profile</button>
+                {/* <button onClick={() => editProfile(encode)}>Edit Your Profile</button> */}
             </div>
         )
     }
