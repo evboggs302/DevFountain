@@ -3,6 +3,7 @@ $light-color: #2E3540;
 $blue-color: #3279FF;
 $light-gray: #F5F5F5;
 
+
 .photo-div {
     height: 200px;
     width: 100%;
@@ -34,7 +35,7 @@ $light-gray: #F5F5F5;
         margin-left: 15px;
         font-size: 22px;
     }
-    button {
+    .edit-button {
        margin: 5px 30px;
        padding: 7px;
        border: none;
@@ -77,6 +78,6 @@ $light-gray: #F5F5F5;
     color: $light-color;
 }
 
-.test {
-    background-color: blue;
+.skills-box {
+    
 }

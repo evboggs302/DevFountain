@@ -68,7 +68,7 @@ function ViewSkills(props) {
     );
   }
   console.log(props);
-  return <div>{mappedSkills}</div>;
+  return <div className="skills">{mappedSkills}</div>;
 }
 
 const mapStateToProps = reduxState => {

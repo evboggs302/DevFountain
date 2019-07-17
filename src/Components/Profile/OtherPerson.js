@@ -37,7 +37,7 @@ function OtherPerson(props) {
   console.log(props);
   return (
     <div>
-        <div className="user-container">
+        <div className="profile-page-top">
             <div className="photo-div">
               <div>
               <div className="profile-pic">

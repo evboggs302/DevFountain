@@ -51,7 +51,7 @@ function Profile(props) {
       <AppHeader {...props} />
       {!current ? null : (
         <div>
-          <div className="user-container">
+          <div className="profile-page-top">
             <div className="photo-div">
               <div>
                 <div className="profile-pic">
@@ -63,7 +63,6 @@ function Profile(props) {
                 <h1 className="user-name">{`${first} ${last}`}</h1>
               </div>
               <div>
-                {developer ? <ViewSkills {...props} /> : null}
                 {current ? (
                   <button onClick={() => setClassName(className + " edit")}>
                     Edit Profile
@@ -94,6 +93,9 @@ function Profile(props) {
                 LinkedIn
               </a>
             </div>
+          </div> 
+          <div className="skills-box">
+              {developer ? <ViewSkills {...props}/> : null}
           </div>
           <div className={className}>
             <EditProfile {...props} />

@@ -1,4 +1,17 @@
 .skill-icon {
-    height: 30px;
-    width: 30px;
+    height: 40px;
+    width: auto;
+    background: none !important;
+}
+
+.skills {
+    background-color: rgb(196, 168, 223);
+    height: 300px;
+    width: 300px;
+    // display: flex;
+	// flex-direction: row;
+	// flex-wrap: nowrap;
+	// justify-content: flex-end;
+	// align-items: center;
+    // align-content: center;
 }
