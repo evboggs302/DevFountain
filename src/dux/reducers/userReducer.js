@@ -1,7 +1,7 @@
 const initialState = {
   user: null,
   following: null,
-  otherPerson: null
+  otherPerson: []
 };
 
 const SET_USER = "SET_USER";
