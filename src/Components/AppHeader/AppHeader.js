@@ -10,6 +10,7 @@ import "./AppHeader.scss";
 import axios from "axios";
 import UseFetch from "../usefetch";
 import { NavLink } from "react-router-dom";
+import DevLogo from '../../media/DF-long_white.png'
 
 function AppHeader(props) {
   const { data: user } = UseFetch("/api/user", true, null);
@@ -33,24 +34,28 @@ function AppHeader(props) {
   }, []);
 
   useEffect(() => {
-    const decoded = decodeURIComponent(props.match.params.email);
-    axios.get(`/api/others/${decoded}`).then(response => {
-      console.log(response.data);
-      props.setOtherPerson(response.data);
-      return;
-    });
+    if (props.match.params.email) {
+      const decoded = decodeURIComponent(props.match.params.email);
+      axios.get(`/api/others/${decoded}`).then(response => {
+        console.log(response.data);
+        props.setOtherPerson(response.data);
+        return;
+      });
+    }
   }, [props.match.params.email]);
 
   useEffect(() => {
-    const decoded = decodeURIComponent(props.match.params.email);
-    axios.get(`/api/their_skills/${decoded}`).then(response => {
-      console.log(response.data);
-      let skillzExist = response.data.length;
-      if (skillzExist) {
-        props.setTheirSkills(response.data);
-      }
-    });
-  }, [props.user.otherPerson]);
+    if (props.user.otherPerson) {
+      const decoded = decodeURIComponent(props.match.params.email);
+      axios.get(`/api/their_skills/${decoded}`).then(response => {
+        console.log(response.data);
+        let skillzExist = response.data.length;
+        if (skillzExist) {
+          props.setTheirSkills(response.data);
+        }
+      });
+    }
+  }, [props.user.otherPerson.email]);
 
   useEffect(() => {
     props.setFollowing(following);
@@ -82,22 +87,22 @@ function AppHeader(props) {
 
   let encode;
   if (props.user && props.user.user && props.user.user.first) {
-    console.log(props)
+    console.log(props);
     const { email } = props.user.user;
     encode = encodeURIComponent(email);
   }
 
-
   return (
     <div className="app-header">
+      <img src={DevLogo} alt="dev fountain logo" className="app-header-logo"/>
       <nav>
         <NavLink to={`/profile/${encode}`}>Profile</NavLink>
         <NavLink to="/marketplace">MarketPlace</NavLink>
         <NavLink to="/newsfeed">NewsFeed</NavLink>
+        <NavLink to="/messages">Messages</NavLink>
       </nav>
-      <NavLink to="/messages">Messages</NavLink>
-      <button className="logout-btn" onClick={() => logout()}>
-        Logout
+      <button className="signout-btn" onClick={() => logout()}>
+        Sign out
       </button>
     </div>
   );
