@@ -24,15 +24,18 @@ function Header(props) {
 
   function toLogin(email, password){
     login({ email, password })
+    userData = null
+    console.log(userData)
   }
-  console.log(props)
   console.log(userData)
   
   //Check to see if login is incorrect
   if(userData == 'Incorrect username/password'){
+    userData = null
     console.log(userData)
-    toast('Incorrect Username/Password' , {type: 'error'})
+    toast('Invalid Email/Password', {type: 'error'})
   }
+
 
   if (props.user && props.user.user && props.user.user.first) {
     const { email } = props.user.user;
