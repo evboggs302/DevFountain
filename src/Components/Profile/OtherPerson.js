@@ -6,9 +6,11 @@ import { setTheirSkills } from "../../dux/reducers/skillsReducer";
 import { setUser, setOtherPerson } from "../../dux/reducers/userReducer";
 import { FaLinkedin, FaEnvelope, FaFolderOpen } from "react-icons/fa";
 import axios from "axios";
+import LoadingAnimation from '../CoolAnimation/LoadingAnimation'
 
 function OtherPerson(props) {
   const decoded = decodeURIComponent(props.match.params.email);
+  
   const {
     developer,
     profile_pic,
@@ -54,7 +56,15 @@ function OtherPerson(props) {
     );
   });
 
+ 
+
   console.log(props);
+  console.log(email)
+  console.log(decoded)
+  let rightDev = email == decoded
+  console.log(rightDev)
+  
+  if(rightDev){
   return (
     <div>
       <div className="user-container">
@@ -96,8 +106,13 @@ function OtherPerson(props) {
         <button>Message</button>
       </div>
       {/* {myPostsMapped.length ? <div>{myPostsMapped}</div> : null} */}
-    </div>
+      </div>
   );
+} else {
+  return (
+    <LoadingAnimation />
+  )
+}
 }
 
 const mapStateToProps = reduxState => {
