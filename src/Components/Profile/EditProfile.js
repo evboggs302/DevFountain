@@ -44,7 +44,7 @@ function EditProfile(props) {
       portfolio: newPortfolio || portfolio
     };
     console.log(dataToPost);
-    updateInfo(user_id, dataToPost);
+    // updateInfo(user_id, dataToPost);
     if (uploadedImage) {
       console.log("pic is changing");
       saveImageToDB();
@@ -85,8 +85,8 @@ function EditProfile(props) {
     axios
       .put(`/api/new_skills`, { skillID })
       .then(response => {
-        console.log(response.data.skills);
-        props.setPersonalSkills(response.data.skills);
+        console.log("my new skills: ", response.data);
+        props.setPersonalSkills(response.data);
       })
       .catch(err => console.log(err));
   };
