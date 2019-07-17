@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import AppHeader from "../AppHeader/AppHeader";
-import ViewSkills from "./ViewSkills";
 import useFetch from "../usefetch";
 import { connect } from "react-redux";
 import { setTheirSkills } from "../../dux/reducers/skillsReducer";
@@ -34,6 +33,27 @@ function OtherPerson(props) {
     //  [props.user.otherPerson]
   );
 
+  const { allSkills, theirSkills } = props.user;
+  var theirSkillys = [];
+  if (theirSkills) {
+    for (let k = 0; k < allSkills.length; k++) {
+      for (let i = 0; i < theirSkills.length; i++) {
+        if (allSkills[k].skill_id === theirSkills[i]) {
+          theirSkillys.push(allSkills[k]);
+        }
+      }
+    }
+  }
+
+  const mappedSkills = theirSkillys.map(e => {
+    return (
+      <div key={e.skill_id}>
+        <h5>{e.skill}</h5>
+        <img src={e.icon} alt="skill icon" className="skill-icon" />
+      </div>
+    );
+  });
+
   console.log(props);
   return (
     <div>
@@ -42,38 +62,38 @@ function OtherPerson(props) {
               <div>
               <div className="profile-pic">
               <img
-              style={{ width: "100%", minWidth: "130px" }}
-              src={profile_pic} 
+                style={{ width: "100%", minWidth: "130px" }}
+                src={profile_pic}
               />
-              </div>
-              <h1 className="user-name">{`${first} ${last}`}</h1>
-              <button>Follow</button>
             </div>
+            <h1 className="user-name">{`${first} ${last}`}</h1>
+            <button>Follow</button>
           </div>
-          
         </div>
-        <div className="user-info">
-          <h1>{title}</h1>
+      </div>
+      <div className="user-info">
+        <h1>{title}</h1>
+        <div>
+          <a href={portfolio} target="_blank">
+            <FaFolderOpen className="info-icon" />
+            Portfolio
+          </a>
+        </div>
+        <div>
           <div>
-            <a href={portfolio} target="_blank">
-              <FaFolderOpen className="info-icon" />
-              Portfolio
-            </a>
+            <FaEnvelope className="info-icon" />
+            {email}
           </div>
-          <div>
-           <div>
-              <FaEnvelope className="info-icon" />
-             {email}
-            </div>
-          </div>
-          <div>
-            <a href={linkedin} target="_blank">
-              <FaLinkedin className="info-icon" />
-              LinkedIn
-            </a>
-          </div>
-          {/* {developer ? <ViewSkills {...props} /> : null} */}
-          
+        </div>
+        <div>
+          <a href={linkedin} target="_blank">
+            <FaLinkedin className="info-icon" />
+            LinkedIn
+          </a>
+        </div>
+        <div>{mappedSkills}</div>
+        <button>Follow</button>
+        <button>Message</button>
       </div>
       {/* {myPostsMapped.length ? <div>{myPostsMapped}</div> : null} */}
     </div>
