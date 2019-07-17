@@ -11,7 +11,7 @@ function Messages(props) {
   if (!props.user.user) {
     return (
       <div>
-        <AppHeader />
+        <AppHeader {...props} />
       </div>
     );
   }

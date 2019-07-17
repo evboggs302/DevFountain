@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { setUser, setFollowing } from "../../dux/reducers/userReducer";
+import {
+  setUser,
+  setFollowing,
+  setOtherPerson
+} from "../../dux/reducers/userReducer";
+import { setTheirSkills } from "../../dux/reducers/skillsReducer";
 import { connect } from "react-redux";
 import "./AppHeader.scss";
 import axios from "axios";
@@ -9,26 +14,47 @@ import { NavLink } from "react-router-dom";
 function AppHeader(props) {
   const { data: user } = UseFetch("/api/user", true, null);
   useEffect(() => {
-    console.log(props)
+    console.log(props);
     if (user) {
       props.setUser(user);
     }
   }, [user]);
 
   // this Use Effect is to hit the whoIamFollowing endpoint and update the state(following) to have include the people who you are following
-  const {data: following, fetchDataWithId: axioscall} = UseFetch('/api/following')
+  const { data: following, fetchDataWithId: axioscall } = UseFetch(
+    "/api/following"
+  );
   useEffect(() => {
-    console.log(props)
+    console.log(props);
     if (props.user.user) {
-      const {user_id} = props.user.user
+      const { user_id } = props.user.user;
       axioscall(user_id);
     }
   }, []);
 
   useEffect(() => {
+    const decoded = decodeURIComponent(props.match.params.email);
+    axios.get(`/api/others/${decoded}`).then(response => {
+      console.log(response.data);
+      props.setOtherPerson(response.data);
+      return;
+    });
+  }, [props.match.params.email]);
+
+  useEffect(() => {
+    const decoded = decodeURIComponent(props.match.params.email);
+    axios.get(`/api/their_skills/${decoded}`).then(response => {
+      console.log(response.data);
+      let skillzExist = response.data.length;
+      if (skillzExist) {
+        props.setTheirSkills(response.data);
+      }
+    });
+  }, [props.user.otherPerson]);
+
+  useEffect(() => {
     props.setFollowing(following);
   }, [following]);
-
 
   if (!props.user.user) {
     return <div />;
@@ -82,7 +108,9 @@ const mapStateToProps = reduxState => {
 
 const mapDispatchToProps = {
   setUser,
-  setFollowing
+  setFollowing,
+  setOtherPerson,
+  setTheirSkills
 };
 
 const invokedConnect = connect(

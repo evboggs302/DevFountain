@@ -76,6 +76,16 @@ module.exports = {
   userInfo: (req, res, next) => {
     res.status(200).send(req.session.user);
   },
+  othersInfo: (req, res, next) => {
+    const db = req.app.get("db");
+    const { email } = req.params;
+    db.getOthersInfo(email)
+      .then(foundOther => {
+        res.status(200).send(foundOther[0]);
+      })
+      .catch(err => console.log(err));
+  },
+
   logout: (req, res, next) => {
     req.session.destroy();
     res.status(200).send("we be logged out, mama!");
@@ -98,6 +108,7 @@ module.exports = {
         let newLinkedin = linkedin || foundUser[0].linkedin;
         let newPortfolio = portfolio || foundUser[0].portfolio;
         let profile_pic = foundUser[0].profile_pic;
+        let email = foundUser[0].email;
         //pass the new values in to replace old
         db.changeUserInfo([
           newFirst,
@@ -106,6 +117,7 @@ module.exports = {
           newLinkedin,
           newPortfolio,
           profile_pic,
+          email,
           id
         ])
           .then(updatedUser => {

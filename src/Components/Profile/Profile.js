@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import AppHeader from "../AppHeader/AppHeader";
 import ViewSkills from "./ViewSkills";
 import EditProfile from "./EditProfile";
+import OtherPerson from "./OtherPerson";
 import useFetch from "../usefetch";
 import { connect } from "react-redux";
-import { setUser } from "../../dux/reducers/userReducer";
-import {FaLinkedin, FaEnvelope, FaFolderOpen} from 'react-icons/fa'
-import './Profile.scss';
+import { setUser, setOtherPerson } from "../../dux/reducers/userReducer";
+import axios from "axios";
+import { FaLinkedin, FaEnvelope, FaFolderOpen } from "react-icons/fa";
+import "./Profile.scss";
 
 function Profile(props) {
   // console.log(props);
@@ -16,10 +18,12 @@ function Profile(props) {
   if (!props.user.user) {
     return (
       <div>
-        <AppHeader />
+        <AppHeader {...props} />
       </div>
     );
   }
+  const decoded = decodeURIComponent(props.match.params.email);
+  const current = props.user.user.email === decoded;
 
   const {
     developer,
@@ -33,58 +37,69 @@ function Profile(props) {
     user_id
   } = props.user.user;
 
-  const decoded = decodeURIComponent(props.match.params.email);
-  const current = props.user.user.email === decoded;
+  // if (!current) {
+  //   axios.get(`/api/others/${decoded}`).then(response => {
+  //     console.log(response.data);
+  //     props.setOtherPerson(response.data);
+  //     return;
+  //   });
+  // }
 
+  console.log(props);
   return (
     <div>
       <AppHeader {...props} />
       <div>
         <div className="user-container">
-            <div className="photo-div">
-              <div>
-                <div className="profile-pic">
-                  <img style={{width: '100%', minWidth: '130px'}} src={profile_pic}/>
-                </div>
-                <h1 className="user-name">{`${first} ${last}`}</h1>
+          <div className="photo-div">
+            <div>
+              <div className="profile-pic">
+                <img
+                  style={{ width: "100%", minWidth: "130px" }}
+                  src={profile_pic}
+                />
               </div>
-              <div>
-                {developer ? <ViewSkills {...props} /> : null}
-                {current ? (
-                  <button onClick={() => setClassName(className + " edit")}>
+              <h1 className="user-name">{`${first} ${last}`}</h1>
+            </div>
+            <div>
+              {developer ? <ViewSkills {...props} /> : null}
+              {current ? (
+                <button onClick={() => setClassName(className + " edit")}>
                   Edit Profile
                 </button>
-                ) : (
-                  <button>Follow</button>
-                )}
-              </div>
+              ) : (
+                <button>Follow</button>
+              )}
             </div>
           </div>
-          <div className="user-info">
-          <h1>{title}</h1>
-            <div>
-              <a href={portfolio} target="_blank">
-                <FaFolderOpen className="info-icon"/>
-                Portfolio
-              </a>
-            </div>
-            <div>
-              <a href={email} target="_blank">
-                <FaEnvelope className="info-icon"/>
-                Email
-              </a>
-            </div>
-            <div>
-              <a href={linkedin} target="_blank">
-                <FaLinkedin className="info-icon"/>
-                LinkedIn
-              </a>
-            </div>
         </div>
-        {/* {myPostsMapped.length ? <div>{myPostsMapped}</div> : null} */}
-      </div>
-      <div className={className}>
-        <EditProfile {...props} />
+        <div className="user-info">
+          <h1>{title}</h1>
+          <div>
+            <a href={portfolio} target="_blank">
+              <FaFolderOpen className="info-icon" />
+              Portfolio
+            </a>
+          </div>
+          <div>
+            <a href={email} target="_blank">
+              <FaEnvelope className="info-icon" />
+              Email
+            </a>
+          </div>
+          <div>
+            <a href={linkedin} target="_blank">
+              <FaLinkedin className="info-icon" />
+              LinkedIn
+            </a>
+          </div>
+        </div>
+        ) : (
+        <OtherPerson {...props} />
+        )}
+        <div className={className}>
+          <EditProfile {...props} />
+        </div>
       </div>
     </div>
   );
@@ -95,7 +110,8 @@ const mapStateToProps = reduxState => {
 };
 
 const mapDispatchToProps = {
-  setUser
+  setUser,
+  setOtherPerson
 };
 
 const invokedConnect = connect(

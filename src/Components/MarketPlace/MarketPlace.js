@@ -86,7 +86,7 @@ function MarketPlace(props) {
   }
   return (
     <div>
-      <AppHeader />
+      <AppHeader {...props} />
       <main className="devs">
         {state ? <Redirect to={`profile/${developer}`} /> : null}
         {mappedDevs}
