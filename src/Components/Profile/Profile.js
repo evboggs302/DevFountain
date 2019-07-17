@@ -64,13 +64,9 @@ function Profile(props) {
               </div>
               <div>
                 {developer ? <ViewSkills {...props} /> : null}
-                {current ? (
-                  <button onClick={() => setClassName(className + " edit")}>
-                    Edit Profile
-                  </button>
-                ) : (
-                  <button>Follow</button>
-                )}
+                <button onClick={() => setClassName(className + " edit")}>
+                  Edit Profile
+                </button>
               </div>
             </div>
           </div>
