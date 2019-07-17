@@ -94,8 +94,7 @@ function Profile(props) {
             </a>
           </div>
         </div>
-        ) : (
-        <OtherPerson {...props} />
+        ) : ({!props.user.otherPerson ? null : <OtherPerson {...props} />}
         )}
         <div className={className}>
           <EditProfile {...props} />
