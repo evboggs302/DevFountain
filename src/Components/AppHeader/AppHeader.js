@@ -10,6 +10,7 @@ import "./AppHeader.scss";
 import axios from "axios";
 import UseFetch from "../usefetch";
 import { NavLink } from "react-router-dom";
+import DevLogo from '../../media/DF-long_white.png'
 
 function AppHeader(props) {
   const { data: user } = UseFetch("/api/user", true, null);
@@ -90,14 +91,15 @@ function AppHeader(props) {
 
   return (
     <div className="app-header">
+      <img src={DevLogo} alt="dev fountain logo" className="app-header-logo"/>
       <nav>
         <NavLink to={`/profile/${encode}`}>Profile</NavLink>
         <NavLink to="/marketplace">MarketPlace</NavLink>
         <NavLink to="/newsfeed">NewsFeed</NavLink>
+        <NavLink to="/messages">Messages</NavLink>
       </nav>
-      <NavLink to="/messages">Messages</NavLink>
-      <button className="logout-btn" onClick={() => logout()}>
-        Logout
+      <button className="signout-btn" onClick={() => logout()}>
+        Sign out
       </button>
     </div>
   );
