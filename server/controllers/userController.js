@@ -37,6 +37,7 @@ module.exports = {
               profile_pic,
               following
             };
+            
             res.status(200).send(req.session.user);
           } else {
             res.status(500).send("Incorrect username/password");

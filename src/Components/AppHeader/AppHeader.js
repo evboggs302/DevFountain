@@ -56,11 +56,12 @@ function AppHeader(props) {
 
   let encode;
   if (props.user && props.user.user && props.user.user.first) {
+    console.log(props)
     const { email } = props.user.user;
     encode = encodeURIComponent(email);
   }
 
-  
+
   return (
     <div className="app-header">
       <nav>

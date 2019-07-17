@@ -76,12 +76,15 @@ let postsToSee = []
       <header>
         <AppHeader />
       </header>
-      <main>
+      <main className='newsfeed-page'>
         <div>
           <MyInfo />
         </div>
-        <CreatePost />
-        <div className="newsfeed">{mappedPosts}</div>
+        <div className="newsfeed">
+          <CreatePost />
+          <div >{mappedPosts}</div>
+        </div>
+        
       </main>
     </div>
   );
