@@ -6,8 +6,12 @@ import { FaCaretUp, FaCaretSquareDown} from "react-icons/fa";
 import * as Yup from "yup";
 import axios from "axios";
 import "./RegisterForm.scss";
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 let theProps;
+
+toast.configure()
 
 function RegisterForm(formikProps) {
   const { errors, touched } = formikProps;
@@ -147,7 +151,7 @@ const Formik = withFormik({
       .then(res => {
         let user_id = res.data.user_id;
         if (res.data === "Email already exists!") {
-          alert("Email already exists!");
+          toast('Email Already Exists', {type: 'error'})
         } else {
           theProps.setUser({
             first,
