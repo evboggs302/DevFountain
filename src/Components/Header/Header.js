@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import usefetch from "../usefetch";
 import { setUser } from "../../dux/reducers/userReducer";
 import { connect } from "react-redux";
+import DevLogo from '../../media/DF-long_white.png'
 import "./Header.scss";
 
 function Header(props) {
@@ -25,7 +26,9 @@ function Header(props) {
   }
 
   return (
-    <div className="login-container">
+  
+    <div className="header-container">
+      <img src={DevLogo} alt="dev fountain logo"/>
       <input
         onChange={e => setEmail(e.target.value)}
         placeholder="Email"

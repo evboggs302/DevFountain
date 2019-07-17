@@ -3,6 +3,7 @@ import useFetch from "../usefetch";
 import { connect } from "react-redux";
 import { setPersonalSkills } from "../../dux/reducers/skillsReducer";
 import AppHeader from "../AppHeader/AppHeader";
+import './ViewSkills.scss';
 
 function ViewSkills(props) {
   const { allSkills, mySkills } = props.skills;
@@ -49,7 +50,7 @@ function ViewSkills(props) {
     return (
       <div key={e.skill_id}>
         <h5>{e.skill}</h5>
-        <img src={e.icon} alt="skill icon" />
+        <img src={e.icon} alt="skill icon" className="skill-icon" />
       </div>
     );
   });

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { setUser } from "../../dux/reducers/userReducer";
 import { setPersonalSkills } from "../../dux/reducers/skillsReducer";
 import Select from "react-select";
+import './EditProfile.scss'
 import axios from "axios";
 
 const CLOUDINARY_UPLOAD_URL =
@@ -165,53 +166,68 @@ function EditProfile(props) {
 
   return (
     <div className={className}>
-      <div>
-        <div>
-          <img src={profile_pic} />
+      <div className="edit-container">
+        <div className="new-photo-box">
+          <img src={profile_pic} className="profile-pic"/>
+          {email}
           <input
             type="file"
             onChange={e => handleImageUpload(e.target.files)}
           />
+          
         </div>
-        <div>
-          <input placeholder={first} onChange={e => setFirst(e.target.value)} />
-          <input placeholder={last} onChange={e => setLast(e.target.value)} />
+        <div className="update-box">
+          <label>First Name</label>
+          <input placeholder={first} onChange={e => setFirst(e.target.value)} className="update-field" />
         </div>
-        <div>
+        <div className="update-box">
+          <label>Last Name</label>
+          <input placeholder={last} onChange={e => setLast(e.target.value)} className="update-field"  />
+        </div>
+        <div className="update-box">
+          <label>Title</label>
           <input
             placeholder={titleFiller}
             onChange={e => setTitle(e.target.value)}
+            className="update-field" 
           />
         </div>
-        <div>
-          <div>{email}</div>
-        </div>
-        <div>
+        {/* <div className="update-box">
+            <label>Email</label>
+          {email}
+        </div> */}
+        <div className="update-box">
+        <label>LinkedIn Url</label>
           <input
             placeholder={linkedinFiller}
             onChange={e => setLinked(e.target.value)}
+            className="update-field" 
           />
         </div>
-        <div>
+        <div className="update-box">
+        <label>Portfolio Url</label>
           <input
             placeholder={portfolioFiller}
             onChange={e => setPortfolio(e.target.value)}
+            className="update-field" 
           />
         </div>
-        {developer ? (
-          <Select
-            name="skills"
-            isMulti
-            options={options}
-            onChange={setTHESkills}
-            value={newSkills}
-            isSearchable={true}
-            backspaceRemovesValue={true}
-            closeMenuOnSelect={false}
-          />
-        ) : null}
+        <div className="skills-btn">
+          {developer ? (
+            <Select
+              name="skills"
+              isMulti
+              options={options}
+              onChange={setTHESkills}
+              value={newSkills}
+              isSearchable={true}
+              backspaceRemovesValue={true}
+              closeMenuOnSelect={false}
+              />
+          ) : null}
+        </div>
+        <button onClick={() => finished()}>Finished Editing</button>
       </div>
-      <button onClick={() => finished()}>Finished Editing</button>
     </div>
   );
 }
