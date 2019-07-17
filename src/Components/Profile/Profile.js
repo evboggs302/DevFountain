@@ -79,10 +79,10 @@ function Profile(props) {
               </a>
             </div>
             <div>
-              <a href={email} target="_blank">
+              <div>
                 <FaEnvelope className="info-icon" />
-                Email
-              </a>
+                {email}
+              </div>
             </div>
             <div>
               <a href={linkedin} target="_blank">
