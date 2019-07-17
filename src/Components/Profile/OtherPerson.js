@@ -5,6 +5,7 @@ import useFetch from "../usefetch";
 import { connect } from "react-redux";
 import { setTheirSkills } from "../../dux/reducers/skillsReducer";
 import { setUser, setOtherPerson } from "../../dux/reducers/userReducer";
+import { FaLinkedin, FaEnvelope, FaFolderOpen } from "react-icons/fa";
 import axios from "axios";
 
 function OtherPerson(props) {
@@ -36,34 +37,43 @@ function OtherPerson(props) {
   console.log(props);
   return (
     <div>
-      <div>
-        <div>
-          <div>
-            <img src={profile_pic} />
+        <div className="user-container">
+            <div className="photo-div">
+              <div>
+              <div className="profile-pic">
+              <img
+              style={{ width: "100%", minWidth: "130px" }}
+              src={profile_pic} 
+              />
+              </div>
+              <h1 className="user-name">{`${first} ${last}`}</h1>
+              <button>Follow</button>
+            </div>
           </div>
-          <div>{`${first} ${last}`}</div>
-          <div>{title}</div>
+          
         </div>
-        <div>
-          Contact Info
+        <div className="user-info">
+          <h1>{title}</h1>
           <div>
             <a href={portfolio} target="_blank">
+              <FaFolderOpen className="info-icon" />
               Portfolio
             </a>
           </div>
           <div>
-            <a href={email} target="_blank">
-              Email
-            </a>
+           <div>
+              <FaEnvelope className="info-icon" />
+             {email}
+            </div>
           </div>
           <div>
             <a href={linkedin} target="_blank">
+              <FaLinkedin className="info-icon" />
               LinkedIn
             </a>
           </div>
           {/* {developer ? <ViewSkills {...props} /> : null} */}
-          <button>Follow</button>
-        </div>
+          
       </div>
       {/* {myPostsMapped.length ? <div>{myPostsMapped}</div> : null} */}
     </div>
