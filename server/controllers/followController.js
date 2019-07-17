@@ -1,43 +1,43 @@
 module.exports = {
-    getWhoIamFollowing: (req, res, next) => {
-        const db = req.app.get('db');
-        const {id} = req.params //Param is the id of the user who is logged in
+  getWhoIamFollowing: (req, res, next) => {
+    const db = req.app.get("db");
+    const { id } = req.params; //Param is the id of the user who is logged in
+    db.getWhoImFollowing(id)
+      .then(people => {
+        console.log(people[0]);
+        res.status(200).send(people[0].followed);
+      })
+      .catch(err => console.log("Error getting all your followers", err));
+  },
+  updateFollowing: (req, res, next) => {
+    const db = req.app.get("db");
+    const { id } = req.params;
+    const { newFollowing } = req.body;
+    db.getWhoImFollowing(id)
+      .then(following => {
+        if (!following.length) {
+          db.createFollowing([id, newFollowing]).then(whoImFollowing => {
+            res.status(200).send(whoImFollowing[0].followed);
+          });
+        } else {
+          db.updateFollowing([id, newFollowing]).then(whoImFollowing => {
+            res.status(200).send(whoImFollowing[0].followed);
+          });
+        }
+      })
+      .catch(err => console.log(err));
+  },
 
-        db.following.getWhoImFollowing(id)
-        .then(following => {
-            // Destructuring objects that contain user id's in an array 
-            let people = []
-            following.map(val => {
-                people.push(val.followed)
-            })
-            res.status(200).send(people)
-        })
-        .catch(err => console.log('Error getting all your followers', err))
+  // This endpoint gets all the posts of the user that you follow
+  followingPosts: (req, res, next) => {
+    const db = req.app.get("db");
+    const { id } = req.params;
 
-        
-    },
-
-
-    follow: (req, res, next) => {
-        const db = req.app.get('db')
-        db.following.followUser(req.body)
-        .then(res => console.log('followed developer', req.body[1]))
-        .catch(err => console.log('Error trying to follow user'))
-    },
-
-    unFollow: (req, res, next) => {
-
-    },
-
-    // This endpoint gets all the posts of the user that you follow
-    followingPosts: (req, res, next) => {
-        const db = req.app.get('db')
-        const {id} = req.params
-
-        db.following.followingPosts(id)
-        .then(posts => {
-            res.status(200).send(posts)
-        })
-        .catch(err => console.log('Error getting people who you follow posts'))
-    }
-}
+    db.following
+      .followingPosts(id)
+      .then(posts => {
+        res.status(200).send(posts);
+      })
+      .catch(err => console.log("Error getting people who you follow posts"));
+  }
+};

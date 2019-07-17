@@ -11,8 +11,6 @@ import { FaLinkedin, FaEnvelope, FaFolderOpen } from "react-icons/fa";
 import "./Profile.scss";
 
 function Profile(props) {
-  // console.log(props);
-
   let [className, setClassName] = useState("profile");
 
   if (!props.user.user) {
@@ -36,14 +34,6 @@ function Profile(props) {
     title,
     user_id
   } = props.user.user;
-
-  // if (!current) {
-  //   axios.get(`/api/others/${decoded}`).then(response => {
-  //     console.log(response.data);
-  //     props.setOtherPerson(response.data);
-  //     return;
-  //   });
-  // }
 
   console.log(props);
   return (

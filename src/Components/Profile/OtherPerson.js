@@ -98,6 +98,7 @@ function OtherPerson(props) {
       <div>
         {mappedSkills}
       </div>
+      {/* SHOW THEIR POSTS */}
     </div>
   );
 }
