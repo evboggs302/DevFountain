@@ -30,12 +30,15 @@ module.exports = {
   newSkills: (req, res, next) => {
     // we take an array of skill ID's as a parameter
     const { skillID } = req.body;
+    console.log("skillIDs: ", skillID);
     // user id comes off the session.user object
     const { user_id } = req.session.user;
+    console.log("userID: ", user_id);
     const db = req.app.get("db");
     db.updateSkills([user_id, skillID])
       .then(newSkills => {
-        res.status(200).send(newSkills[0]);
+        console.log("response from db: ", newSkills);
+        res.status(200).send(newSkills[0].skills);
       })
       .catch(err => {
         console.log(err);

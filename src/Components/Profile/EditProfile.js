@@ -85,8 +85,8 @@ function EditProfile(props) {
     axios
       .put(`/api/new_skills`, { skillID })
       .then(response => {
-        console.log(response.data.skills);
-        props.setPersonalSkills(response.data.skills);
+        console.log("my new skills: ", response.data);
+        props.setPersonalSkills(response.data);
       })
       .catch(err => console.log(err));
   };
