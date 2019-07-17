@@ -38,6 +38,7 @@ function Messages(props) {
   });
   return (
     <div>
+      <AppHeader />
       <ul>{mappedRooms}</ul>
     </div>
   );
