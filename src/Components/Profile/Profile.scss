@@ -1,0 +1,82 @@
+$dark-color: #29303B;
+$light-color: #2E3540;
+$blue-color: #3279FF;
+$light-gray: #F5F5F5;
+
+.photo-div {
+    height: 200px;
+    width: 100%;
+    background-color: paleturquoise;
+    background-image: url('https://images.pexels.com/photos/2317685/pexels-photo-2317685.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: flex-end;
+    align-content: stretch;
+    .profile-pic {
+        height: 150px;
+        width: 150px;
+        margin-left: 30px;
+        margin-bottom: -36px;
+        border-radius: 50%;
+        overflow: hidden;
+        display: inline-block;
+    }
+    .user-name {
+        display: inline-block;
+        color: white;
+        margin-left: 15px;
+        font-size: 22px;
+    }
+    button {
+       margin: 5px 30px;
+       padding: 7px;
+       border: none;
+    }
+    .button:hover {
+        background-color: $dark-color;
+    }
+}
+
+
+
+.user-info {
+    background-color: $light-gray;
+    height: 300px;
+    width: 200px;
+    border:  2px solid #29303B;
+    margin-top: 30px;
+    margin-left: 50px;
+    padding: 15px;
+    color: $light-color;
+    h1 {
+        padding-bottom: 10px;
+        line-height: 20px;
+    }
+    div {
+        padding: 8px;
+    }
+    a {
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+    a:visited {
+        text-decoration: none;
+    }
+}
+
+.info-icon {
+    color: $light-color;
+}
+
+.test {
+    background-color: blue;
+}

@@ -7,6 +7,8 @@ import useFetch from "../usefetch";
 import { connect } from "react-redux";
 import { setUser, setOtherPerson } from "../../dux/reducers/userReducer";
 import axios from "axios";
+import { FaLinkedin, FaEnvelope, FaFolderOpen } from "react-icons/fa";
+import "./Profile.scss";
 
 function Profile(props) {
   // console.log(props);
@@ -47,33 +49,19 @@ function Profile(props) {
   return (
     <div>
       <AppHeader {...props} />
-      {current ? (
-        <div>
-          <div>
+      <div>
+        <div className="user-container">
+          <div className="photo-div">
             <div>
-              <div>
-                <img src={profile_pic} />
+              <div className="profile-pic">
+                <img
+                  style={{ width: "100%", minWidth: "130px" }}
+                  src={profile_pic}
+                />
               </div>
-              <div>{`${first} ${last}`}</div>
-              <div>{title}</div>
+              <h1 className="user-name">{`${first} ${last}`}</h1>
             </div>
             <div>
-              Contact Info
-              <div>
-                <a href={portfolio} target="_blank">
-                  Portfolio
-                </a>
-              </div>
-              <div>
-                <a href={email} target="_blank">
-                  Email
-                </a>
-              </div>
-              <div>
-                <a href={linkedin} target="_blank">
-                  LinkedIn
-                </a>
-              </div>
               {developer ? <ViewSkills {...props} /> : null}
               {current ? (
                 <button onClick={() => setClassName(className + " edit")}>
@@ -84,13 +72,34 @@ function Profile(props) {
               )}
             </div>
           </div>
-          {/* {myPostsMapped.length ? <div>{myPostsMapped}</div> : null} */}
         </div>
-      ) : (
+        <div className="user-info">
+          <h1>{title}</h1>
+          <div>
+            <a href={portfolio} target="_blank">
+              <FaFolderOpen className="info-icon" />
+              Portfolio
+            </a>
+          </div>
+          <div>
+            <a href={email} target="_blank">
+              <FaEnvelope className="info-icon" />
+              Email
+            </a>
+          </div>
+          <div>
+            <a href={linkedin} target="_blank">
+              <FaLinkedin className="info-icon" />
+              LinkedIn
+            </a>
+          </div>
+        </div>
+        ) : (
         <OtherPerson {...props} />
-      )}
-      <div className={className}>
-        <EditProfile {...props} />
+        )}
+        <div className={className}>
+          <EditProfile {...props} />
+        </div>
       </div>
     </div>
   );

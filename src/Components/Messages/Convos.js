@@ -1,6 +1,7 @@
 import React from "react";
 import { setUser } from "../../dux/reducers/userReducer";
 import { connect } from "react-redux";
+import { withRouter } from "react-router";
 
 function Convos(props) {
   console.log(props);
@@ -9,7 +10,16 @@ function Convos(props) {
     return email != props.user.user.email;
   });
 
-  return <li id={props.name}>{filtered[0]}</li>;
+  var encode = encodeURIComponent(filtered[0]);
+
+  return (
+    <li
+      onClick={() => props.history.push(`/message/:${encode}`)}
+      id={props.name}
+    >
+      {filtered[0]}
+    </li>
+  );
 }
 
 const mapStateToProps = reduxState => {
@@ -25,4 +35,4 @@ const invokedConnect = connect(
   mapDispatchToProps
 );
 
-export default invokedConnect(Convos);
+export default withRouter(invokedConnect(Convos));
