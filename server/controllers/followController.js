@@ -4,6 +4,7 @@ module.exports = {
     const { id } = req.params; //Param is the id of the user who is logged in
     db.getWhoImFollowing(id)
       .then(people => {
+        console.log(people)
         console.log(people[0]);
         res.status(200).send(people[0].followed);
       })
