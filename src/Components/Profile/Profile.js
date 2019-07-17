@@ -100,7 +100,7 @@ function Profile(props) {
           </div>
         </div>
       )}
-      {!props.user.otherPerson ? null : <OtherPerson {...props} />}
+      {!props.user.otherPerson || current ? null : <OtherPerson {...props} />}
     </div>
   );
 }
