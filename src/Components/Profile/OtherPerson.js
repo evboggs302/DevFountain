@@ -57,10 +57,10 @@ function OtherPerson(props) {
   console.log(props);
   return (
     <div>
-      <div className="user-container">
-        <div className="photo-div">
-          <div>
-            <div className="profile-pic">
+        <div className="profile-page-top">
+            <div className="photo-div">
+              <div>
+              <div className="profile-pic">
               <img
                 style={{ width: "100%", minWidth: "130px" }}
                 src={profile_pic}
@@ -91,9 +91,12 @@ function OtherPerson(props) {
             LinkedIn
           </a>
         </div>
-        <div>{mappedSkills}</div>
         <button>Follow</button>
         <button>Message</button>
+      </div>
+      {/* {myPostsMapped.length ? <div>{myPostsMapped}</div> : null} */}
+      <div>
+        {mappedSkills}
       </div>
       {/* SHOW THEIR POSTS */}
     </div>

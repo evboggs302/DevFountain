@@ -173,6 +173,7 @@ function EditProfile(props) {
           <input
             type="file"
             onChange={e => handleImageUpload(e.target.files)}
+            accept="image/jpeg, image/x-png"
           />
         </div>
         <div className="update-box">
