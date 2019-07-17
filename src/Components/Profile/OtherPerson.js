@@ -36,16 +36,20 @@ function OtherPerson(props) {
   console.log(props);
   return (
     <div>
-      <div>
-        <div>
-          <div>
-            <img src={profile_pic} />
+        <div className="user-container">
+          <div className="photo-div">
+            <div className="profile-pic"></div>
+             {/* <img
+            style={{ width: "100%", minWidth: "130px" }}
+            src={profile_pic} 
+             /> */}
           </div>
           <div>{`${first} ${last}`}</div>
-          <div>{title}</div>
+          
         </div>
         <div>
           Contact Info
+          <div>{title}</div>
           <div>
             <a href={portfolio} target="_blank">
               Portfolio
@@ -63,7 +67,6 @@ function OtherPerson(props) {
           </div>
           {/* {developer ? <ViewSkills {...props} /> : null} */}
           <button>Follow</button>
-        </div>
       </div>
       {/* {myPostsMapped.length ? <div>{myPostsMapped}</div> : null} */}
     </div>
