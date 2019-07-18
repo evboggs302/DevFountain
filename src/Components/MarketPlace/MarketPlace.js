@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import AppHeader from "../AppHeader/AppHeader";
 import "./MarketPlace.scss";
-import usefetch from "../usefetch";
 import axios from "axios";
 
 function MarketPlace(props) {

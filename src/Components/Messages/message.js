@@ -48,7 +48,7 @@ function Message(props) {
   if (!props.user.user) {
     return (
       <div>
-        <AppHeader />
+        <AppHeader {...props} />
       </div>
     );
   }
@@ -76,7 +76,11 @@ function Message(props) {
   let mappedMessages = props.message.messages.map((element, index) => {
     return (
       <div id={index}>
-        <MappedMessages content={element.content} sender={element.email} />
+        <MappedMessages
+          {...props}
+          content={element.content}
+          sender={element.email}
+        />
       </div>
     );
   });

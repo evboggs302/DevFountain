@@ -11,17 +11,20 @@ import MyInfo from "./myInfo/MyInfo";
 function NewsFeed(props) {
   const { following } = props.user;
   let postsToSee = [];
+  console.log(following)
 
   useEffect(() => {
     if (props.user.user !== null) {
       if (following != null) {
         following.map(val => {
-          axios
-            .get(`/api/following-posts/${val}`)
-            .then(res => {
+          console.log(val)
+          axios.get(`/api/following-posts/${val}`).then(res => {
+              console.log(res.data)
               if (res.data.length > 0) {
+                console.log(res.data)
                 postsToSee.push(res.data);
               }
+              console.log(postsToSee)
               props.followingPosts(postsToSee); //setting posts unto redux
             })
             .catch(err =>
@@ -31,6 +34,10 @@ function NewsFeed(props) {
       }
     }
   }, [following]);
+
+  
+
+  console.log(props)
 
   if (!props.user.user) {
     return (
@@ -42,16 +49,19 @@ function NewsFeed(props) {
 
   // Display each post
   let { followingPosts } = props.posts;
+  console.log(followingPosts)
+  
   let mappedPosts;
   if (followingPosts) {
     followingPosts = followingPosts.flat();
+    console.log(followingPosts)
 
     mappedPosts = followingPosts.map(val => {
       return (
         <div className="post-card">
           <div className="post-user-info">
             <img src={val.profile_pic} />
-            <div className="user-info">
+            <div className="user_info">
               <h1>
                 {val.first} {val.last}
               </h1>
@@ -65,6 +75,7 @@ function NewsFeed(props) {
       );
     });
   }
+
   if (!props.user.user) {
     return <div />;
   }
