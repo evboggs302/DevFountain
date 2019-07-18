@@ -171,7 +171,7 @@ function EditProfile(props) {
   const current = props.user.user.email === decoded;
 
   return (
-    <div className={className}>
+    <div value={className} className={className} >
       <div className="edit-container">
         <div className="new-photo-box">
           <img src={profile_pic} className="profile-pic" />
