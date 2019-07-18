@@ -35,6 +35,19 @@ function Profile(props) {
     user_id
   } = props.user.user;
 
+  const { profilePosts } = props.posts;
+  var mappedPosts = [];
+  if (profilePosts) {
+    mappedPosts = profilePosts.map((e, index) => {
+      return (
+        <div key={index}>
+          <div>{e.content}</div>
+          <div>{e.time_entered}</div>
+        </div>
+      );
+    });
+  }
+
   console.log(props);
   return (
     <div>
@@ -85,7 +98,14 @@ function Profile(props) {
                 </a>
               </div>
             </div>
-            {/* <div>{mappedPosts}</div> */}
+            {mappedPosts.length ? (
+              <div>{mappedPosts}</div>
+            ) : (
+              <div>
+                Uh-oh! You don't have any posts. Please go to NewsFeed to make
+                your first post.
+              </div>
+            )}
             <div className="skills-box">
               {developer ? <ViewSkills {...props} /> : null}
             </div>

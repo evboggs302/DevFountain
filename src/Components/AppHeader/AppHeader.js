@@ -44,26 +44,22 @@ function AppHeader(props) {
       const decoded = decodeURIComponent(props.match.params.email);
       axios.get(`/api/others/${decoded}`).then(response => {
         props.setOtherPerson(response.data);
-        return;
       });
       axios.get(`/api/post/${decoded}`).then(response => {
         props.setProfilePosts(response.data);
-        return;
+      });
+      axios.get(`/api/their_skills/${decoded}`).then(response => {
+        props.setTheirSkills(response.data);
       });
     }
   }, [props.match.params.email]);
 
-  useEffect(() => {
-    if (props.user.otherPerson) {
-      const decoded = decodeURIComponent(props.match.params.email);
-      axios.get(`/api/their_skills/${decoded}`).then(response => {
-        let skillzExist = response.data.length;
-        if (skillzExist) {
-          props.setTheirSkills(response.data);
-        }
-      });
-    }
-  }, [props.user.otherPerson.email]);
+  // useEffect(() => {
+  //   // if (props.user.otherPerson) {
+  //   const decoded = decodeURIComponent(props.match.params.email);
+
+  //   // }
+  // }, [props.user.otherPerson.email]);
 
   if (!props.user.user) {
     return <div />;
