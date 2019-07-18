@@ -95,11 +95,9 @@ module.exports = {
     //need user id from front end off of user object
     const { id } = req.params;
     //grab all malleable data from req.body
-    console.log("body: ", req.body);
     const { first, last, title, linkedin, portfolio } = req.body;
     //find the proper user to edit
     db.selectUserByID(id).then(foundUser => {
-      console.log("FoundUser: ", foundUser);
       if (foundUser.length) {
         //values will equal the old if no new value is passed
         let newFirst = first || foundUser[0].first;
@@ -121,13 +119,11 @@ module.exports = {
         ])
           .then(updatedUser => {
             //New user object is returned
-            console.log("UpdatedUser:", updatedUser);
             req.session.user = updatedUser[0];
             res.status(200).send(req.session.user);
           })
           .catch(err => {
             //error handling if failed
-            console.log("err:", err);
             res.status(500).send("Change failed.");
           });
       }
@@ -143,7 +139,6 @@ module.exports = {
         res.status(200).send(newProfilePic[0]);
       })
       .catch(err => {
-        console.log("pic did not update", err);
         res.status(500).send("Error with not updating picture");
       });
   },

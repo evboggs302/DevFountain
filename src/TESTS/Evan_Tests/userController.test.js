@@ -1,5 +1,5 @@
-const userController = require("../../server/controllers/userController");
-const testInit = require("../../test/init");
+const userController = require("../../../server/controllers/userController");
+const testInit = require("../../../test/init");
 const sinon = require("sinon");
 const sandbox = sinon.createSandbox();
 

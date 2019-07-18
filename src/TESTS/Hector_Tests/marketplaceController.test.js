@@ -1,5 +1,5 @@
-const marketplaceController = require("../../server/controllers/marketplaceController");
-const testInit = require("../../test/init");
+const marketplaceController = require("../../../server/controllers/marketplaceController");
+const testInit = require("../../../test/init");
 const sinon = require("sinon");
 const sandbox = sinon.createSandbox();
 
