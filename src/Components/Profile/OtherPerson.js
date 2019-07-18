@@ -43,12 +43,35 @@ function OtherPerson(props) {
 
   const { profilePosts } = props.posts;
   var postsMapped = [];
+  // if (profilePosts) {
+  //   postsMapped = profilePosts.map((e, index) => {
+  //     return (
+  //       <div key={index}>
+  //         <div>{e.content}</div>
+  //         <div>{e.time_entered}</div>
+  //       </div>
+  //     );
+  //   });
+  // }
   if (profilePosts) {
-    postsMapped = profilePosts.map((e, index) => {
+    profilePosts.sort((a,b) => {
+      return b.post_id - a.post_id
+    })
+    postsMapped = profilePosts.map((val, index) => {
       return (
-        <div key={index}>
-          <div>{e.content}</div>
-          <div>{e.time_entered}</div>
+        <div className="post-card" key={index}>
+          <div className="post-user-info">
+            <img src={val.profile_pic} alt='profile pic' />
+            <div className="user_info">
+              <h1>
+                {val.first} {val.last}
+              </h1>
+              <h2>{val.time_entered}</h2>
+            </div>
+          </div>
+          <div className="post-content">
+            <p>{val.content}</p>
+          </div>
         </div>
       );
     });

@@ -7,11 +7,12 @@ import useFetch from "../usefetch";
 import { connect } from "react-redux";
 import { setUser, setOtherPerson } from "../../dux/reducers/userReducer";
 import axios from "axios";
-import { FaLinkedin, FaEnvelope, FaFolderOpen } from "react-icons/fa";
+import { FaLinkedin, FaEnvelope, FaFolderOpen, FaUserEdit } from "react-icons/fa";
 import "./Profile.scss";
 
 function Profile(props) {
   let [className, setClassName] = useState("profile");
+  let [hidden, setHidden] = useState(true)
 
   if (!props.user.user) {
     return (
@@ -36,13 +37,27 @@ function Profile(props) {
   } = props.user.user;
 
   const { profilePosts } = props.posts;
+  
   var mappedPosts = [];
   if (profilePosts) {
-    mappedPosts = profilePosts.map((e, index) => {
+    profilePosts.sort((a,b) => {
+      return b.post_id - a.post_id
+    })
+    mappedPosts = profilePosts.map((val, index) => {
       return (
-        <div key={index}>
-          <div>{e.content}</div>
-          <div>{e.time_entered}</div>
+        <div className="post-card" key={index}>
+          <div className="post-user-info">
+            <img src={val.profile_pic} alt='profile pic' />
+            <div className="user_info">
+              <h1>
+                {val.first} {val.last}
+              </h1>
+              <h2>{val.time_entered}</h2>
+            </div>
+          </div>
+          <div className="post-content">
+            <p>{val.content}</p>
+          </div>
         </div>
       );
     });
@@ -67,7 +82,8 @@ function Profile(props) {
               </div>
               <div className="profile-btn-top">
                 {current ? (
-                  <button onClick={() => setClassName(className + " edit")}>
+                  <button className="edit-btn"onClick={() => setHidden(false)}>
+                    <FaUserEdit className="edit-icon"/>
                     Edit Profile
                   </button>
                 ) : (
@@ -110,10 +126,9 @@ function Profile(props) {
               {developer ? <ViewSkills {...props} /> : null}
             </div>
           </div>
-
-          <div className={className}>
-            <EditProfile {...props} />
-          </div>
+              { !hidden ? 
+            <EditProfile {...props} closeFn={() => setHidden(true)} />
+            : null }
             
         </div>
       )}
