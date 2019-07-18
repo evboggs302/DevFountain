@@ -5,6 +5,7 @@ import { setRooms } from "../../dux/reducers/roomReducer";
 import AppHeader from "../AppHeader/AppHeader";
 import { setUser } from "../../dux/reducers/userReducer";
 import axios from "axios";
+import { setMessages } from "../../dux/reducers/messageReducer";
 import Convos from "./Convos";
 
 function Messages(props) {
@@ -21,6 +22,10 @@ function Messages(props) {
       props.setRooms(res.data);
     });
     return <div />;
+  }
+
+  if (props.message.messages) {
+    props.setMessages(null);
   }
 
   console.log(props);
@@ -50,7 +55,8 @@ const mapStateToProps = reduxState => {
 
 const mapDispatchToProps = {
   setUser,
-  setRooms
+  setRooms,
+  setMessages
 };
 
 const invokedConnect = connect(

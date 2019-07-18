@@ -3,16 +3,20 @@ module.exports = {
     const db = req.app.get("db");
     // userid off of the session
     const { user_id } = req.session.user;
+    const { email } = req.params;
+    db.getUserId(email).then(id => {
+      console.log(user_id, id, "get messages");
+      db.getYourMessages(user_id, id[0].user_id)
+        .then(messages => {
+          res.status(200).send(messages);
+        })
+        .catch(err => {
+          console.log(err);
+          res.status(500).send("Sorry something went wrong");
+        });
+    });
     // your userid is used to find all messages where you are the sender or reciever
     // all sql files return these messages
-    db.getYourMessages(user_id)
-      .then(messages => {
-        res.status(200).send(messages);
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).send("Sorry something went wrong");
-      });
   },
 
   sendMessage: (req, res, next) => {
