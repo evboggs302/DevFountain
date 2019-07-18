@@ -1,32 +1,32 @@
 const initialState = {
-  myPosts: null,
+  profilePosts: null,
   followingPosts: null
 };
 
-const FOLLOWING_POSTS = "FOLLOWING_POSTS"
-const MY_POSTS = "MY_POSTS"
+const FOLLOWING_POSTS = "FOLLOWING_POSTS";
+const PROFILE_POSTS = "PROFILE_POSTS";
 
 export default function postsReducer(state = initialState, action) {
   switch (action.type) {
     case FOLLOWING_POSTS:
-      return {...state, followingPosts: action.payload};
-    case MY_POSTS:
-      return {...state, myPosts: action.payload};
+      return { ...state, followingPosts: action.payload };
+    case PROFILE_POSTS:
+      return { ...state, profilePosts: action.payload };
     default:
       return "this is the initial state", state;
   }
 }
 
-export function myPost(post) {
+export function setProfilePosts(posts) {
   return {
-    type: MY_POSTS,
-    payload: post
+    type: PROFILE_POSTS,
+    payload: posts
   };
 }
 
-export function followingPosts(posts){
+export function followingPosts(posts) {
   return {
     type: FOLLOWING_POSTS,
     payload: posts
-  }
+  };
 }
