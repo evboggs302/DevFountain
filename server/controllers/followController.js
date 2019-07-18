@@ -4,9 +4,14 @@ module.exports = {
     const { id } = req.params; //Param is the id of the user who is logged in
     db.getWhoImFollowing(id)
       .then(people => {
-        console.log(people)
-        console.log(people[0]);
-        res.status(200).send(people[0].followed);
+        if (!people.length) {
+          db.createFollowing([id, []]).then(whoImFollowing => {
+            res.status(200).send(whoImFollowing[0].followed);
+          });
+        } else {
+          console.log(people[0]);
+          res.status(200).send(people[0].followed);
+        }
       })
       .catch(err => console.log("Error getting all your followers", err));
   },
@@ -34,9 +39,10 @@ module.exports = {
     const db = req.app.get("db");
     const { id } = req.params;
 
-    db.following
-      .followingPosts(id)
+    db.whoIamFollowingPosts(id)
       .then(posts => {
+        console.log('this is their id', id)
+        console.log('these are the posts', posts)
         res.status(200).send(posts);
       })
       .catch(err => console.log("Error getting people who you follow posts"));
