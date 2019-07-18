@@ -33,7 +33,7 @@ function EditProfile(props) {
   let [className, setClassName] = useState("profile edit");
   let [uploadedImage, setUploadedImage] = useState(null);
   let [loading, setLoading] = useState(false);
-  let { putData: updateInfo } = usefetch("/api/edit", false);
+  // let { putData: updateInfo } = usefetch("/api/edit", false);
 
   const finished = () => {
     let dataToPost = {
@@ -44,9 +44,8 @@ function EditProfile(props) {
       portfolio: newPortfolio || portfolio
     };
     console.log(dataToPost);
-    // updateInfo(user_id, dataToPost);
+    updateInfo(user_id, dataToPost);
     if (uploadedImage) {
-      console.log("pic is changing");
       saveImageToDB();
     }
     updateSkills();
@@ -79,13 +78,21 @@ function EditProfile(props) {
     setTHESkills(currentSkills);
   }, [mySkills]);
 
+  const updateInfo = (user_id, dataToPost) => {
+    axios
+      .put(`/api/edit/${user_id}`, dataToPost)
+      .then(res => {
+        console.log("updated user info: ", res.data);
+        props.setUser(res.data);
+      })
+      .catch(err => console.log(err));
+  };
+
   const updateSkills = () => {
     let skillID = newSkills.map(e => e.skill_id);
-    console.log(skillID);
     axios
       .put(`/api/new_skills`, { skillID })
       .then(response => {
-        console.log("my new skills: ", response.data);
         props.setPersonalSkills(response.data);
       })
       .catch(err => console.log(err));
@@ -130,11 +137,9 @@ function EditProfile(props) {
   };
   //then we will want to save the image to the users profile pic in the database
   function saveImageToDB() {
-    console.log(uploadedImage);
     axios
       .put(`/api/image/${user_id}`, { profile_pic: uploadedImage })
       .then(res => {
-        console.log(res.data);
         props.setUser(res.data);
       })
       .catch(err => {
