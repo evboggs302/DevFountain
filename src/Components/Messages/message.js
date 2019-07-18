@@ -22,6 +22,12 @@ function Message(props) {
     }
   }, []);
 
+  let filterRooms = props.rooms.rooms.filter(room => {
+    return room.first_email === decode || room.second_email === decode;
+  });
+  console.log(filterRooms);
+  // setRoomName(filterRooms[0].room_name);
+
   // socket.on("message", function() {
   //   socket.emit("message", userMessage);
   // });
@@ -50,7 +56,7 @@ function Message(props) {
   var send_email = props.user.user.email;
   var rec_email = decode;
   var user_id = props.user.user.user_id;
-  var userMessage = { send_email, rec_email, message, user_id };
+  var userMessage = { send_email, rec_email, message, user_id, roomName };
 
   if (!props.message.messages) {
     console.log("zach");
@@ -62,7 +68,7 @@ function Message(props) {
       let filterRooms = props.rooms.rooms.filter(room => {
         return room.first_email === decode || room.second_email === decode;
       });
-      setRoomName(filterRooms[0].roomName);
+      setRoomName(filterRooms[0].room_name);
     });
     return <div />;
   }
@@ -76,9 +82,10 @@ function Message(props) {
   });
 
   console.log(props);
+  console.log(roomName);
   return (
     <div>
-      <AppHeader />
+      <AppHeader {...props} />
       <ul>{mappedMessages}</ul>
       <div>
         {returnedMessages.map(message => {

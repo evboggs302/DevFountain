@@ -7,18 +7,41 @@ $light-gray: #F5F5F5;
     height: 50px;
     background-color: $light-color;
     padding-right: 20px;
-    // position: relative;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-end;
     align-items: center;
     align-content: center;
+    .app-header-logo {
+        height: 26px;
+        padding-top: 2px;
+        margin-right: auto;
+        margin-left: 20px;
+    }
+   
 }
 
-.logout-btn {
-    border: none;
-}
 nav > a {
     color: white;
+    margin-right: 10px;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #C9C9C9;
+}
+
+.signout-btn {
+    margin-left: 15px;
+    padding: 1px 4px;
+    font-size: 14px;
+    // border-style: none;
+    background-color: transparent;
+    color: white;
+}
+
+.signout-btn:hover {
+    background-color: $light-gray;
+    color: $light-color;
 }

@@ -1,0 +1,90 @@
+$dark-color: #29303B;
+$light-color: #2E3540;
+$blue-color: #3279FF;
+$light-gray: #F5F5F5;
+
+
+.edit-container {
+    background-color: pink;
+    width: 100%;
+    border: none;
+    // background-color: #E1E5EC;
+    // height: 500px;
+    width: 500px;
+    padding: 30px;
+    display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: stretch;
+    align-content: stretch;
+
+    border: none;
+    background-color: #E1E5EC;
+    // background: transparent;
+    // height: 400px;
+    width: 400px;
+    padding: 30px;
+    display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: stretch;
+	align-content: stretch;
+}
+
+.new-photo-box {
+    // background-color: lightblue;
+    position: relative;
+    display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	align-content: stretch;
+
+    .profile-pic {
+        height: 150px;
+        width: 150px;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+}
+
+.update-box {
+    margin-top: 8px;
+    position: relative;
+    // background-color: purple;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+
+    label {
+        font-size: 12px;
+        margin: 1px 0 0 6px;
+    }
+
+} 
+
+.update-field {
+    // width: 40%;
+    padding: 7px 4px;
+    margin: 5px;
+    border: none;
+}
+
+.skills-btn {
+    background-color: white;
+    justify-content: center;
+    color: $light-color;
+    padding: 10px;
+    margin-top: 10px;
+    width: 100%;
+    align-self: flex-end;
+    text-align: center;
+    border: none;
+    -moz-appearance: none ;
+    -webkit-appearance: none;
+    appearance: none;
+}

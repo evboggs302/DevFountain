@@ -1,54 +1,75 @@
 import React, { useState, useEffect } from "react";
-import { setUser, setFollowing } from "../../dux/reducers/userReducer";
+import {
+  setUser,
+  setFollowing,
+  setOtherPerson
+} from "../../dux/reducers/userReducer";
+import { setTheirSkills } from "../../dux/reducers/skillsReducer";
 import { connect } from "react-redux";
 import "./AppHeader.scss";
 import axios from "axios";
 import UseFetch from "../usefetch";
 import { NavLink } from "react-router-dom";
+import DevLogo from "../../media/DF-long_white.png";
 
 function AppHeader(props) {
   const { data: user } = UseFetch("/api/user", true, null);
   useEffect(() => {
-    console.log(props)
+    console.log(props);
     if (user) {
       props.setUser(user);
     }
   }, [user]);
 
   // this Use Effect is to hit the whoIamFollowing endpoint and update the state(following) to have include the people who you are following
-  const {data: following, fetchDataWithId: axioscall} = UseFetch('/api/following')
+  const { data: following, fetchDataWithId: setWhoImFollowing } = UseFetch(
+    "/api/following",
+    false,
+    []
+  );
   useEffect(() => {
-    console.log(props)
     if (props.user.user) {
-      const {user_id} = props.user.user
-      axioscall(user_id);
+      const { user_id } = props.user.user;
+      setWhoImFollowing(user_id);
     }
-  }, []);
+  }, [props.user.user]);
 
   useEffect(() => {
+    console.log("following state hit:", following);
     props.setFollowing(following);
   }, [following]);
 
+  useEffect(() => {
+    if (props.match.params.email) {
+      const decoded = decodeURIComponent(props.match.params.email);
+      axios.get(`/api/others/${decoded}`).then(response => {
+        console.log(response.data);
+        props.setOtherPerson(response.data);
+        return;
+      });
+    }
+  }, [props.match.params.email]);
+
+  useEffect(() => {
+    if (props.user.otherPerson) {
+      const decoded = decodeURIComponent(props.match.params.email);
+      axios.get(`/api/their_skills/${decoded}`).then(response => {
+        console.log(response.data);
+        let skillzExist = response.data.length;
+        if (skillzExist) {
+          props.setTheirSkills(response.data);
+        }
+      });
+    }
+  }, [props.user.otherPerson.email]);
 
   if (!props.user.user) {
     return <div />;
   }
 
-  // const {data: following} = useFetch("", true, []);
-
-  // useEffect(() => {
-  //   if (props.user.user) {
-  //     axioscall(id).then()
-  // }, []);
-
-  // this Use Effect is to hit the whoIamFollowing endpoint and update the state(following) to have include the people who you are following
-
-  console.log(props);
   const logout = () => {
     axios.get("/api/logout").then(res => {
       console.log("user logged out");
-      console.log("hit inside app header");
-
       props.setUser(null);
       props.history.push("/");
     });
@@ -56,21 +77,22 @@ function AppHeader(props) {
 
   let encode;
   if (props.user && props.user.user && props.user.user.first) {
+    console.log(props);
     const { email } = props.user.user;
     encode = encodeURIComponent(email);
   }
 
-  
   return (
     <div className="app-header">
+      <img src={DevLogo} alt="dev fountain logo" className="app-header-logo" />
       <nav>
         <NavLink to={`/profile/${encode}`}>Profile</NavLink>
         <NavLink to="/marketplace">MarketPlace</NavLink>
         <NavLink to="/newsfeed">NewsFeed</NavLink>
+        <NavLink to="/messages">Messages</NavLink>
       </nav>
-      <NavLink to="/messages">Messages</NavLink>
-      <button className="logout-btn" onClick={() => logout()}>
-        Logout
+      <button className="signout-btn" onClick={() => logout()}>
+        Sign out
       </button>
     </div>
   );
@@ -81,7 +103,9 @@ const mapStateToProps = reduxState => {
 
 const mapDispatchToProps = {
   setUser,
-  setFollowing
+  setFollowing,
+  setOtherPerson,
+  setTheirSkills
 };
 
 const invokedConnect = connect(

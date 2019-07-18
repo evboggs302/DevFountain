@@ -1,4 +1,4 @@
 select *
 from users
-where user_id = $1;
+where email = $1;
 

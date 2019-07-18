@@ -1,0 +1,27 @@
+.myinfo-newsfeed {
+    margin-top: 10px;
+    margin-left: 10px;
+    border: solid grey 1px;
+    width: 100%;
+    height: 44vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    background: lightgrey;
+}
+
+.myinfo-newsfeed > img{
+    width: 250px;
+    border-radius: 50%;
+    border: solid grey 2px;
+    margin-bottom: 30px;
+}
+
+.myinfo-newsfeed > h1 {
+    font-size: 25px;
+}
+
+.myinfo-newsfeed h1, h2 {
+    margin-bottom: 10px;
+}

@@ -3,11 +3,10 @@ import useFetch from "../usefetch";
 import { connect } from "react-redux";
 import { setPersonalSkills } from "../../dux/reducers/skillsReducer";
 import AppHeader from "../AppHeader/AppHeader";
+import "./ViewSkills.scss";
 
 function ViewSkills(props) {
   const { allSkills, mySkills } = props.skills;
-  console.log(mySkills);
-
   const {
     developer,
     email,
@@ -48,16 +47,11 @@ function ViewSkills(props) {
   const mappedSkills = mySkillys.map(e => {
     return (
       <div key={e.skill_id}>
-        <h5>{e.skill}</h5>
-        <img src={e.icon} alt="skill icon" />
+        <h2 className="skill-name">{e.skill}</h2>
+        <img src={e.icon} alt="skill icon" className="skill-icon" />
       </div>
     );
   });
-  console.log(allSkills);
-  console.log(mySkills);
-  console.log("mySkillz: ", mySkillz);
-  console.log("mySkillys: ", mySkillys);
-  console.log("mapped: ", mappedSkills);
 
   if (!props.user.user) {
     return (
@@ -67,7 +61,10 @@ function ViewSkills(props) {
     );
   }
   console.log(props);
-  return <div>{mappedSkills}</div>;
+  return <div className="skills">
+            <h1>Skills</h1>
+            {mappedSkills}
+        </div>;
 }
 
 const mapStateToProps = reduxState => {

@@ -18,12 +18,12 @@ import Message from "./Components/Messages/Message";
 function App(props) {
   const { data: skills } = UseFetch("/api/allskills", true, []);
 
-  //Getting all developers from marketplace endpoint
-  const { data: devs } = UseFetch("/api/marketplace", true, []);
   useEffect(() => {
     props.setSkills(skills);
   }, [skills]);
 
+  //Getting all developers from marketplace endpoint
+  const { data: devs } = UseFetch("/api/marketplace", true, []);
   useEffect(() => {
     props.setDevelopers(devs);
   }, [devs]);

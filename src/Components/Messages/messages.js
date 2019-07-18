@@ -12,7 +12,7 @@ function Messages(props) {
   if (!props.user.user) {
     return (
       <div>
-        <AppHeader />
+        <AppHeader {...props} />
       </div>
     );
   }
@@ -43,7 +43,7 @@ function Messages(props) {
   });
   return (
     <div>
-      <AppHeader />
+      <AppHeader {...props} />
       <ul>{mappedRooms}</ul>
     </div>
   );

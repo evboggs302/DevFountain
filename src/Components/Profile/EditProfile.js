@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { setUser } from "../../dux/reducers/userReducer";
 import { setPersonalSkills } from "../../dux/reducers/skillsReducer";
 import Select from "react-select";
+import "./EditProfile.scss";
 import axios from "axios";
 
 const CLOUDINARY_UPLOAD_URL =
@@ -32,7 +33,7 @@ function EditProfile(props) {
   let [className, setClassName] = useState("profile edit");
   let [uploadedImage, setUploadedImage] = useState(null);
   let [loading, setLoading] = useState(false);
-  let { putData: updateInfo } = usefetch("/api/edit", false);
+  // let { putData: updateInfo } = usefetch("/api/edit", false);
 
   const finished = () => {
     let dataToPost = {
@@ -45,7 +46,6 @@ function EditProfile(props) {
     console.log(dataToPost);
     updateInfo(user_id, dataToPost);
     if (uploadedImage) {
-      console.log("pic is changing");
       saveImageToDB();
     }
     updateSkills();
@@ -78,14 +78,22 @@ function EditProfile(props) {
     setTHESkills(currentSkills);
   }, [mySkills]);
 
+  const updateInfo = (user_id, dataToPost) => {
+    axios
+      .put(`/api/edit/${user_id}`, dataToPost)
+      .then(res => {
+        console.log("updated user info: ", res.data);
+        props.setUser(res.data);
+      })
+      .catch(err => console.log(err));
+  };
+
   const updateSkills = () => {
     let skillID = newSkills.map(e => e.skill_id);
-    console.log(skillID);
     axios
       .put(`/api/new_skills`, { skillID })
       .then(response => {
-        console.log(response.data.skills);
-        props.setPersonalSkills(response.data.skills);
+        props.setPersonalSkills(response.data);
       })
       .catch(err => console.log(err));
   };
@@ -129,11 +137,9 @@ function EditProfile(props) {
   };
   //then we will want to save the image to the users profile pic in the database
   function saveImageToDB() {
-    console.log(uploadedImage);
     axios
       .put(`/api/image/${user_id}`, { profile_pic: uploadedImage })
       .then(res => {
-        console.log(res.data);
         props.setUser(res.data);
       })
       .catch(err => {
@@ -151,67 +157,90 @@ function EditProfile(props) {
   if (!linkedin) {
     linkedinFiller = "Your LinkedIn";
   } else {
-    linkedinFiller = title;
+    linkedinFiller = linkedin;
   }
   var portfolioFiller;
   if (!portfolio) {
     portfolioFiller = "Your Portfolio";
   } else {
-    portfolioFiller = title;
+    portfolioFiller = portfolio;
   }
 
-  // console.log("props:", props);
-  console.log("newSkills:", newSkills);
+  const decoded = decodeURIComponent(props.match.params.email);
+  const current = props.user.user.email === decoded;
 
   return (
     <div className={className}>
-      <div>
-        <div>
-          <img src={profile_pic} />
+      <div className="edit-container">
+        <div className="new-photo-box">
+          <img src={profile_pic} className="profile-pic" />
+          {email}
           <input
             type="file"
             onChange={e => handleImageUpload(e.target.files)}
+            accept="image/jpeg, image/x-png"
           />
         </div>
-        <div>
-          <input placeholder={first} onChange={e => setFirst(e.target.value)} />
-          <input placeholder={last} onChange={e => setLast(e.target.value)} />
+        <div className="update-box">
+          <label>First Name</label>
+          <input
+            placeholder={first}
+            onChange={e => setFirst(e.target.value)}
+            className="update-field"
+          />
         </div>
-        <div>
+        <div className="update-box">
+          <label>Last Name</label>
+          <input
+            placeholder={last}
+            onChange={e => setLast(e.target.value)}
+            className="update-field"
+          />
+        </div>
+        <div className="update-box">
+          <label>Title</label>
           <input
             placeholder={titleFiller}
             onChange={e => setTitle(e.target.value)}
+            className="update-field"
           />
         </div>
-        <div>
-          <div>{email}</div>
-        </div>
-        <div>
+        {/* <div className="update-box">
+            <label>Email</label>
+          {email}
+        </div> */}
+        <div className="update-box">
+          <label>LinkedIn Url</label>
           <input
             placeholder={linkedinFiller}
             onChange={e => setLinked(e.target.value)}
+            className="update-field"
           />
         </div>
-        <div>
+        <div className="update-box">
+          <label>Portfolio Url</label>
           <input
             placeholder={portfolioFiller}
             onChange={e => setPortfolio(e.target.value)}
+            className="update-field"
           />
         </div>
-        {developer ? (
-          <Select
-            name="skills"
-            isMulti
-            options={options}
-            onChange={setTHESkills}
-            value={newSkills}
-            isSearchable={true}
-            backspaceRemovesValue={true}
-            closeMenuOnSelect={false}
-          />
-        ) : null}
+        <div className="skills-btn">
+          {developer ? (
+            <Select
+              name="skills"
+              isMulti
+              options={options}
+              onChange={setTHESkills}
+              value={newSkills}
+              isSearchable={true}
+              backspaceRemovesValue={true}
+              closeMenuOnSelect={false}
+            />
+          ) : null}
+        </div>
+        <button onClick={() => finished()}>Finished Editing</button>
       </div>
-      <button onClick={() => finished()}>Finished Editing</button>
     </div>
   );
 }

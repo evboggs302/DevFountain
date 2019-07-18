@@ -19,6 +19,12 @@ module.exports = {
     // email is passed to getSkills pt1 which finds a user.
     db.getSkillstwo(user_id)
       .then(response => {
+        if (!response.length) {
+          db.addSkills([user_id, []]).then(newSkillSet => {
+            console.log(newSkillSet[0]);
+            res.status(200).send(newSkillSet[0].skills);
+          });
+        }
         res.status(200).send(response[0].skills);
       })
       .catch(err => {
@@ -30,16 +36,35 @@ module.exports = {
   newSkills: (req, res, next) => {
     // we take an array of skill ID's as a parameter
     const { skillID } = req.body;
+    console.log("skillIDs: ", skillID);
     // user id comes off the session.user object
     const { user_id } = req.session.user;
+    console.log("userID: ", user_id);
     const db = req.app.get("db");
     db.updateSkills([user_id, skillID])
       .then(newSkills => {
-        res.status(200).send(newSkills[0]);
+        console.log("response from db: ", newSkills);
+        res.status(200).send(newSkills[0].skills);
       })
       .catch(err => {
         console.log(err);
         res.status(500).send("adding skills failed");
       });
+  },
+  theirSkills: (req, res, next) => {
+    const { email } = req.params;
+    const db = req.app.get("db");
+
+    db.getSkills(email).then(them => {
+      console.log("this is them: ", them);
+      if (!them.length) {
+        res.status(500).send([]);
+      } else {
+        db.getSkillstwo(them[0].user_id).then(theirSkills => {
+          console.log("this is theirSkills: ", theirSkills);
+          res.status(200).send(theirSkills[0]);
+        });
+      }
+    });
   }
 };

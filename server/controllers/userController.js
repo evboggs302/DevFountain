@@ -7,7 +7,7 @@ module.exports = {
     const db = req.app.get("db");
     db.check_existing_users(email).then(found => {
       if (!found[0]) {
-        res.status(500).send("Incorrect username/password");
+        res.status(200).send("Incorrect username/password");
       } else {
         bcrypt.compare(password, found[0].password).then(matched => {
           if (matched) {
@@ -37,9 +37,10 @@ module.exports = {
               profile_pic,
               following
             };
+
             res.status(200).send(req.session.user);
           } else {
-            res.status(500).send("Incorrect username/password");
+            res.status(200).send("Incorrect username/password");
           }
         });
       }
@@ -52,7 +53,7 @@ module.exports = {
     const db = req.app.get("db");
     db.check_existing_users(email).then(found => {
       if (found.length) {
-        res.status(500).send("Email already exists!");
+        res.status(200).send("Email already exists!");
       } else {
         bcrypt.genSalt(saltRounds).then(salt => {
           bcrypt.hash(password, salt).then(hashedPassword => {
@@ -75,6 +76,16 @@ module.exports = {
   userInfo: (req, res, next) => {
     res.status(200).send(req.session.user);
   },
+  othersInfo: (req, res, next) => {
+    const db = req.app.get("db");
+    const { email } = req.params;
+    db.getOthersInfo(email)
+      .then(foundOther => {
+        res.status(200).send(foundOther[0]);
+      })
+      .catch(err => console.log(err));
+  },
+
   logout: (req, res, next) => {
     req.session.destroy();
     res.status(200).send("we be logged out, mama!");
@@ -84,11 +95,9 @@ module.exports = {
     //need user id from front end off of user object
     const { id } = req.params;
     //grab all malleable data from req.body
-    console.log("body: ", req.body);
     const { first, last, title, linkedin, portfolio } = req.body;
     //find the proper user to edit
     db.selectUserByID(id).then(foundUser => {
-      console.log("FoundUser: ", foundUser);
       if (foundUser.length) {
         //values will equal the old if no new value is passed
         let newFirst = first || foundUser[0].first;
@@ -97,6 +106,7 @@ module.exports = {
         let newLinkedin = linkedin || foundUser[0].linkedin;
         let newPortfolio = portfolio || foundUser[0].portfolio;
         let profile_pic = foundUser[0].profile_pic;
+        let email = foundUser[0].email;
         //pass the new values in to replace old
         db.changeUserInfo([
           newFirst,
