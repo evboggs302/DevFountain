@@ -52,20 +52,16 @@ function NewsFeed(props) {
     
     followingPosts = followingPosts.flat();
     let allPosts = followingPosts.concat(myPosts)
-
-    // let allPosts = myPosts.concat(followingPosts)
     
     allPosts.sort((a,b) => {
       return b.post_id - a.post_id
     })
 
-    console.log(allPosts)
-
     mappedPosts = allPosts.map(val => {
       return (
         <div className="post-card">
           <div className="post-user-info">
-            <img src={val.profile_pic} />
+            <img src={val.profile_pic} alt='profile pic' />
             <div className="user_info">
               <h1>
                 {val.first} {val.last}
