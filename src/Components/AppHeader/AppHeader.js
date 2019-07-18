@@ -16,7 +16,6 @@ import DevLogo from "../../media/DF-long_white.png";
 function AppHeader(props) {
   const { data: userLoggedIn } = UseFetch("/api/user", true, null);
   useEffect(() => {
-    console.log(props);
     if (userLoggedIn) {
       props.setUser(userLoggedIn);
     }
@@ -54,30 +53,26 @@ function AppHeader(props) {
     }
   }, [props.match.params.email]);
 
-  // useEffect(() => {
-  //   // if (props.user.otherPerson) {
-  //   const decoded = decodeURIComponent(props.match.params.email);
-
-  //   // }
-  // }, [props.user.otherPerson.email]);
-
   // Get my posts and set them in redux
-  const {data: myPosts, fetchDataWithId: getMyPosts } = UseFetch('/api/post', true, [])
-  const {user} = props.user
-  
+  const { data: myPosts, fetchDataWithId: getMyPosts } = UseFetch(
+    "/api/post",
+    true,
+    []
+  );
+  const { user } = props.user;
+
   useEffect(() => {
-    if(user !== null ){
-      console.log(user.email)
-      getMyPosts(user.email)
+    if (user !== null) {
+      console.log(user.email);
+      getMyPosts(user.email);
     }
-  }, [])
-// setting my posts to redux
+  }, []);
+  // setting my posts to redux
   useEffect(() => {
-    if(myPosts.length > 0){
-      props.myPosts(myPosts)
-      console.log(props)
+    if (myPosts.length > 0) {
+      props.myPosts(myPosts);
     }
-  }, [myPosts])
+  }, [myPosts]);
 
   if (!props.user.user) {
     return <div />;
@@ -93,7 +88,6 @@ function AppHeader(props) {
 
   let encode;
   if (props.user && props.user.user && props.user.user.first) {
-    console.log(props);
     const { email } = props.user.user;
     encode = encodeURIComponent(email);
   }
