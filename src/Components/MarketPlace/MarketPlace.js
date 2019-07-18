@@ -46,6 +46,7 @@ function MarketPlace(props) {
   };
 
   // Rendering each developers info on marketplace
+  const { user_id } = props.user.user;
   const developers = props.marketplace.allDevelopers;
   const alreadyFollowing = props.user.following;
   let mappedDevs;
@@ -54,7 +55,9 @@ function MarketPlace(props) {
       const encoded = encodeURIComponent(dev.email);
       const default_pic =
         "https://www.uic.mx/posgrados/files/2018/05/default-user.png";
-
+      if (user_id === dev.user_id) {
+        return [];
+      }
       return (
         // <Link to={`/profile/${encoded}`} style={{ textDecoration: 'none' }} >
         <div key={dev.user_id} className="developer-card">
@@ -92,7 +95,7 @@ function MarketPlace(props) {
   if (!props.user.user) {
     return (
       <div>
-        <AppHeader />
+        <AppHeader {...props} />
       </div>
     );
   }
