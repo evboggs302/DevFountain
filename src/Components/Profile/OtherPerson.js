@@ -85,36 +85,37 @@ function OtherPerson(props) {
                 />
               </div>
               <h1 className="user-name">{`${first} ${last}`}</h1>
-              <button>Follow</button>
             </div>
           </div>
         </div>
-        <div className="user-info">
-          <h1>{title}</h1>
-          <div>
-            <a href={portfolio} target="_blank">
-              <FaFolderOpen className="info-icon" />
-              Portfolio
-            </a>
-          </div>
-          <div>
+        <div className='other-user'>
+          <div className="user-info">
+            <h1>{title}</h1>
             <div>
-              <FaEnvelope className="info-icon" />
-              {email}
+              <a href={portfolio} target="_blank">
+                <FaFolderOpen className="info-icon" />
+                Portfolio
+              </a>
             </div>
+            <div>
+              <div>
+                <FaEnvelope className="info-icon" />
+                {email}
+              </div>
+            </div>
+            <div>
+              <a href={linkedin} target="_blank">
+                <FaLinkedin className="info-icon" />
+                LinkedIn
+              </a>
+            </div>
+            <button>Follow</button>
+            <button>Message</button>
           </div>
-          <div>
-            <a href={linkedin} target="_blank">
-              <FaLinkedin className="info-icon" />
-              LinkedIn
-            </a>
-          </div>
-          <button>Follow</button>
-          <button>Message</button>
+          {/* SHOW THEIR POSTS */}
+          {postsMapped.length ? <div className='other-posts'>{postsMapped}</div> : null}
+          <div className='other-skills'>{mappedSkills}</div>
         </div>
-        {/* SHOW THEIR POSTS */}
-        {postsMapped.length ? <div>{postsMapped}</div> : null}
-        <div>{mappedSkills}</div>
       </div>
     );
   } else {
