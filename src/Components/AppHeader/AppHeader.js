@@ -4,7 +4,7 @@ import {
   setFollowing,
   setOtherPerson
 } from "../../dux/reducers/userReducer";
-import { setProfilePosts, myPosts } from "../../dux/reducers/postsReducer";
+import { setProfilePosts, setMyPosts } from "../../dux/reducers/postsReducer";
 import { setTheirSkills } from "../../dux/reducers/skillsReducer";
 import { connect } from "react-redux";
 import "./AppHeader.scss";
@@ -44,12 +44,25 @@ function AppHeader(props) {
       axios.get(`/api/others/${decoded}`).then(response => {
         props.setOtherPerson(response.data);
       });
-      axios.get(`/api/post/${decoded}`).then(response => {
-        props.setProfilePosts(response.data);
-      });
       axios.get(`/api/their_skills/${decoded}`).then(response => {
         props.setTheirSkills(response.data);
       });
+    }
+  }, [props.match.params.email]);
+
+  useEffect(() => {
+    if (props.match.params.email) {
+      const decoded = decodeURIComponent(props.match.params.email);
+      const myEmail = props.user.user.email;
+      if (decoded === myEmail) {
+        axios.get(`/api/post/${decoded}`).then(response => {
+          props.setMyPosts(response.data);
+        });
+      } else {
+        axios.get(`/api/post/${decoded}`).then(response => {
+          props.setProfilePosts(response.data);
+        });
+      }
     }
   }, [props.match.params.email]);
 
@@ -70,7 +83,7 @@ function AppHeader(props) {
   // setting my posts to redux
   useEffect(() => {
     if (myPosts.length > 0) {
-      props.myPosts(myPosts);
+      props.setMyPosts(myPosts);
     }
   }, [myPosts]);
 
@@ -117,7 +130,7 @@ const mapDispatchToProps = {
   setOtherPerson,
   setTheirSkills,
   setProfilePosts,
-  myPosts
+  setMyPosts
 };
 
 const invokedConnect = connect(
