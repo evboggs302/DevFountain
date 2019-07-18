@@ -105,18 +105,18 @@ io.use(function(socket, next) {
 
 io.sockets.on("connection", socket => {
   console.log("connection hit");
-  socket.on("join room", roomName => {
+  socket.on("room", roomName => {
     joinRoom(roomName, socket);
-    console.log("roomjoin hit");
+    console.log("roomjoin hit", roomName);
   });
   socket.on("message", userMessage => {
     const { send_email, rec_email, message, user_id, roomName } = userMessage;
-    console.log("usermessage", userMessage);
+    console.log("usermessage", userMessage, roomName);
     // save new message to db
     db.getUserId(rec_email)
       .then(res => {
         db.postMessage(message, new Date(), user_id, res[0].user_id).then(
-          io.in(roomName).emit("message", `${send_email} || ${message}`)
+          io.sockets.in(roomName).emit("message", `${send_email} || ${message}`)
         );
         console.log("message hit");
       })

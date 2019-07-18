@@ -45,19 +45,21 @@ create table postlikes
 create table following
 (
     user_id integer references users(user_id),
-    followed integer[]
+    followed integer
+    []
 );
 
-create table hasskills
-(
-    user_id integer references users(user_id),
-    skills integer[]
-);
-
-    create table rooms
+    create table hasskills
     (
-        room_id serial primary key,
-        first_email text not null,
-        second_email text not null,
-        room_name text not null
-    );
+        user_id integer references users(user_id),
+        skills integer
+        []
+);
+
+        create table rooms
+        (
+            room_id serial primary key,
+            first_email text not null,
+            second_email text not null,
+            room_name text not null
+        );

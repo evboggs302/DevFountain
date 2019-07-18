@@ -14,18 +14,10 @@ function Message(props) {
   const [message, setMessage] = useState("");
   const [returnedMessages, setReturn] = useState([]);
 
-  useEffect(() => {
-    if (!props.user.user) {
-      socket.on("connect", function() {
-        socket.emit("join room", roomName);
-      });
-    }
-  }, []);
-
-  let filterRooms = props.rooms.rooms.filter(room => {
-    return room.first_email === decode || room.second_email === decode;
-  });
-  console.log(filterRooms);
+  // let filterRooms = props.rooms.rooms.filter(room => {
+  //   return room.first_email === decode || room.second_email === decode;
+  // });
+  // console.log(filterRooms);
   // setRoomName(filterRooms[0].room_name);
 
   // socket.on("message", function() {
@@ -69,6 +61,11 @@ function Message(props) {
         return room.first_email === decode || room.second_email === decode;
       });
       setRoomName(filterRooms[0].room_name);
+      socket.on("connect", function() {
+        console.log("userEffect", roomName);
+        socket.emit("room", roomName);
+        console.log("room connected", roomName);
+      });
     });
     return <div />;
   }
