@@ -4,7 +4,7 @@ import {
   setFollowing,
   setOtherPerson
 } from "../../dux/reducers/userReducer";
-import { setProfilePosts } from "../../dux/reducers/postsReducer";
+import { setProfilePosts, myPosts } from "../../dux/reducers/postsReducer";
 import { setTheirSkills } from "../../dux/reducers/skillsReducer";
 import { connect } from "react-redux";
 import "./AppHeader.scss";
@@ -14,13 +14,13 @@ import { NavLink } from "react-router-dom";
 import DevLogo from "../../media/DF-long_white.png";
 
 function AppHeader(props) {
-  const { data: user } = UseFetch("/api/user", true, null);
+  const { data: userLoggedIn } = UseFetch("/api/user", true, null);
   useEffect(() => {
     console.log(props);
-    if (user) {
-      props.setUser(user);
+    if (userLoggedIn) {
+      props.setUser(userLoggedIn);
     }
-  }, [user]);
+  }, [userLoggedIn]);
 
   // this Use Effect is to hit the whoIamFollowing endpoint and update the state(following) to have include the people who you are following
   const { data: following, fetchDataWithId: setWhoImFollowing } = UseFetch(
@@ -60,6 +60,24 @@ function AppHeader(props) {
 
   //   // }
   // }, [props.user.otherPerson.email]);
+
+  // Get my posts and set them in redux
+  const {data: myPosts, fetchDataWithId: getMyPosts } = UseFetch('/api/post', true, [])
+  const {user} = props.user
+  
+  useEffect(() => {
+    if(user !== null ){
+      console.log(user.email)
+      getMyPosts(user.email)
+    }
+  }, [])
+// setting my posts to redux
+  useEffect(() => {
+    if(myPosts.length > 0){
+      props.myPosts(myPosts)
+      console.log(props)
+    }
+  }, [myPosts])
 
   if (!props.user.user) {
     return <div />;
@@ -104,7 +122,8 @@ const mapDispatchToProps = {
   setFollowing,
   setOtherPerson,
   setTheirSkills,
-  setProfilePosts
+  setProfilePosts,
+  myPosts
 };
 
 const invokedConnect = connect(
