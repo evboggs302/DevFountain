@@ -3,18 +3,18 @@
     width: 100%;
     height: 100%;
     justify-content: center;
-
 }
 .newsfeed{
     width: 60%;
 }
 
 .post-card{
-    background: grey;
+    background: lightgrey;
     display: flex;
     flex-direction: column;
     max-width: 650px;
     margin: 10px auto;
+    border: solid 1px rgb(96, 96, 96);
 }
 
 .post-user-info{

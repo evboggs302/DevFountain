@@ -39,9 +39,10 @@ module.exports = {
     const db = req.app.get("db");
     const { id } = req.params;
 
-    db.following
-      .followingPosts(id)
+    db.whoIamFollowingPosts(id)
       .then(posts => {
+        console.log('this is their id', id)
+        console.log('these are the posts', posts)
         res.status(200).send(posts);
       })
       .catch(err => console.log("Error getting people who you follow posts"));

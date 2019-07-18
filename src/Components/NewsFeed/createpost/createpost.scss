@@ -6,6 +6,7 @@
     margin: 10px auto;
     height: 100px;
     align-items: center;
+    border: solid 1px rgb(96, 96, 96);
 }
 
 .create-post > form {
@@ -24,7 +25,7 @@
 
 .post-button {
     height: 40%;
-    background: rgb(50, 169, 209);
+    background: #3279FF;
     color:white;
     border: none;
     border-radius: 50px;

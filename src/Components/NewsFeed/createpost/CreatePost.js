@@ -12,6 +12,8 @@ export default function CreatePost() {
             postData({content})
         }
     }
+
+    console.log(data)
     
     function handleChange(e){
         setInput(e)
