@@ -7,11 +7,12 @@ import useFetch from "../usefetch";
 import { connect } from "react-redux";
 import { setUser, setOtherPerson } from "../../dux/reducers/userReducer";
 import axios from "axios";
-import { FaLinkedin, FaEnvelope, FaFolderOpen } from "react-icons/fa";
+import { FaLinkedin, FaEnvelope, FaFolderOpen, FaUserEdit } from "react-icons/fa";
 import "./Profile.scss";
 
 function Profile(props) {
   let [className, setClassName] = useState("profile");
+  let [hidden, setHidden] = useState(true)
 
   if (!props.user.user) {
     return (
@@ -81,7 +82,8 @@ function Profile(props) {
               </div>
               <div className="profile-btn-top">
                 {current ? (
-                  <button onClick={() => setClassName(className + " edit")}>
+                  <button className="edit-btn"onClick={() => setHidden(false)}>
+                    <FaUserEdit className="edit-icon"/>
                     Edit Profile
                   </button>
                 ) : (
@@ -124,10 +126,9 @@ function Profile(props) {
               {developer ? <ViewSkills {...props} /> : null}
             </div>
           </div>
-
-          <div className={className}>
-            <EditProfile {...props} />
-          </div>
+              { !hidden ? 
+            <EditProfile {...props} closeFn={() => setHidden(true)} />
+            : null }
             
         </div>
       )}
