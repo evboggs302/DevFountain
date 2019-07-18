@@ -80,7 +80,7 @@ describe("integration tests", () => {
           done();
         },
         status(num) {
-          expect(num).toBe(500);
+          expect(num).toBe(200);
           return this;
         }
       };

@@ -4,7 +4,7 @@ import {
   setFollowing,
   setOtherPerson
 } from "../../dux/reducers/userReducer";
-import { setProfilePosts } from "../../dux/reducers/postsReducer";
+import { setProfilePosts, myPosts } from "../../dux/reducers/postsReducer";
 import { setTheirSkills } from "../../dux/reducers/skillsReducer";
 import { connect } from "react-redux";
 import "./AppHeader.scss";
@@ -44,26 +44,40 @@ function AppHeader(props) {
       const decoded = decodeURIComponent(props.match.params.email);
       axios.get(`/api/others/${decoded}`).then(response => {
         props.setOtherPerson(response.data);
-        return;
       });
       axios.get(`/api/post/${decoded}`).then(response => {
         props.setProfilePosts(response.data);
-        return;
+      });
+      axios.get(`/api/their_skills/${decoded}`).then(response => {
+        props.setTheirSkills(response.data);
       });
     }
   }, [props.match.params.email]);
 
+  // useEffect(() => {
+  //   // if (props.user.otherPerson) {
+  //   const decoded = decodeURIComponent(props.match.params.email);
+
+  //   // }
+  // }, [props.user.otherPerson.email]);
+
+  // Get my posts and set them in redux
+  const {data: myPosts, fetchDataWithId: getMyPosts } = UseFetch('/api/post', true, [])
+  const {user} = props.user
+  
   useEffect(() => {
-    if (props.user.otherPerson) {
-      const decoded = decodeURIComponent(props.match.params.email);
-      axios.get(`/api/their_skills/${decoded}`).then(response => {
-        let skillzExist = response.data.length;
-        if (skillzExist) {
-          props.setTheirSkills(response.data);
-        }
-      });
+    if(user !== null ){
+      console.log(user.email)
+      getMyPosts(user.email)
     }
-  }, [props.user.otherPerson.email]);
+  }, [])
+// setting my posts to redux
+  useEffect(() => {
+    if(myPosts.length > 0){
+      props.myPosts(myPosts)
+      console.log(props)
+    }
+  }, [myPosts])
 
   if (!props.user.user) {
     return <div />;
@@ -108,7 +122,8 @@ const mapDispatchToProps = {
   setFollowing,
   setOtherPerson,
   setTheirSkills,
-  setProfilePosts
+  setProfilePosts,
+  myPosts
 };
 
 const invokedConnect = connect(
