@@ -118,27 +118,28 @@ function OtherPerson(props) {
             </div>
           </div>
         </div>
-        <div className="user-info">
-          <h1>{title}</h1>
-          <div>
-            <a href={portfolio} target="_blank">
-              <FaFolderOpen className="info-icon" />
-              Portfolio
-            </a>
-          </div>
-          <div>
+        <div className='other-user'>
+          <div className="user-info">
+            <h1>{title}</h1>
             <div>
-              <FaEnvelope className="info-icon" />
-              {email}
+              <a href={portfolio} target="_blank">
+                <FaFolderOpen className="info-icon" />
+                Portfolio
+              </a>
             </div>
-          </div>
-          <div>
-            <a href={linkedin} target="_blank">
-              <FaLinkedin className="info-icon" />
-              LinkedIn
-            </a>
-          </div>
-          {!alreadyFollowing.includes(othersID) ? (
+            <div>
+              <div>
+                <FaEnvelope className="info-icon" />
+                {email}
+              </div>
+            </div>
+            <div>
+              <a href={linkedin} target="_blank">
+                <FaLinkedin className="info-icon" />
+                LinkedIn
+              </a>
+            </div>
+            {!alreadyFollowing.includes(othersID) ? (
             <button onClick={() => addDev(othersID)} className="follow-button">
               Follow
             </button>
@@ -151,10 +152,12 @@ function OtherPerson(props) {
             </button>
           )}
           <button onClick={messageRoom}>Message</button>
+          </div>
+          {/* SHOW THEIR POSTS */}
+          {postsMapped.length ? <div className='other-posts'>{postsMapped}</div> : null}
+          <div className='other-skills'>{mappedSkills}</div>
+          
         </div>
-        {/* SHOW THEIR POSTS */}
-        {postsMapped.length ? <div>{postsMapped}</div> : null}
-        <div>{mappedSkills}</div>
       </div>
     );
   } else {

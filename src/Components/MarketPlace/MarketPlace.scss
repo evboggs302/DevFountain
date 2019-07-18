@@ -50,7 +50,17 @@
 .follow-button {
     background: green;
     color: white;
-    width: 30%;
+    width: 35%;
     height: 25px;
     border: none;
+    border-radius: 20px;
+}
+
+.unfollow-button {
+    background: red;
+    color: white;
+    width: 35%;
+    height: 25px;
+    border: none;
+    border-radius: 20px;
 }
