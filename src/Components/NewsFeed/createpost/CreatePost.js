@@ -1,8 +1,10 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import UseFetch from '../../usefetch'
 import './createpost.scss'
+import {connect} from 'react-redux';
+import {myPosts} from '../../../dux/reducers/postsReducer'
 
-export default function CreatePost() {
+function CreatePost(props) {
     const [input, setInput] = useState(null)
     const {data: data, postData: postData} = UseFetch('/api/post', true, null)
 
@@ -10,15 +12,21 @@ export default function CreatePost() {
         if(content!==null){
             console.log(content)
             postData({content})
-            console.log(data)
         }
     }
 
-    console.log(data)
+    useEffect(() => {
+        if(data !== null){
+            console.log(data)
+            props.myPosts(data)
+        }
+    }, [data])
     
     function handleChange(e){
         setInput(e)
     }
+
+    console.log(props)
     
     return (
         <div className='create-post'>
@@ -30,3 +38,12 @@ export default function CreatePost() {
         </div>
     )
 }
+
+const mapPropsToState = (reduxState) =>{ 
+    return reduxState
+}
+
+const myConnect = connect(mapPropsToState, {myPosts})
+
+
+export default myConnect(CreatePost)

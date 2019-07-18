@@ -14,13 +14,13 @@ import { NavLink } from "react-router-dom";
 import DevLogo from "../../media/DF-long_white.png";
 
 function AppHeader(props) {
-  const { data: user } = UseFetch("/api/user", true, null);
+  const { data: userLoggedIn } = UseFetch("/api/user", true, null);
   useEffect(() => {
     console.log(props);
-    if (user) {
-      props.setUser(user);
+    if (userLoggedIn) {
+      props.setUser(userLoggedIn);
     }
-  }, [user]);
+  }, [userLoggedIn]);
 
   // this Use Effect is to hit the whoIamFollowing endpoint and update the state(following) to have include the people who you are following
   const { data: following, fetchDataWithId: setWhoImFollowing } = UseFetch(

@@ -49,7 +49,9 @@ function NewsFeed(props) {
 
   // Display each post
   let { followingPosts } = props.posts;
+  let {myPosts} = props.posts
   console.log(followingPosts)
+  console.log(myPosts)
   
   let mappedPosts;
   if (followingPosts) {
