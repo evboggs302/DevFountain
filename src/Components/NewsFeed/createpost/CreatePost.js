@@ -10,6 +10,7 @@ export default function CreatePost() {
         if(content!==null){
             console.log(content)
             postData({content})
+            console.log(data)
         }
     }
 
