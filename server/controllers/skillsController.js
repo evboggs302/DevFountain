@@ -8,7 +8,6 @@ module.exports = {
         res.status(200).send(allSkills);
       })
       .catch(err => {
-        console.log(err);
         res.status(500).send("Sorry try again later.");
       });
   },

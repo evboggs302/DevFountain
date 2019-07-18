@@ -114,6 +114,7 @@ function Profile(props) {
           <div className={className}>
             <EditProfile {...props} />
           </div>
+            
         </div>
       )}
       {!props.user.otherPerson || current ? null : <OtherPerson {...props} />}
