@@ -5,25 +5,12 @@ $light-gray: #F5F5F5;
 
 
 .edit-container {
-    background-color: pink;
-    width: 100%;
-    border: none;
-    // background-color: #E1E5EC;
-    // height: 500px;
-    width: 500px;
-    padding: 30px;
-    display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
-	justify-content: flex-start;
-	align-items: stretch;
-    align-content: stretch;
-
     border: none;
     background-color: #E1E5EC;
     // background: transparent;
     // height: 400px;
     width: 400px;
+    margin: 0 auto;
     padding: 30px;
     display: flex;
 	flex-direction: column;
@@ -87,4 +74,25 @@ $light-gray: #F5F5F5;
     -moz-appearance: none ;
     -webkit-appearance: none;
     appearance: none;
+}
+
+//this class is always active and sets the main css values
+.profile {
+    position: fixed;
+    top: 0;
+    // right: 0;
+    width: 100vw;
+    height: 100vh;
+    padding: 100px 0;
+    background-color: rgba(41, 48, 59, .6);
+    overflow: auto;
+    display: none;
+}
+
+//this class is triggers the animation when the button is clicked
+.edit {
+    display: block;
+    // .edit-container {
+    //     transform: translateY(0);
+    // }
 }
