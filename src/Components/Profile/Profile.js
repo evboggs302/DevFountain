@@ -85,11 +85,12 @@ function Profile(props) {
                 </a>
               </div>
             </div>
+            {/* <div>{mappedPosts}</div> */}
             <div className="skills-box">
-                {developer ? <ViewSkills {...props}/> : null}
+              {developer ? <ViewSkills {...props} /> : null}
             </div>
-          </div> 
-          
+          </div>
+
           <div className={className}>
             <EditProfile {...props} />
           </div>

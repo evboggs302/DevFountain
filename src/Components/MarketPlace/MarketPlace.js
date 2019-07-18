@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import AppHeader from "../AppHeader/AppHeader";
 import "./MarketPlace.scss";
-import usefetch from "../usefetch";
 import axios from "axios";
 
 function MarketPlace(props) {
@@ -21,24 +20,14 @@ function MarketPlace(props) {
     setRedirect(true);
   };
 
-  // When user clicks on the follow button, 'followDeveloper' then makes a Put to the endpoint 'follow' and updates the following table in SQL
-  const { data: devsIFollow, putData: updateFollowing } = usefetch(
-    "/api/following",
-    false,
-    []
-  );
-
   const addDev = id => {
     const { user_id } = props.user.user;
     const { following } = props.user;
     let copy = following.slice();
     copy.push(id);
-    console.log("og list: ", following);
-    console.log("copy: ", copy);
     axios
       .put(`/api/following/${user_id}`, { newFollowing: copy })
       .then(response => {
-        console.log(response.data);
         props.setFollowing(response.data);
       });
   };
@@ -49,19 +38,12 @@ function MarketPlace(props) {
     let list = following.slice();
     let index = list.indexOf(id);
     list.splice(index, 1);
-    console.log("og list: ", list);
     axios
       .put(`/api/following/${user_id}`, { newFollowing: list })
       .then(response => {
-        console.log(response.data);
         props.setFollowing(response.data);
       });
   };
-
-  useEffect(() => {
-    console.log("following data updated:", devsIFollow);
-    props.setFollowing(devsIFollow);
-  }, [devsIFollow]);
 
   // Rendering each developers info on marketplace
   const developers = props.marketplace.allDevelopers;

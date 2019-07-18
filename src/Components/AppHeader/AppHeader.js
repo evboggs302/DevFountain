@@ -4,6 +4,7 @@ import {
   setFollowing,
   setOtherPerson
 } from "../../dux/reducers/userReducer";
+import { setProfilePosts } from "../../dux/reducers/postsReducer";
 import { setTheirSkills } from "../../dux/reducers/skillsReducer";
 import { connect } from "react-redux";
 import "./AppHeader.scss";
@@ -35,7 +36,6 @@ function AppHeader(props) {
   }, [props.user.user]);
 
   useEffect(() => {
-    console.log("following state hit:", following);
     props.setFollowing(following);
   }, [following]);
 
@@ -43,8 +43,11 @@ function AppHeader(props) {
     if (props.match.params.email) {
       const decoded = decodeURIComponent(props.match.params.email);
       axios.get(`/api/others/${decoded}`).then(response => {
-        console.log(response.data);
         props.setOtherPerson(response.data);
+        return;
+      });
+      axios.get(`/api/post/${decoded}`).then(response => {
+        props.setProfilePosts(response.data);
         return;
       });
     }
@@ -54,7 +57,6 @@ function AppHeader(props) {
     if (props.user.otherPerson) {
       const decoded = decodeURIComponent(props.match.params.email);
       axios.get(`/api/their_skills/${decoded}`).then(response => {
-        console.log(response.data);
         let skillzExist = response.data.length;
         if (skillzExist) {
           props.setTheirSkills(response.data);
@@ -105,7 +107,8 @@ const mapDispatchToProps = {
   setUser,
   setFollowing,
   setOtherPerson,
-  setTheirSkills
+  setTheirSkills,
+  setProfilePosts
 };
 
 const invokedConnect = connect(
