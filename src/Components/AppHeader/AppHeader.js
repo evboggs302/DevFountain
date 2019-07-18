@@ -47,6 +47,7 @@ function AppHeader(props) {
         return;
       });
       axios.get(`/api/post/${decoded}`).then(response => {
+        console.log(response.data);
         props.setProfilePosts(response.data);
         return;
       });

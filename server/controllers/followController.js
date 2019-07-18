@@ -9,7 +9,6 @@ module.exports = {
             res.status(200).send(whoImFollowing[0].followed);
           });
         } else {
-          console.log(people[0]);
           res.status(200).send(people[0].followed);
         }
       })
@@ -41,8 +40,6 @@ module.exports = {
 
     db.whoIamFollowingPosts(id)
       .then(posts => {
-        console.log('this is their id', id)
-        console.log('these are the posts', posts)
         res.status(200).send(posts);
       })
       .catch(err => console.log("Error getting people who you follow posts"));
