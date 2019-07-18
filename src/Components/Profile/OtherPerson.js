@@ -9,9 +9,36 @@ import LoadingAnimation from "../CoolAnimation/LoadingAnimation";
 function OtherPerson(props) {
   const decoded = decodeURIComponent(props.match.params.email);
 
-  // const messageRoom = () => {
-  //   axios.post(`/api/rooms/${props.match.params.email}`);
-  // };
+  const messageRoom = () => {
+    axios.post(`/api/rooms/${props.match.params.email}`).then(response => {
+      props.history.push("/messages");
+    });
+  };
+
+  const addDev = id => {
+    const { user_id } = props.user.user;
+    const { following } = props.user;
+    let copy = following.slice();
+    copy.push(id);
+    axios
+      .put(`/api/following/${user_id}`, { newFollowing: copy })
+      .then(response => {
+        props.setFollowing(response.data);
+      });
+  };
+
+  const removeDev = id => {
+    const { user_id } = props.user.user;
+    const { following } = props.user;
+    let list = following.slice();
+    let index = list.indexOf(id);
+    list.splice(index, 1);
+    axios
+      .put(`/api/following/${user_id}`, { newFollowing: list })
+      .then(response => {
+        props.setFollowing(response.data);
+      });
+  };
 
   const {
     developer,
@@ -70,6 +97,9 @@ function OtherPerson(props) {
       );
     });
   }
+
+  const alreadyFollowing = props.user.following;
+  const othersID = props.user.otherPerson.user_id;
   let rightDev = email == decoded;
 
   if (rightDev) {
@@ -109,12 +139,24 @@ function OtherPerson(props) {
                 LinkedIn
               </a>
             </div>
-            <button>Follow</button>
-            <button>Message</button>
+            {!alreadyFollowing.includes(othersID) ? (
+            <button onClick={() => addDev(othersID)} className="follow-button">
+              Follow
+            </button>
+          ) : (
+            <button
+              onClick={() => removeDev(othersID)}
+              className="unfollow-button"
+            >
+              Unfollow
+            </button>
+          )}
+          <button onClick={messageRoom}>Message</button>
           </div>
           {/* SHOW THEIR POSTS */}
           {postsMapped.length ? <div className='other-posts'>{postsMapped}</div> : null}
           <div className='other-skills'>{mappedSkills}</div>
+          
         </div>
       </div>
     );
