@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import AppHeader from "../AppHeader/AppHeader";
-import useFetch from "../usefetch";
 import { connect } from "react-redux";
 import { setTheirSkills } from "../../dux/reducers/skillsReducer";
 import { setUser, setOtherPerson } from "../../dux/reducers/userReducer";
@@ -56,9 +54,6 @@ function OtherPerson(props) {
     });
   }
   let rightDev = email == decoded;
-
-  console.log("skill ids: ", theirSkills);
-  console.log("their skills mapped: ", theirSkillys);
 
   if (rightDev) {
     return (
