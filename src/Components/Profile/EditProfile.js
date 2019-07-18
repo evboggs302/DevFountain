@@ -44,13 +44,14 @@ function EditProfile(props) {
       linkedin: newLinked || linkedin,
       portfolio: newPortfolio || portfolio
     };
-    console.log(dataToPost);
+    
     updateInfo(user_id, dataToPost);
     if (uploadedImage) {
       saveImageToDB();
     }
     updateSkills();
     setClassName("profile");
+    props.closeFn()
   };
 
   useEffect(() => {
@@ -241,7 +242,7 @@ function EditProfile(props) {
           ) : null}
         </div>
         <button onClick={() => finished()}>Finished Editing</button>
-        <button onClick={() => setClassName("profile")}>x</button>
+        <button onClick={props.closeFn}>x</button>
       </div>
     </div>
   );

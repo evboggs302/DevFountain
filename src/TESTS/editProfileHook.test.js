@@ -1,24 +1,26 @@
-// import React from 'react';
-// import Profile from "../Components/Profile/Profile";
-// import { Provider } from "react-redux";
-// import store from "../dux/store";
-// import { render, fireEvent, getByTestId } from "@testing-library/react";
-// // props.match.params.email
-// const match =  {
-//     params: {
-//         email: ""
-//     }
-// }
+import init from "jooks";
+import EditProfileTest from "./editProfileHook";
 
-// describe("testing hooks", () => {
-//     it("initial state of profile" , () => {
-//         const { container } = render(
-//         <Provider store={store}>
-//          <Profile match={match}  />
-//         </Provider>
-//         );
-//         console.log(container)
-//         const originalValue = getByTestId(container.Profile, "originalValue");
-//         return expect(originalValue.className).toBe("profile");
-//     });
-// })
+describe("Testing useState hook", () => {
+    const jooks = init(() => EditProfileTest());
+
+    it("It should give the correct initial values", () => {
+        //runs the hook function 
+        const result = jooks.run()
+        //testing the results
+        expect(result.className).toBe("profile edit")
+    }),
+
+    it("It should give the correct new value", () => {
+        //runs the hooks function
+       let result = jooks.run()
+       //testing the result
+       expect(result.className).toBe("profile edit")
+        //running the function setClassName passing in profile
+        result.setClassName('profile');
+        //re runs the hook function
+        (result = jooks.run());
+        //expects the result of the className to be 'profile'
+        expect(result.className).toBe('profile') 
+    })
+})

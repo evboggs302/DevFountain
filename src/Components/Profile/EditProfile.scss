@@ -80,19 +80,13 @@ $light-gray: #F5F5F5;
 .profile {
     position: fixed;
     top: 0;
-    // right: 0;
     width: 100vw;
     height: 100vh;
     padding: 100px 0;
-    background-color: rgba(41, 48, 59, .6);
     overflow: auto;
-    display: none;
 }
 
 //this class is triggers the animation when the button is clicked
 .edit {
-    display: block;
-    // .edit-container {
-    //     transform: translateY(0);
-    // }
+    background-color: rgba(41, 48, 59, .6);
 }
