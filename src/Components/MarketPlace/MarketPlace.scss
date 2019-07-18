@@ -20,6 +20,9 @@
 
 .developer-card > img {
     width: 200px;
+    border-radius: 50%;
+    height: 200px;
+    position: cover;
 }
 
 .dev-name, .dev-email, .dev-title {
@@ -42,4 +45,12 @@
     border: black 2px solid;
     color: black;
     cursor: pointer;
+}
+
+.follow-button {
+    background: green;
+    color: white;
+    width: 30%;
+    height: 25px;
+    border: none;
 }
