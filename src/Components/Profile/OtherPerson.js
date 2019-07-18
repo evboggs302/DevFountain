@@ -21,17 +21,8 @@ function OtherPerson(props) {
     linkedin,
     portfolio
   } = props.user.otherPerson;
-  useEffect(() => {
-    axios.get(`/api/their_skills/${decoded}`).then(response => {
-      console.log(response.data);
-      let skillzExist = response.data.length;
-      if (skillzExist) {
-        props.setTheirSkills(response.data);
-      }
-    });
-  }, []);
 
-  const { allSkills, theirSkills } = props.user;
+  const { allSkills, theirSkills } = props.skills;
   var theirSkillys = [];
   if (theirSkills) {
     for (let k = 0; k < allSkills.length; k++) {
@@ -65,6 +56,9 @@ function OtherPerson(props) {
     });
   }
   let rightDev = email == decoded;
+
+  console.log("skill ids: ", theirSkills);
+  console.log("their skills mapped: ", theirSkillys);
 
   if (rightDev) {
     return (

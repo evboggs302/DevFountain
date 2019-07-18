@@ -50,13 +50,12 @@ module.exports = {
   theirSkills: (req, res, next) => {
     const { email } = req.params;
     const db = req.app.get("db");
-
     db.getSkills(email).then(them => {
       if (!them.length) {
         res.status(500).send([]);
       } else {
         db.getSkillstwo(them[0].user_id).then(theirSkills => {
-          res.status(200).send(theirSkills[0]);
+          res.status(200).send(theirSkills[0].skills);
         });
       }
     });
