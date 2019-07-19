@@ -5,6 +5,7 @@ import { setUser } from "../../dux/reducers/userReducer";
 import { setPersonalSkills } from "../../dux/reducers/skillsReducer";
 import Select from "react-select";
 import "./EditProfile.scss";
+import {FaCheck, FaTimesCircle} from "react-icons/fa";
 import axios from "axios";
 
 const CLOUDINARY_UPLOAD_URL =
@@ -175,7 +176,10 @@ function EditProfile(props) {
     <div value={className} className={className} >
       <div className="edit-container">
         <div className="new-photo-box">
-          <img src={profile_pic} className="profile-pic" />
+          <div className="profile-pic">
+            <img src={profile_pic}/>
+          </div>
+         
           {email}
           <input
             type="file"
@@ -241,8 +245,8 @@ function EditProfile(props) {
             />
           ) : null}
         </div>
-        <button onClick={() => finished()}>Finished Editing</button>
-        <button onClick={props.closeFn}>x</button>
+        <button onClick={() => finished()} className='finished-btn'><FaCheck className="check-mark"/> Finished Editing</button>
+        <button onClick={props.closeFn} className='close-btn'><FaTimesCircle/></button>
       </div>
     </div>
   );
