@@ -180,7 +180,7 @@ app.get("/api/messages/:email", getMyMessages);
 app.post("/api/messages/:email", sendMessage);
 app.delete("api/messages/:id", deleteMessage);
 app.get("/api/rooms", getMyRooms);
-app.post("/api/rooms/:email", createRoom);
+app.post("/api/rooms/:email2", createRoom);
 
 // Following Endpoints
 const {

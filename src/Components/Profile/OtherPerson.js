@@ -15,7 +15,8 @@ function OtherPerson(props) {
   const decoded = decodeURIComponent(props.match.params.email);
 
   const messageRoom = () => {
-    axios.post(`/api/rooms/${props.match.params.email}`).then(response => {
+    console.log(decoded);
+    axios.post(`/api/rooms/${decoded}`).then(response => {
       props.history.push("/messages");
     });
   };

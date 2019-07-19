@@ -88,6 +88,7 @@ module.exports = {
     let join = sort.join("");
     db.checkIfRoom(join).then(roomFound => {
       if (!roomFound.length) {
+        console.log(email, email2, join);
         db.createRoom(email, email2, join)
           .then(rooms => {
             res.status(200).send(rooms);

@@ -20,41 +20,63 @@ function Message(props) {
   var x = email.replace(re, "");
 
   var decode = decodeURIComponent(x);
-  var send_email = props.user.user.email;
-  var rec_email = decode;
-  var user_id = props.user.user.user_id;
-  var userMessage = { send_email, rec_email, message, user_id, roomName };
+
+  var userMessage = {};
+
+  // useEffect(() => {
+  //   if (!props.rooms.rooms.length) {
+  //     axios.get("/api/rooms").then(res => {
+  //       props.setRooms(res.data);
+  //       let filterRooms = props.rooms.rooms.filter(room => {
+  //         return room.first_email === decode || room.second_email === decode;
+  //       });
+  //       setRoomName(filterRooms[0].room_name);
+  //     });
+  //   }
+  // });
 
   useEffect(() => {
-    axios.get("/api/rooms").then(res => {
-      setRooms(res.data);
-      let filterRooms = props.rooms.rooms.filter(room => {
-        return room.first_email === decode || room.second_email === decode;
-      });
-
-      setRoomName(filterRooms[0].room_name);
-      socket.on("message", returnedMessage => {
-        console.log("I recieved this:", [
-          ...props.message.messages,
-          returnedMessage
-        ]);
-
-        const {
-          send_email,
-          rec_email,
-          message,
-          user_id,
-          roomName
-        } = userMessage;
-        props.setMessages([
-          ...props.message.messages,
-          { email: send_email, content: returnedMessage, time_sent: new Date() }
-        ]);
-      });
-      console.log(filterRooms[0].room_name);
-      socket.emit("room", filterRooms[0].room_name);
-    });
-  }, [props.message.messages, props.rooms.rooms]);
+    if (props.user.user) {
+      var send_email = props.user.user.email;
+      var rec_email = decode;
+      var user_id = props.user.user.user_id;
+      userMessage = { send_email, rec_email, message, user_id, roomName };
+      if (!props.rooms.rooms.length) {
+        axios.get("/api/rooms").then(res => {
+          props.setRooms(res.data);
+        });
+      } else {
+        let filterRooms = props.rooms.rooms.filter(room => {
+          return room.first_email === decode || room.second_email === decode;
+        });
+        // console.log(res.data, filterRooms);
+        setRoomName(filterRooms[0].room_name);
+        socket.on("message", returnedMessage => {
+          console.log("I recieved this:", [
+            ...props.message.messages,
+            returnedMessage
+          ]);
+          const {
+            send_email,
+            rec_email,
+            message,
+            user_id,
+            roomName
+          } = userMessage;
+          props.setMessages([
+            ...props.message.messages,
+            {
+              email: send_email,
+              content: returnedMessage,
+              time_sent: new Date()
+            }
+          ]);
+        });
+        console.log(filterRooms[0].room_name);
+        socket.emit("room", filterRooms[0].room_name);
+      }
+    }
+  }, [props.message.messages]);
 
   // socket.on("message", function() {
   //   socket.emit("message", userMessage);
@@ -65,7 +87,7 @@ function Message(props) {
   //   setReturn([...returnedMessages, returnedMessage]);
   // });
 
-  if (!props.user.user || !props.rooms.rooms) {
+  if (!props.user.user) {
     return (
       <div>
         <AppHeader {...props} />
@@ -81,20 +103,22 @@ function Message(props) {
     });
   }
 
-  if (!props.rooms.rooms.length) {
-    axios.get("/api/rooms").then(res => {
-      props.setRooms(res.data);
-      let filterRooms = props.rooms.rooms.filter(room => {
-        return room.first_email === decode || room.second_email === decode;
-      });
-      setRoomName(filterRooms[0].room_name);
-      socket.on("connect", function() {
-        console.log("userEffect", roomName);
-        socket.emit("room", roomName);
-        console.log("room connected", roomName);
-      });
-    });
-  }
+  // if (!props.rooms.rooms.length) {
+  //   axios.get("/api/rooms").then(res => {
+  //     props.setRooms(res.data);
+  //     console.log(res.data);
+  //     let filterRooms = props.rooms.rooms.filter(room => {
+  //       return room.first_email === decode || room.second_email === decode;
+  //     });
+  //     console.log(filterRooms);
+  //     setRoomName(filterRooms[0].room_name);
+  //     socket.on("connect", function() {
+  //       console.log("userEffect", roomName);
+  //       socket.emit("room", roomName);
+  //       console.log("room connected", roomName);
+  //     });
+  //   });
+  // }
 
   let mappedMessages = props.message.messages.map((element, index) => {
     return (
@@ -109,10 +133,14 @@ function Message(props) {
   });
 
   console.log("----------------->", props.message.messages);
+  var send_email = props.user.user.email;
+  var rec_email = decode;
+  var user_id = props.user.user.user_id;
+  userMessage = { send_email, rec_email, message, user_id, roomName };
   return (
     <div>
       <AppHeader {...props} />
-      <ul>{mappedMessages}</ul>
+      {/* <ul>{mappedMessages}</ul> */}
       <div>
         {props.message.messages.map((message, index) => {
           // console.log(message);
