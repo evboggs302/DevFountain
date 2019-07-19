@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { setTheirSkills } from "../../dux/reducers/skillsReducer";
-import { setUser, setOtherPerson } from "../../dux/reducers/userReducer";
+import {
+  setUser,
+  setOtherPerson,
+  setFollowing
+} from "../../dux/reducers/userReducer";
 import { FaLinkedin, FaEnvelope, FaFolderOpen } from "react-icons/fa";
 import axios from "axios";
 import LoadingAnimation from "../CoolAnimation/LoadingAnimation";
@@ -118,7 +122,7 @@ function OtherPerson(props) {
             </div>
           </div>
         </div>
-        <div className='other-user'>
+        <div className="other-user">
           <div className="user-info">
             <h1>{title}</h1>
             <div>
@@ -140,23 +144,27 @@ function OtherPerson(props) {
               </a>
             </div>
             {!alreadyFollowing.includes(othersID) ? (
-            <button onClick={() => addDev(othersID)} className="follow-button">
-              Follow
-            </button>
-          ) : (
-            <button
-              onClick={() => removeDev(othersID)}
-              className="unfollow-button"
-            >
-              Unfollow
-            </button>
-          )}
-          <button onClick={messageRoom}>Message</button>
+              <button
+                onClick={() => addDev(othersID)}
+                className="follow-button"
+              >
+                Follow
+              </button>
+            ) : (
+              <button
+                onClick={() => removeDev(othersID)}
+                className="unfollow-button"
+              >
+                Unfollow
+              </button>
+            )}
+            <button onClick={messageRoom}>Message</button>
           </div>
           {/* SHOW THEIR POSTS */}
-          {postsMapped.length ? <div className='other-posts'>{postsMapped}</div> : null}
-          <div className='other-skills'>{mappedSkills}</div>
-          
+          {postsMapped.length ? (
+            <div className="other-posts">{postsMapped}</div>
+          ) : null}
+          <div className="other-skills">{mappedSkills}</div>
         </div>
       </div>
     );
@@ -172,7 +180,8 @@ const mapStateToProps = reduxState => {
 const mapDispatchToProps = {
   setUser,
   setOtherPerson,
-  setTheirSkills
+  setTheirSkills,
+  setFollowing
 };
 
 const invokedConnect = connect(
