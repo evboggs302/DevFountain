@@ -10,29 +10,12 @@ function MyInfo(props) {
         return <Redirect to={`/profile/${email}`} />
     }
     
-    if(user && following != null){
-        console.log(following.length)
-        const { email } = props.user.user;
-        var encode = encodeURIComponent(email);
-        console.log(encode)
-        return (
-            <div className='myinfo-newsfeed'>
-                <img src={user.profile_pic} className="feed-pic"/>
-                <h1>{user.first} {user.last}</h1>
-                <h2>Following {following.length} Developers</h2>
-                {/* <button onClick={() => editProfile(encode)}>Edit Your Profile</button> */}
-            </div>
-        )
-    }
-    return <h1>NewsFeed is loading</h1>
-}
-
   if (user && following != null) {
     const { email } = props.user.user;
     var encode = encodeURIComponent(email);
     return (
       <div className="myinfo-newsfeed">
-        <img src={user.profile_pic} />
+        <img src={user.profile_pic} className="feed-pic"/>
         <h1>
           {user.first} {user.last}
         </h1>
