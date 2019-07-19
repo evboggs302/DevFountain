@@ -82,9 +82,9 @@ function MarketPlace(props) {
             View Developer
           </button>
           {!alreadyFollowing.includes(dev.user_id) ? (
-            <button onClick={() => addDev(dev.user_id)}>Follow</button>
+            <button onClick={() => addDev(dev.user_id)} className='follow-button'>Follow</button>
           ) : (
-            <button onClick={() => removeDev(dev.user_id)}>Unfollow</button>
+            <button onClick={() => removeDev(dev.user_id)} className='unfollow-button'>Unfollow</button>
           )}
         </div>
         /* </Link> */

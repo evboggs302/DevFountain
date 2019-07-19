@@ -35,13 +35,18 @@ $light-gray: #F5F5F5;
         margin-left: 15px;
         font-size: 22px;
     }
-    .profile-btn-top {
-       margin: 1px 10px;
-       padding: 5px;
+    .edit-btn {
+       margin: 2px 30px;
+       padding: 10px;
        border: none;
+       
     }
-    .button:hover {
-        background-color: $dark-color;
+    .edit-btn:hover {
+        background-color: $light-gray;
+    }
+    .edit-icon {
+        margin-right: 4px;
+        padding-top: 2px;
     }
 }
 
@@ -84,6 +89,12 @@ $light-gray: #F5F5F5;
     .info-icon {
         color: $light-color;
     }
+}
+
+
+.other-user{
+    display: flex;
+    justify-content: space-around;
 }
 
 

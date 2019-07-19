@@ -33,7 +33,7 @@ function App(props) {
       <ToastContainer autoClose={2000} />
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/profile/:email" component={Profile} />
+        {/* <Route path="/profile/:email" component={Profile} /> */}
         <Route
           path="/profile/:email"
           render={props => <Profile {...props} />}

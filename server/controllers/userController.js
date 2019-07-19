@@ -119,13 +119,11 @@ module.exports = {
         ])
           .then(updatedUser => {
             //New user object is returned
-            console.log("UpdatedUser:", updatedUser);
             req.session.user = updatedUser[0];
             res.status(200).send(req.session.user);
           })
           .catch(err => {
             //error handling if failed
-            console.log("err:", err);
             res.status(500).send("Change failed.");
           });
       }
@@ -141,7 +139,6 @@ module.exports = {
         res.status(200).send(newProfilePic[0]);
       })
       .catch(err => {
-        console.log("pic did not update", err);
         res.status(500).send("Error with not updating picture");
       });
   },
