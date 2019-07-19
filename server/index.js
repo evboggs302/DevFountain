@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+// is there a required install for this?
 const server = require("http").createServer(app);
 const sessionService = require("./sessionService");
 const session = require("express-session");
@@ -22,7 +23,8 @@ const {
   logout,
   othersInfo,
   edit,
-  updateProfilePic
+  updateProfilePic,
+  joinRoom
 } = require("./controllers/userController");
 
 const {
@@ -60,17 +62,15 @@ const {
   CLOUDINARY_SECRET_API
 } = process.env;
 
-app.use(cookieParser(SESSION_SECRET));
-
 app.use(
   session({
     store: new pgSession({
       conString: CONNECTION_STRING
     }),
-    saveUninitialized: false,
-    secret: SESSION_SECRET,
+    saveUninitialized: true,
+    secret: "piueyrwtiuovxmznskjdhfalkjs",
     resave: true,
-    key: "express.sid", // not sure what this is
+    key: "express.sid",
     cookie: {
       maxAge: 1209600000 // 2week cookie
     }
@@ -86,7 +86,8 @@ massive(CONNECTION_STRING).then(databaseInstance => {
 });
 
 io.use(function(socket, next) {
-  const parseCookie = cookieParser(SESSION_SECRET);
+  const parseCookie = cookieParser("piueyrwtiuovxmznskjdhfalkjs");
+  // console.log(parseCookie());
   let handshake = socket.request;
   parseCookie(handshake, null, function(err, data) {
     sessionService.get(handshake, next, db);
@@ -103,13 +104,31 @@ io.use(function(socket, next) {
 // });
 
 io.sockets.on("connection", socket => {
-  console.log("cool", socket.request.session.sess);
-  io.on("message", userMessage => {
-    const { email, message } = userMessage;
-    io.emit("message", `${email} || ${message}`);
+  console.log("connection hit");
+  let joined = true;
+  socket.on("room", roomName => {
+    if (joined) {
+      joinRoom(roomName, socket);
+      joined = false;
+      console.log("roomname should be here ===>", roomName);
+    }
   });
-  io.on("join room", info => {
-    joinRoom(info, socket, db);
+  socket.on("message", userMessage => {
+    const { send_email, rec_email, message, user_id, roomName } = userMessage;
+    console.log("usermessage", userMessage, roomName);
+    // save new message to db
+    db.getUserId(rec_email)
+      .then(res => {
+        db.postMessage(message, new Date(), user_id, res[0].user_id).then(
+          () => {
+            console.log("new something i dont know + chill", message);
+
+            io.in(roomName).emit("message", `${message}`);
+          }
+        );
+        console.log("message hit");
+      })
+      .catch();
   });
 });
 
@@ -157,7 +176,7 @@ app.delete("/api/likes/:id", unlike);
 app.get("/api/marketplace", allUsers);
 
 //message endpoints
-app.get("/api/messages", getMyMessages);
+app.get("/api/messages/:email", getMyMessages);
 app.post("/api/messages/:email", sendMessage);
 app.delete("api/messages/:id", deleteMessage);
 app.get("/api/rooms", getMyRooms);

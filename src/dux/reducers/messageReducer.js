@@ -1,5 +1,5 @@
 const initialState = {
-  messages: null
+  messages: []
 };
 
 const MESSAGES = "MESSAGES";
@@ -7,7 +7,7 @@ const MESSAGES = "MESSAGES";
 export default function messageReducer(state = initialState, action) {
   switch (action.type) {
     case MESSAGES:
-      return { ...state, messages: action.payload };
+      return { messages: [...action.payload] };
     default:
       return "this is the initital state", state;
   }

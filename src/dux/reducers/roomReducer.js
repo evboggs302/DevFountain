@@ -1,5 +1,5 @@
 const initialState = {
-  rooms: null
+  rooms: []
 };
 
 const ROOMS = "ROOMS";

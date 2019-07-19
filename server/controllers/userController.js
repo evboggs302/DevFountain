@@ -144,16 +144,17 @@ module.exports = {
   },
 
   // takes an info object, a socket, and a database param
-  joinRoom(info, socket, db) {
+  joinRoom(roomName, socket) {
     // we join the socket named after the concat of the user emails, with the first name in alphabetical order first
-    socket.join(info.roomName);
-    // we use the email of the recipient to find the recipient's id
-    db.getId(info.email2).then(rId => {
-      // we take the sender's id off the info object, the user_id off the recipient db call response,
-      // and then emit the messages on the socket
-      db.getMessages(info.user_id, rId.user_id).then(messages => {
-        socket.emit("messages", messages);
-      });
-    });
+    socket.join(roomName);
+    //   // we use the email of the recipient to find the recipient's id
+    //   db.getId(info.email2).then(rId => {
+    //     // we take the sender's id off the info object, the user_id off the recipient db call response,
+    //     // and then emit the messages on the socket
+    //     db.getMessages(info.user_id, rId.user_id).then(messages => {
+    //       socket.emit("messages", messages);
+    //     });
+    //   });
+    // }
   }
 };
