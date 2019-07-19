@@ -35,6 +35,7 @@ function EditProfile(props) {
   let [loading, setLoading] = useState(false);
   // let { putData: updateInfo } = usefetch("/api/edit", false);
 
+  
   const finished = () => {
     let dataToPost = {
       first: newFirst || first,
@@ -240,6 +241,7 @@ function EditProfile(props) {
           ) : null}
         </div>
         <button onClick={() => finished()}>Finished Editing</button>
+        <button onClick={() => setClassName("profile")}>x</button>
       </div>
     </div>
   );

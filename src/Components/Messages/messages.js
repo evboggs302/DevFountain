@@ -9,23 +9,25 @@ import { setMessages } from "../../dux/reducers/messageReducer";
 import Convos from "./Convos";
 
 function Messages(props) {
+  useEffect(() => {
+    if (!props.rooms.rooms.length) {
+      axios.get("/api/rooms").then(res => {
+        console.log(res.data);
+        props.setRooms(res.data);
+      });
+    }
+
+    // if (props.message.messages) {
+    //   props.setMessages(null);
+    // }
+  }, [props.user.user]);
+
   if (!props.user.user) {
     return (
       <div>
         <AppHeader {...props} />
       </div>
     );
-  }
-
-  if (!props.rooms.rooms) {
-    axios.get("/api/rooms").then(res => {
-      props.setRooms(res.data);
-    });
-    return <div />;
-  }
-
-  if (props.message.messages) {
-    props.setMessages(null);
   }
 
   console.log(props);

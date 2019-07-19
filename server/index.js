@@ -105,9 +105,13 @@ io.use(function(socket, next) {
 
 io.sockets.on("connection", socket => {
   console.log("connection hit");
+  let joined = true;
   socket.on("room", roomName => {
-    joinRoom(roomName, socket);
-    console.log("roomjoin hit", roomName);
+    if (joined) {
+      joinRoom(roomName, socket);
+      joined = false;
+      console.log("roomname should be here ===>", roomName);
+    }
   });
   socket.on("message", userMessage => {
     const { send_email, rec_email, message, user_id, roomName } = userMessage;
@@ -116,7 +120,11 @@ io.sockets.on("connection", socket => {
     db.getUserId(rec_email)
       .then(res => {
         db.postMessage(message, new Date(), user_id, res[0].user_id).then(
-          io.sockets.in(roomName).emit("message", `${send_email} || ${message}`)
+          () => {
+            console.log("new something i dont know + chill", message);
+
+            io.in(roomName).emit("message", `${message}`);
+          }
         );
         console.log("message hit");
       })

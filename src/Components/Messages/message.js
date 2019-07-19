@@ -10,25 +10,9 @@ import socketIOClient from "socket.io-client";
 const socket = socketIOClient("http://localhost:4000");
 
 function Message(props) {
-  const [roomName, setRoomName] = useState("");
+  const [roomName, setRoomName] = useState();
   const [message, setMessage] = useState("");
   const [returnedMessages, setReturn] = useState([]);
-
-  // let filterRooms = props.rooms.rooms.filter(room => {
-  //   return room.first_email === decode || room.second_email === decode;
-  // });
-  // console.log(filterRooms);
-  // setRoomName(filterRooms[0].room_name);
-
-  // socket.on("message", function() {
-  //   socket.emit("message", userMessage);
-  // });
-
-  socket.on("message", returnedMessage => {
-    console.log("I recieved this:", returnedMessage);
-    setReturn([...returnedMessages, returnedMessage]);
-  });
-
   let email = props.history.location.pathname;
 
   var re = new RegExp("/message/:");
@@ -36,8 +20,52 @@ function Message(props) {
   var x = email.replace(re, "");
 
   var decode = decodeURIComponent(x);
+  var send_email = props.user.user.email;
+  var rec_email = decode;
+  var user_id = props.user.user.user_id;
+  var userMessage = { send_email, rec_email, message, user_id, roomName };
 
-  if (!props.user.user) {
+  useEffect(() => {
+    axios.get("/api/rooms").then(res => {
+      setRooms(res.data);
+      let filterRooms = props.rooms.rooms.filter(room => {
+        return room.first_email === decode || room.second_email === decode;
+      });
+
+      setRoomName(filterRooms[0].room_name);
+      socket.on("message", returnedMessage => {
+        console.log("I recieved this:", [
+          ...props.message.messages,
+          returnedMessage
+        ]);
+
+        const {
+          send_email,
+          rec_email,
+          message,
+          user_id,
+          roomName
+        } = userMessage;
+        props.setMessages([
+          ...props.message.messages,
+          { email: send_email, content: returnedMessage, time_sent: new Date() }
+        ]);
+      });
+      console.log(filterRooms[0].room_name);
+      socket.emit("room", filterRooms[0].room_name);
+    });
+  }, [props.message.messages, props.rooms.rooms]);
+
+  // socket.on("message", function() {
+  //   socket.emit("message", userMessage);
+  // });
+
+  // socket.on("message", returnedMessage => {
+  //   console.log("I recieved this:", returnedMessage);
+  //   setReturn([...returnedMessages, returnedMessage]);
+  // });
+
+  if (!props.user.user || !props.rooms.rooms) {
     return (
       <div>
         <AppHeader {...props} />
@@ -45,16 +73,15 @@ function Message(props) {
     );
   }
 
-  var send_email = props.user.user.email;
-  var rec_email = decode;
-  var user_id = props.user.user.user_id;
-  var userMessage = { send_email, rec_email, message, user_id, roomName };
-
-  if (!props.message.messages) {
+  if (!props.message.messages.length) {
     console.log("zach");
     axios.get(`/api/messages/${decode}`).then(res => {
+      console.log("resfrin setting messages", res.data);
       props.setMessages(res.data);
     });
+  }
+
+  if (!props.rooms.rooms.length) {
     axios.get("/api/rooms").then(res => {
       props.setRooms(res.data);
       let filterRooms = props.rooms.rooms.filter(room => {
@@ -67,7 +94,6 @@ function Message(props) {
         console.log("room connected", roomName);
       });
     });
-    return <div />;
   }
 
   let mappedMessages = props.message.messages.map((element, index) => {
@@ -82,15 +108,22 @@ function Message(props) {
     );
   });
 
-  console.log(props);
-  console.log(roomName);
+  console.log("----------------->", props.message.messages);
   return (
     <div>
       <AppHeader {...props} />
       <ul>{mappedMessages}</ul>
       <div>
-        {returnedMessages.map(message => {
-          return <div className="message">{message}</div>;
+        {props.message.messages.map((message, index) => {
+          // console.log(message);
+          return (
+            <div key={index} className="message">
+              <ul>
+                <li>{message.email}</li>
+                <li>{message.content}</li>
+              </ul>
+            </div>
+          );
         })}
       </div>
       <input

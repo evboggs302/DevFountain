@@ -11,20 +11,17 @@ import MyInfo from "./myInfo/MyInfo";
 function NewsFeed(props) {
   const { following } = props.user;
   let postsToSee = [];
-  console.log(following)
+
+  console.log(props)
 
   useEffect(() => {
     if (props.user.user !== null) {
       if (following != null) {
         following.map(val => {
-          console.log(val)
           axios.get(`/api/following-posts/${val}`).then(res => {
-              console.log(res.data)
               if (res.data.length > 0) {
-                console.log(res.data)
                 postsToSee.push(res.data);
               }
-              console.log(postsToSee)
               props.followingPosts(postsToSee); //setting posts unto redux
             })
             .catch(err =>
@@ -34,10 +31,6 @@ function NewsFeed(props) {
       }
     }
   }, [following]);
-
-  
-
-  console.log(props)
 
   if (!props.user.user) {
     return (
@@ -49,14 +42,26 @@ function NewsFeed(props) {
 
   // Display each post
   let { followingPosts } = props.posts;
-  console.log(followingPosts)
+  let {myPosts} = props.posts
+
+  console.log(myPosts)
+  
   
   let mappedPosts;
   if (followingPosts) {
+    
     followingPosts = followingPosts.flat();
-    console.log(followingPosts)
+    let allPosts = followingPosts.concat(myPosts)
 
-    mappedPosts = followingPosts.map(val => {
+    // let allPosts = myPosts.concat(followingPosts)
+    
+    allPosts.sort((a,b) => {
+      return b.post_id - a.post_id
+    })
+
+    console.log(allPosts)
+
+    mappedPosts = allPosts.map(val => {
       return (
         <div className="post-card">
           <div className="post-user-info">
@@ -80,7 +85,6 @@ function NewsFeed(props) {
     return <div />;
   }
 
-  console.log(props);
   return (
     <div>
       <header>

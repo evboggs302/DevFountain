@@ -19,10 +19,8 @@ module.exports = {
 
   createPost: (req, res, next) => {
     // the content of the message comes from the req.body.
-    const { content} = req.body;
-    console.log(content)
+    const { content } = req.body;
     let postDate = new Date().toDateString();
-    
     // the user_id comes off the req.session.user
     const { user_id } = req.session.user;
     const db = req.app.get("db");
@@ -60,7 +58,6 @@ module.exports = {
     const { user_id } = req.session.user;
     // id is still the post_id
     const { id } = req.params;
-    console.log(user_id, id);
     const {} = req.body;
     const db = req.app.get("db");
     // delete post will also delete all the likes off of that post
