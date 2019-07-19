@@ -52,7 +52,9 @@ function Profile(props) {
       return (
         <div className="post-card" key={index}>
           <div className="post-user-info">
-            <img src={val.profile_pic} alt="profile pic" />
+            <div>
+              <img src={val.profile_pic} alt="profile pic" />
+            </div>
             <div className="user_info">
               <h1>
                 {val.first} {val.last}
@@ -101,33 +103,27 @@ function Profile(props) {
             <div className="user-info">
               <h1>{title}</h1>
               <div>
-                <a href={portfolio} target="_blank">
-                  <FaFolderOpen className="info-icon" />
-                  Portfolio
-                </a>
+                <FaFolderOpen className="info-icon" />
+                <a href={portfolio} target="_blank">Portfolio</a>
               </div>
               <div>
-                <div>
-                  <FaEnvelope className="info-icon" />
-                  {email}
-                </div>
+                <FaLinkedin className="info-icon" />
+                <a href={linkedin} target="_blank">LinkedIn</a>
               </div>
               <div>
-                <a href={linkedin} target="_blank">
-                  <FaLinkedin className="info-icon" />
-                  LinkedIn
-                </a>
+                <FaEnvelope className="info-icon" />
+                {email}
               </div>
             </div>
             {mappedPosts.length ? (
-              <div>{mappedPosts}</div>
+              <div className="feed-container">{mappedPosts}</div>
             ) : (
-              <div>
+              <div className="feed-container uhoh">
                 Uh-oh! You don't have any posts. Please go to NewsFeed to make
                 your first post.
               </div>
             )}
-            <div className="skills-box">
+            <div>
               {developer ? <ViewSkills {...props} /> : null}
             </div>
           </div>

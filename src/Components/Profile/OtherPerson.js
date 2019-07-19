@@ -70,7 +70,7 @@ function OtherPerson(props) {
   const mappedSkills = theirSkillys.map(e => {
     return (
       <div key={e.skill_id}>
-        <h5>{e.skill}</h5>
+        <h2 className="skill-name">{e.skill}</h2>
         <img src={e.icon} alt="skill icon" className="skill-icon" />
       </div>
     );
@@ -86,7 +86,9 @@ function OtherPerson(props) {
       return (
         <div className="post-card" key={index}>
           <div className="post-user-info">
+            <div>
             <img src={val.profile_pic} alt="profile pic" />
+            </div>
             <div className="user_info">
               <h1>
                 {val.first} {val.last}
@@ -126,22 +128,16 @@ function OtherPerson(props) {
           <div className="user-info">
             <h1>{title}</h1>
             <div>
-              <a href={portfolio} target="_blank">
-                <FaFolderOpen className="info-icon" />
-                Portfolio
-              </a>
+              <FaFolderOpen className="info-icon" />
+              <a href={portfolio} target="_blank">Portfolio</a>
             </div>
             <div>
-              <div>
-                <FaEnvelope className="info-icon" />
-                {email}
-              </div>
+              <FaLinkedin className="info-icon" />
+              <a href={linkedin} target="_blank">LinkedIn</a>
             </div>
             <div>
-              <a href={linkedin} target="_blank">
-                <FaLinkedin className="info-icon" />
-                LinkedIn
-              </a>
+              <FaEnvelope className="info-icon" />
+              {email}
             </div>
             {!alreadyFollowing.includes(othersID) ? (
               <button
@@ -162,9 +158,16 @@ function OtherPerson(props) {
           </div>
           {/* SHOW THEIR POSTS */}
           {postsMapped.length ? (
-            <div className="other-posts">{postsMapped}</div>
-          ) : null}
-          <div className="other-skills">{mappedSkills}</div>
+            <div className="feed-container">{postsMapped}</div>
+          ) : <div className="feed-container uhoh">
+          Uh-oh! This user does not have any current posts. Check
+          back later.
+        </div>}
+        <div  className="skills-box">
+          <h1>Skills</h1>
+          <div className="skills">{mappedSkills}</div>
+        </div>
+         
         </div>
       </div>
     );

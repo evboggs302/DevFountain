@@ -61,9 +61,11 @@ function ViewSkills(props) {
     );
   }
   console.log(props);
-  return <div className="skills">
+  return <div  className="skills-box">
             <h1>Skills</h1>
-            {mappedSkills}
+            <div className="skills">
+              {mappedSkills}
+            </div>
         </div>;
 }
 
