@@ -149,7 +149,6 @@ const Formik = withFormik({
         default_pic
       })
       .then(res => {
-        console.log(res.data)
         let user_id = res.data.user_id;
         if (res.data === "Email already exists!") {
           toast('Email Already Exists', {type: 'error'})
