@@ -156,7 +156,6 @@ function OtherPerson(props) {
           {/* SHOW THEIR POSTS */}
           {postsMapped.length ? <div className='other-posts'>{postsMapped}</div> : null}
           <div className='other-skills'>{mappedSkills}</div>
-          
         </div>
       </div>
     );
