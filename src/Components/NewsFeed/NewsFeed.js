@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from "react";
+import React, { useEffect } from "react";
 import AppHeader from "../AppHeader/AppHeader";
 import { connect } from "react-redux";
 import { followingPosts } from "../../dux/reducers/postsReducer";
