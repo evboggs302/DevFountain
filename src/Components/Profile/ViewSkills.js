@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import useFetch from "../usefetch";
 import { connect } from "react-redux";
 import { setPersonalSkills } from "../../dux/reducers/skillsReducer";
@@ -8,15 +8,15 @@ import "./ViewSkills.scss";
 function ViewSkills(props) {
   const { allSkills, mySkills } = props.skills;
   const {
-    developer,
-    email,
-    first,
-    last,
-    linkedin,
-    portfolio,
-    profile_pic,
-    title,
-    user_id
+    // developer,
+    email
+    // first,
+    // last,
+    // linkedin,
+    // portfolio,
+    // profile_pic,
+    // title,
+    // user_id
   } = props.user.user;
 
   const { data: mySkillz, fetchDataWithId: getMySkills } = useFetch(
@@ -61,12 +61,12 @@ function ViewSkills(props) {
     );
   }
   console.log(props);
-  return <div  className="skills-box">
-            <h1>Skills</h1>
-            <div className="skills">
-              {mappedSkills}
-            </div>
-        </div>;
+  return (
+    <div className="skills-box">
+      <h1>Skills</h1>
+      <div className="skills">{mappedSkills}</div>
+    </div>
+  );
 }
 
 const mapStateToProps = reduxState => {

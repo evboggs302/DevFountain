@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
-import usefetch from "../usefetch";
+// import usefetch from "../usefetch";
 import { setUser } from "../../dux/reducers/userReducer";
 import { connect } from "react-redux";
 import DevLogo from "../../media/DF-long_white.png";
@@ -13,7 +13,7 @@ toast.configure();
 
 function Header(props) {
   //calling usefetch and destructering "fetchdata" and "postdata" using aliases userData for fetchdata and login for postData.
-  let { data: userData, postData: login } = usefetch("/api/login", false);
+  // let { data: userData, postData: login } = usefetch("/api/login", false);
 
   // useEffect(() => {
   //   console.log("Setting user", userData);
