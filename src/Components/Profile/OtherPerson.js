@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+// import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { setTheirSkills } from "../../dux/reducers/skillsReducer";
 import {
@@ -87,7 +88,7 @@ function OtherPerson(props) {
         <div className="post-card" key={index}>
           <div className="post-user-info">
             <div>
-            <img src={val.profile_pic} alt="profile pic" />
+              <img src={val.profile_pic} alt="profile pic" />
             </div>
             <div className="user_info">
               <h1>
@@ -129,11 +130,15 @@ function OtherPerson(props) {
             <h1>{title}</h1>
             <div>
               <FaFolderOpen className="info-icon" />
-              <a href={portfolio} target="_blank">Portfolio</a>
+              <a href={portfolio} target="_blank">
+                Portfolio
+              </a>
             </div>
             <div>
               <FaLinkedin className="info-icon" />
-              <a href={linkedin} target="_blank">LinkedIn</a>
+              <a href={linkedin} target="_blank">
+                LinkedIn
+              </a>
             </div>
             <div>
               <FaEnvelope className="info-icon" />
@@ -159,15 +164,16 @@ function OtherPerson(props) {
           {/* SHOW THEIR POSTS */}
           {postsMapped.length ? (
             <div className="feed-container">{postsMapped}</div>
-          ) : <div className="feed-container uhoh">
-          Uh-oh! This user does not have any current posts. Check
-          back later.
-        </div>}
-        <div  className="skills-box">
-          <h1>Skills</h1>
-          <div className="skills">{mappedSkills}</div>
-        </div>
-         
+          ) : (
+            <div className="feed-container uhoh">
+              Uh-oh! This user does not have any current posts. Check back
+              later.
+            </div>
+          )}
+          <div className="skills-box">
+            <h1>Skills</h1>
+            <div className="skills">{mappedSkills}</div>
+          </div>
         </div>
       </div>
     );

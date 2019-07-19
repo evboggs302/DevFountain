@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import AppHeader from "../AppHeader/AppHeader";
 import ViewSkills from "./ViewSkills";
 import EditProfile from "./EditProfile";
 import OtherPerson from "./OtherPerson";
-import useFetch from "../usefetch";
+// import useFetch from "../usefetch";
 import { connect } from "react-redux";
 import { setUser, setOtherPerson } from "../../dux/reducers/userReducer";
-import axios from "axios";
+// import axios from "axios";
 import {
   FaLinkedin,
   FaEnvelope,
@@ -16,7 +16,7 @@ import {
 import "./Profile.scss";
 
 function Profile(props) {
-  let [className, setClassName] = useState("profile");
+  // let [className, setClassName] = useState("profile");
   let [hidden, setHidden] = useState(true);
 
   if (!props.user.user) {
@@ -37,8 +37,8 @@ function Profile(props) {
     linkedin,
     portfolio,
     profile_pic,
-    title,
-    user_id
+    title
+    // user_id
   } = props.user.user;
 
   const { myPosts } = props.posts;
@@ -104,11 +104,15 @@ function Profile(props) {
               <h1>{title}</h1>
               <div>
                 <FaFolderOpen className="info-icon" />
-                <a href={portfolio} target="_blank">Portfolio</a>
+                <a href={portfolio} target="_blank">
+                  Portfolio
+                </a>
               </div>
               <div>
                 <FaLinkedin className="info-icon" />
-                <a href={linkedin} target="_blank">LinkedIn</a>
+                <a href={linkedin} target="_blank">
+                  LinkedIn
+                </a>
               </div>
               <div>
                 <FaEnvelope className="info-icon" />
@@ -123,9 +127,7 @@ function Profile(props) {
                 your first post.
               </div>
             )}
-            <div>
-              {developer ? <ViewSkills {...props} /> : null}
-            </div>
+            <div>{developer ? <ViewSkills {...props} /> : null}</div>
           </div>
           {!hidden ? (
             <EditProfile {...props} closeFn={() => setHidden(true)} />

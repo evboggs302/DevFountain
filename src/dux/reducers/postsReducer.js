@@ -17,7 +17,7 @@ export default function postsReducer(state = initialState, action) {
     case MY_POSTS:
       return { ...state, myPosts: action.payload };
     default:
-      return "this is the initial state", state;
+      return state;
   }
 }
 
