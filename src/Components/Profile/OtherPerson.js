@@ -161,14 +161,6 @@ function OtherPerson(props) {
               </button>
             )}
             <button onClick={messageRoom}>Message</button>
-<<<<<<< HEAD
-          </div>
-          {/* SHOW THEIR POSTS */}
-          {postsMapped.length ? (
-            <div className="other-posts">{postsMapped}</div>
-          ) : null}
-          <div className="other-skills">{mappedSkills}</div>
-=======
           </div>
           {/* SHOW THEIR POSTS */}
           {postsMapped.length ? (
@@ -183,7 +175,6 @@ function OtherPerson(props) {
             <h1>Skills</h1>
             <div className="skills">{mappedSkills}</div>
           </div>
->>>>>>> 375c9c72e9cfa50dab53aa6baca9e3847a781424
         </div>
       </div>
     );
