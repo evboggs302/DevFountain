@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { setDevelopers } from "../../dux/reducers/marketplaceReducer";
 import { setFollowing } from "../../dux/reducers/userReducer";
 import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import AppHeader from "../AppHeader/AppHeader";
 import "./MarketPlace.scss";
 import axios from "axios";
@@ -82,12 +82,21 @@ function MarketPlace(props) {
             View Developer
           </button>
           {!alreadyFollowing.includes(dev.user_id) ? (
-            <button onClick={() => addDev(dev.user_id)} className='follow-button'>Follow</button>
+            <button
+              onClick={() => addDev(dev.user_id)}
+              className="follow-button"
+            >
+              Follow
+            </button>
           ) : (
-            <button onClick={() => removeDev(dev.user_id)} className='unfollow-button'>Unfollow</button>
+            <button
+              onClick={() => removeDev(dev.user_id)}
+              className="unfollow-button"
+            >
+              Unfollow
+            </button>
           )}
         </div>
-        /* </Link> */
       );
     });
   }
