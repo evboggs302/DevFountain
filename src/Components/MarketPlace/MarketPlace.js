@@ -13,6 +13,14 @@ function MarketPlace(props) {
   const [redirect, setRedirect] = useState(false);
   const [developer, setDeveloper] = useState(null);
 
+  if (!props.user.user) {
+    return (
+      <div>
+        <AppHeader {...props} />
+      </div>
+    );
+  }
+
   console.log(props);
 
   const redirectToDeveloper = email => {
