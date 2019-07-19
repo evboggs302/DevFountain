@@ -6,16 +6,16 @@ import "./myinfo.scss";
 function MyInfo(props) {
   const { user, following } = props.user;
 
-  function editProfile(email) {
-    return <Redirect to={`/profile/${email}`} />;
-  }
-
+    function editProfile(email){
+        return <Redirect to={`/profile/${email}`} />
+    }
+    
   if (user && following != null) {
     const { email } = props.user.user;
     var encode = encodeURIComponent(email);
     return (
       <div className="myinfo-newsfeed">
-        <img src={user.profile_pic} />
+        <img src={user.profile_pic} className="feed-pic"/>
         <h1>
           {user.first} {user.last}
         </h1>
