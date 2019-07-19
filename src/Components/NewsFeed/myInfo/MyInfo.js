@@ -18,7 +18,7 @@ function MyInfo(props) {
         console.log(encode)
         return (
             <div className='myinfo-newsfeed'>
-                <img src={user.profile_pic} />
+                <img src={user.profile_pic} className="feed-pic"/>
                 <h1>{user.first} {user.last}</h1>
                 <h2>Following {following.length} Developers</h2>
                 {/* <button onClick={() => editProfile(encode)}>Edit Your Profile</button> */}

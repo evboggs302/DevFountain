@@ -61,8 +61,10 @@ function NewsFeed(props) {
       return (
         <div className="post-card">
           <div className="post-user-info">
-            <img src={val.profile_pic} alt='profile pic' />
-            <div className="user_info">
+            <div>
+            <img src={val.profile_pic} alt='profile pic'/>
+            </div>
+            <div>
               <h1>
                 {val.first} {val.last}
               </h1>
