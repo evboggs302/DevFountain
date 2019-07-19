@@ -13,7 +13,7 @@ import UseFetch from "./Components/usefetch";
 import { ToastContainer } from "react-toastify";
 import NewsFeed from "./Components/NewsFeed/NewsFeed";
 import Messages from "./Components/Messages/message";
-import Message from "./Components/Messages/message";
+import Message from "./Components/Messages/messages";
 
 function App(props) {
   const { data: skills } = UseFetch("/api/allskills", true, []);
