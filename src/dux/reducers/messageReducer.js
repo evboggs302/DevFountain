@@ -9,7 +9,7 @@ export default function messageReducer(state = initialState, action) {
     case MESSAGES:
       return { messages: [...action.payload] };
     default:
-      return "this is the initital state", state;
+      return state;
   }
 }
 

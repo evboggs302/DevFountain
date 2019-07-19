@@ -13,6 +13,10 @@ $light-gray: #F5F5F5;
     justify-content: flex-end;
     align-items: center;
     align-content: center;
+    position: sticky;
+    z-index: 1;
+    top: 0px;
+
     .app-header-logo {
         height: 26px;
         padding-top: 2px;

@@ -1,7 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+// import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { setTheirSkills } from "../../dux/reducers/skillsReducer";
-import { setUser, setOtherPerson } from "../../dux/reducers/userReducer";
+import {
+  setUser,
+  setOtherPerson,
+  setFollowing
+} from "../../dux/reducers/userReducer";
 import { FaLinkedin, FaEnvelope, FaFolderOpen } from "react-icons/fa";
 import axios from "axios";
 import LoadingAnimation from "../CoolAnimation/LoadingAnimation";
@@ -67,7 +72,7 @@ function OtherPerson(props) {
   const mappedSkills = theirSkillys.map(e => {
     return (
       <div key={e.skill_id}>
-        <h5>{e.skill}</h5>
+        <h2 className="skill-name">{e.skill}</h2>
         <img src={e.icon} alt="skill icon" className="skill-icon" />
       </div>
     );
@@ -83,7 +88,9 @@ function OtherPerson(props) {
       return (
         <div className="post-card" key={index}>
           <div className="post-user-info">
-            <img src={val.profile_pic} alt="profile pic" />
+            <div>
+              <img src={val.profile_pic} alt="profile pic" />
+            </div>
             <div className="user_info">
               <h1>
                 {val.first} {val.last}
@@ -123,22 +130,20 @@ function OtherPerson(props) {
           <div className="user-info">
             <h1>{title}</h1>
             <div>
+              <FaFolderOpen className="info-icon" />
               <a href={portfolio} target="_blank">
-                <FaFolderOpen className="info-icon" />
                 Portfolio
               </a>
             </div>
             <div>
-              <div>
-                <FaEnvelope className="info-icon" />
-                {email}
-              </div>
-            </div>
-            <div>
+              <FaLinkedin className="info-icon" />
               <a href={linkedin} target="_blank">
-                <FaLinkedin className="info-icon" />
                 LinkedIn
               </a>
+            </div>
+            <div>
+              <FaEnvelope className="info-icon" />
+              {email}
             </div>
             {!alreadyFollowing.includes(othersID) ? (
               <button
@@ -156,12 +161,29 @@ function OtherPerson(props) {
               </button>
             )}
             <button onClick={messageRoom}>Message</button>
+<<<<<<< HEAD
           </div>
           {/* SHOW THEIR POSTS */}
           {postsMapped.length ? (
             <div className="other-posts">{postsMapped}</div>
           ) : null}
           <div className="other-skills">{mappedSkills}</div>
+=======
+          </div>
+          {/* SHOW THEIR POSTS */}
+          {postsMapped.length ? (
+            <div className="feed-container">{postsMapped}</div>
+          ) : (
+            <div className="feed-container uhoh">
+              Uh-oh! This user does not have any current posts. Check back
+              later.
+            </div>
+          )}
+          <div className="skills-box">
+            <h1>Skills</h1>
+            <div className="skills">{mappedSkills}</div>
+          </div>
+>>>>>>> 375c9c72e9cfa50dab53aa6baca9e3847a781424
         </div>
       </div>
     );
@@ -177,7 +199,8 @@ const mapStateToProps = reduxState => {
 const mapDispatchToProps = {
   setUser,
   setOtherPerson,
-  setTheirSkills
+  setTheirSkills,
+  setFollowing
 };
 
 const invokedConnect = connect(

@@ -7,7 +7,7 @@ function Convos(props) {
   console.log(props);
   let propsArr = [props.first_email, props.second_email];
   let filtered = propsArr.filter(email => {
-    return email != props.user.user.email;
+    return email !== props.user.user.email;
   });
 
   var encode = encodeURIComponent(filtered[0]);

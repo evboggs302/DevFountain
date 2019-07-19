@@ -12,7 +12,7 @@ const socket = socketIOClient("http://localhost:4000");
 function Message(props) {
   const [roomName, setRoomName] = useState();
   const [message, setMessage] = useState("");
-  const [returnedMessages, setReturn] = useState([]);
+  // const [returnedMessages, setReturn] = useState([]);
   let email = props.history.location.pathname;
 
   var re = new RegExp("/message/:");

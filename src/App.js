@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import Home from "./Components/Home/Home";
 import Profile from "./Components/Profile/Profile";
@@ -12,8 +12,8 @@ import { setDevelopers } from "./dux/reducers/marketplaceReducer";
 import UseFetch from "./Components/usefetch";
 import { ToastContainer } from "react-toastify";
 import NewsFeed from "./Components/NewsFeed/NewsFeed";
-import Messages from "./Components/Messages/Messages";
-import Message from "./Components/Messages/Message";
+import Messages from "./Components/Messages/messages";
+import Message from "./Components/Messages/message";
 
 function App(props) {
   const { data: skills } = UseFetch("/api/allskills", true, []);

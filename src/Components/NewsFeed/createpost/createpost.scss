@@ -1,12 +1,12 @@
 .create-post{
     display: flex;
     justify-content: center;
-    background: lightgrey;
     max-width: 650px;
     margin: 10px auto;
     height: 100px;
     align-items: center;
-    border: solid 1px rgb(96, 96, 96);
+    background-color: white;
+    box-shadow: rgba(50, 121, 255, .1) 0px 4px 10px;
 }
 
 .create-post > form {

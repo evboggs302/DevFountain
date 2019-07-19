@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import AppHeader from "../AppHeader/AppHeader";
 import ViewSkills from "./ViewSkills";
 import EditProfile from "./EditProfile";
 import OtherPerson from "./OtherPerson";
-import useFetch from "../usefetch";
+// import useFetch from "../usefetch";
 import { connect } from "react-redux";
 import { setUser, setOtherPerson } from "../../dux/reducers/userReducer";
-import axios from "axios";
+// import axios from "axios";
 import {
   FaLinkedin,
   FaEnvelope,
@@ -16,7 +16,7 @@ import {
 import "./Profile.scss";
 
 function Profile(props) {
-  let [className, setClassName] = useState("profile");
+  // let [className, setClassName] = useState("profile");
   let [hidden, setHidden] = useState(true);
 
   if (!props.user.user) {
@@ -37,8 +37,8 @@ function Profile(props) {
     linkedin,
     portfolio,
     profile_pic,
-    title,
-    user_id
+    title
+    // user_id
   } = props.user.user;
 
   const { myPosts } = props.posts;
@@ -52,7 +52,9 @@ function Profile(props) {
       return (
         <div className="post-card" key={index}>
           <div className="post-user-info">
-            <img src={val.profile_pic} alt="profile pic" />
+            <div>
+              <img src={val.profile_pic} alt="profile pic" />
+            </div>
             <div className="user_info">
               <h1>
                 {val.first} {val.last}
@@ -101,35 +103,31 @@ function Profile(props) {
             <div className="user-info">
               <h1>{title}</h1>
               <div>
+                <FaFolderOpen className="info-icon" />
                 <a href={portfolio} target="_blank">
-                  <FaFolderOpen className="info-icon" />
                   Portfolio
                 </a>
               </div>
               <div>
-                <div>
-                  <FaEnvelope className="info-icon" />
-                  {email}
-                </div>
-              </div>
-              <div>
+                <FaLinkedin className="info-icon" />
                 <a href={linkedin} target="_blank">
-                  <FaLinkedin className="info-icon" />
                   LinkedIn
                 </a>
               </div>
+              <div>
+                <FaEnvelope className="info-icon" />
+                {email}
+              </div>
             </div>
             {mappedPosts.length ? (
-              <div>{mappedPosts}</div>
+              <div className="feed-container">{mappedPosts}</div>
             ) : (
-              <div>
+              <div className="feed-container uhoh">
                 Uh-oh! You don't have any posts. Please go to NewsFeed to make
                 your first post.
               </div>
             )}
-            <div className="skills-box">
-              {developer ? <ViewSkills {...props} /> : null}
-            </div>
+            <div>{developer ? <ViewSkills {...props} /> : null}</div>
           </div>
           {!hidden ? (
             <EditProfile {...props} closeFn={() => setHidden(true)} />
