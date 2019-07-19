@@ -10,14 +10,12 @@ function CreatePost(props) {
 
   function createPost(content) {
     if (content !== null) {
-      console.log(content);
       postData({ content });
     }
   }
 
   useEffect(() => {
     if (data !== null) {
-      console.log(data);
       props.setMyPosts(data);
     }
   }, [data]);
@@ -25,8 +23,6 @@ function CreatePost(props) {
   function handleChange(e) {
     setInput(e);
   }
-
-  console.log(props);
 
   return (
     <div className="create-post">

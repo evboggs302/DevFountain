@@ -12,13 +12,13 @@ function NewsFeed(props) {
   const { following } = props.user;
   let postsToSee = [];
 
-  console.log(props)
-
   useEffect(() => {
     if (props.user.user !== null) {
       if (following != null) {
         following.map(val => {
-          axios.get(`/api/following-posts/${val}`).then(res => {
+          axios
+            .get(`/api/following-posts/${val}`)
+            .then(res => {
               if (res.data.length > 0) {
                 postsToSee.push(res.data);
               }
@@ -42,26 +42,22 @@ function NewsFeed(props) {
 
   // Display each post
   let { followingPosts } = props.posts;
-  let {myPosts} = props.posts
+  let { myPosts } = props.posts;
 
-  console.log(myPosts)
-  
-  
   let mappedPosts;
   if (followingPosts) {
-    
     followingPosts = followingPosts.flat();
-    let allPosts = followingPosts.concat(myPosts)
-    
-    allPosts.sort((a,b) => {
-      return b.post_id - a.post_id
-    })
+    let allPosts = followingPosts.concat(myPosts);
 
-    mappedPosts = allPosts.map(val => {
+    allPosts.sort((a, b) => {
+      return b.post_id - a.post_id;
+    });
+
+    mappedPosts = allPosts.map((val, index) => {
       return (
-        <div className="post-card">
+        <div className="post-card" key={index}>
           <div className="post-user-info">
-            <img src={val.profile_pic} alt='profile pic' />
+            <img src={val.profile_pic} alt="profile pic" />
             <div className="user_info">
               <h1>
                 {val.first} {val.last}
