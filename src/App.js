@@ -40,7 +40,8 @@ function App(props) {
         />
         <Route path="/marketplace" component={MarketPlace} />
         <Route path="/newsfeed" component={NewsFeed} />
-        <Route path="/messages" component={Messages} />
+        {/* <Route path="/messages" component={Messages} /> */}
+        <Route path="/messages" render={props => <Messages {...props} />} />
         <Route path="/message/:email" component={Message} />
       </Switch>
     </div>

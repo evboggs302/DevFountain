@@ -10,7 +10,8 @@ function OtherPerson(props) {
   const decoded = decodeURIComponent(props.match.params.email);
 
   const messageRoom = () => {
-    axios.post(`/api/rooms/${props.match.params.email}`).then(response => {
+    console.log(decoded);
+    axios.post(`/api/rooms/${decoded}`).then(response => {
       props.history.push("/messages");
     });
   };
@@ -118,7 +119,7 @@ function OtherPerson(props) {
             </div>
           </div>
         </div>
-        <div className='other-user'>
+        <div className="other-user">
           <div className="user-info">
             <h1>{title}</h1>
             <div>
@@ -140,23 +141,27 @@ function OtherPerson(props) {
               </a>
             </div>
             {!alreadyFollowing.includes(othersID) ? (
-            <button onClick={() => addDev(othersID)} className="follow-button">
-              Follow
-            </button>
-          ) : (
-            <button
-              onClick={() => removeDev(othersID)}
-              className="unfollow-button"
-            >
-              Unfollow
-            </button>
-          )}
-          <button onClick={messageRoom}>Message</button>
+              <button
+                onClick={() => addDev(othersID)}
+                className="follow-button"
+              >
+                Follow
+              </button>
+            ) : (
+              <button
+                onClick={() => removeDev(othersID)}
+                className="unfollow-button"
+              >
+                Unfollow
+              </button>
+            )}
+            <button onClick={messageRoom}>Message</button>
           </div>
           {/* SHOW THEIR POSTS */}
-          {postsMapped.length ? <div className='other-posts'>{postsMapped}</div> : null}
-          <div className='other-skills'>{mappedSkills}</div>
-          
+          {postsMapped.length ? (
+            <div className="other-posts">{postsMapped}</div>
+          ) : null}
+          <div className="other-skills">{mappedSkills}</div>
         </div>
       </div>
     );

@@ -53,11 +53,12 @@ function AppHeader(props) {
   useEffect(() => {
     if (props.match.params.email) {
       const decoded = decodeURIComponent(props.match.params.email);
-      const myEmail = props.user.user.email;
-      if (decoded === myEmail) {
-        axios.get(`/api/post/${decoded}`).then(response => {
-          props.setMyPosts(response.data);
-        });
+      if (props.user.user) {
+        if (decoded === props.user.user.email) {
+          axios.get(`/api/post/${decoded}`).then(response => {
+            props.setMyPosts(response.data);
+          });
+        }
       } else {
         axios.get(`/api/post/${decoded}`).then(response => {
           props.setProfilePosts(response.data);
