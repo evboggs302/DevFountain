@@ -1,7 +1,7 @@
 # \*\*Hey!
 
 DevFounta.in is a social media app that allows developers and
-tech recuiters to interact in a direct way. Made with love, DevFounta.in is the creation of a team of a team of developers
+tech recuiters to interact in a direct way. Made with love, DevFounta.in is the creation of a team of developers
 for developers. There are some interesting different technologies in this app and I encourage you to reach out if you have any questions on any of them.
 
 ### https://www.linkedin.com/in/joseph-esgar/
