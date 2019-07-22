@@ -7,7 +7,7 @@ import axios from "axios";
 import MappedMessages from "./MappedMessages";
 import { setRooms } from "../../dux/reducers/roomReducer";
 import socketIOClient from "socket.io-client";
-const socket = socketIOClient("http://localhost:4000");
+const socket = socketIOClient();
 
 function Message(props) {
   const [roomName, setRoomName] = useState();

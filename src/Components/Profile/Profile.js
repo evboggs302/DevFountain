@@ -44,6 +44,7 @@ function Profile(props) {
   const { myPosts } = props.posts;
 
   var mappedPosts = [];
+  console.log(props.posts);
   if (myPosts) {
     myPosts.sort((a, b) => {
       return b.post_id - a.post_id;
