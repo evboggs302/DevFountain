@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const path = require("path");
 // is there a required install for this?
 const server = require("http").createServer(app);
 const sessionService = require("./sessionService");
@@ -12,6 +13,8 @@ const cookieParser = require("cookie-parser");
 const massive = require("massive");
 require("dotenv").config();
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "../build")));
+console.log("===", path.join(__dirname, "../build"));
 
 const nodemailer = require("nodemailer");
 const cloudinary = require("cloudinary");
@@ -249,5 +252,11 @@ app.get("/api/upload", (req, res) => {
 //   res.sendFile(path.join(__dirname, "/../build/index.html"));
 // });
 
-const port = SERVER_PORT || 4000;
-server.listen(port, () => console.log(`Listening on port ${port}`));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../build"));
+});
+
+console.log(path.join(__dirname, "../build"));
+
+const port = SERVER_PORT || 4001;
+app.listen(port, () => console.log(`Listening on port ${port}`));

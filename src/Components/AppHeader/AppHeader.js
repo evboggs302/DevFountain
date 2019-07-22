@@ -84,6 +84,7 @@ function AppHeader(props) {
   // setting my posts to redux
   useEffect(() => {
     if (myPosts.length > 0) {
+      console.log(myPosts);
       props.setMyPosts(myPosts);
     }
   }, [myPosts]);
