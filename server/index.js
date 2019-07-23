@@ -13,8 +13,10 @@ const cookieParser = require("cookie-parser");
 const massive = require("massive");
 require("dotenv").config();
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "../build")));
-console.log("===", path.join(__dirname, "../build"));
+// app.use(express.urlencoded({ extended: true }));
+// app.use(express.static(path.join(__dirname + "../build")));
+app.use(express.static(`${__dirname}/../build`));
+console.log(`${__dirname}/../build`);
 
 const nodemailer = require("nodemailer");
 const cloudinary = require("cloudinary");
@@ -243,20 +245,15 @@ app.get("/api/upload", (req, res) => {
   res.json(payload);
 });
 
-// create sockets for messaging
-
-// Becasue of browser router, we will eventually need the below lines.
-// app.use(express.static(__dirname + "/../build"));
-// const path = require("path");
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "/../build/index.html"));
-// });
-
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../build"));
+  res.sendFile(path.join(__dirname, "/../build/index.html"));
 });
 
-console.log(path.join(__dirname, "../build"));
+console.log(path.join(__dirname, "/../build/index.html"));
+
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "../build/index.html"));
+// });
 
 const port = SERVER_PORT || 4001;
 app.listen(port, () => console.log(`Listening on port ${port}`));
