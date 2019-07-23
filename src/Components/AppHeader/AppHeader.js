@@ -55,12 +55,14 @@ function AppHeader(props) {
       const decoded = decodeURIComponent(props.match.params.email);
       if (props.user.user) {
         if (decoded === props.user.user.email) {
-          axios.get(`/api/post/${decoded}`).then(response => {
+          axios.get(`/apith/post/${decoded}`).then(response => {
+            console.log(response);
             props.setMyPosts(response.data);
           });
         }
       } else {
         axios.get(`/api/post/${decoded}`).then(response => {
+          console.log(response);
           props.setProfilePosts(response.data);
         });
       }

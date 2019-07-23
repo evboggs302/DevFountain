@@ -43,6 +43,12 @@ function App(props) {
         {/* <Route path="/messages" component={Messages} /> */}
         <Route path="/messages" render={props => <Messages {...props} />} />
         <Route path="/message/:email" component={Message} />
+        <Route
+          path="*"
+          render={() => {
+            return <div> 404 file not found</div>;
+          }}
+        />
       </Switch>
     </div>
   );
