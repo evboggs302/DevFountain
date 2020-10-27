@@ -1,16 +1,14 @@
-# \*\*Hey!
+# Introduction
 
 DevFounta.in is a social media app that allows developers and
 tech recuiters to interact in a direct way. Made with love, DevFounta.in is the creation of a team of developers
 for developers. There are some interesting different technologies in this app and I encourage you to reach out if you have any questions on any of them.
 
-### https://www.linkedin.com/in/joseph-esgar/
-
 # **Getting Started**
 
 1. Git clone into a dir in the terminal on your local machine. (this gives you access to the master)
-2. cd into the project and " code . "
-3. Run npm i to get the needed node modules. Feel free to look in the package.json to look for any dependencies you might need for your branch.
+2. cd into the project and `code .`
+3. Run `npm i` to get the needed node modules. Feel free to look in the `package.json` to look for any dependencies you might need for your branch.
 
 ## _Make Your Branch_
 
